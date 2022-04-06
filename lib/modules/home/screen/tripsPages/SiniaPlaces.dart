@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tourista/model/style/TextStyle.dart';
-import 'package:tourista/detailsScreen/tripsDetails/detailsScreen.dart';
+import 'package:tourista/modules/detailsScreen/tripsDetails/detailsScreen.dart';
 class SiniaT {
   late final int id;
   late final String title,  price,image;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tourista/model/style/TextStyle.dart';
-//import 'package:tourista/screen/hotels/hotelsDetails/productModel.dart';
+//import 'package:tourista/modules.home.screen/hotels/modules.hotelsDetails/productModel.dart';
 
-import '../screen/hotels/home.dart';
+import 'package:tourista/modules/home/screen/hotels/home.dart';
 
 class DetaisHotels extends StatefulWidget {
   String? title,text,price,image,num1,num2;

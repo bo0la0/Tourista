@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import 'package:tourista/screen/homePagesNav/Homenavigation_par.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/Homenavigation_par.dart';
 class detailscreen {
   late final int id;
   late final String title, text, image, price;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
- import 'package:tourista/screen/tripsPages/PlacesGiza.dart';
-import 'package:tourista/screen/tripsPages/row.dart';
+ import 'package:tourista/modules/home/screen/tripsPages/PlacesGiza.dart';
+import 'package:tourista/modules/home/screen/tripsPages/row.dart';
 
 import 'AswanPlaces.dart';
 import 'ROW4.dart';

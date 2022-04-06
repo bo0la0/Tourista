@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tourista/model/style/TextStyle.dart';
-import 'package:tourista/splash/signIn.dart';
-import 'package:tourista/splash/verifyingsplashload.dart';
+import 'package:tourista/modules/splash/signIn.dart';
+import 'package:tourista/modules/splash/verifyingsplashload.dart';
 
 
 class LoginScreen extends StatelessWidget {

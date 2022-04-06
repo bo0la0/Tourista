@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tourista/screen/services/row1.dart';
+import 'package:tourista/modules/home/screen/services/row1.dart';
 import 'BazzarsServices.dart';
 import 'DailyServices.dart';
 import 'NightLife.dart';

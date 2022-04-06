@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourista/model/style/TextStyle.dart';
-import 'package:tourista/userVerify/verti.dart';
+import 'package:tourista/modules/userVerify/verti.dart';
 
 import 'NumericPad.dart';
 class ContinueWithPhone extends StatefulWidget {
