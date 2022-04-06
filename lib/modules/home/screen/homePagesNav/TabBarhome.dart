@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tourista/screen/chatUser/chat_screen.dart';
-import 'package:tourista/screen/hotels/home.dart';
-import 'package:tourista/screen/services/BODYservices.dart';
-import 'package:tourista/screen/tripsPages/BODY.dart';
-import 'package:tourista/screen/Widgets/drwarPage.dart';
+import 'package:tourista/modules/home/screen/chatUser/chat_screen.dart';
+import 'package:tourista/modules/home/screen/hotels/home.dart';
+import 'package:tourista/modules/home/screen/services/BODYservices.dart';
+import 'package:tourista/modules/home/screen/tripsPages/BODY.dart';
+import 'package:tourista/modules/home/screen/Widgets/drwarPage.dart';
 import 'homeVisitScreens/homeVisit.dart';
 class home extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/model/style/TextStyle.dart';
-import 'package:tourista/userVerify/continuPhone.dart';
+import 'package:tourista/modules/userVerify/continuPhone.dart';
 
 class signin extends StatelessWidget {
   var nameController =TextEditingController();

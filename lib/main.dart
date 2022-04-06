@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:tourista/screen/homePagesNav/Homenavigation_par.dart';
-import 'package:tourista/screen/homePagesNav/favouritScreen/favourite.dart';
-import 'package:tourista/splash/Screen_one.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/Homenavigation_par.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/favouritScreen/favourite.dart';
+import 'package:tourista/modules/splash/Screen_one.dart';
 
 
-import 'detailsScreen/hotelsDetails/detailsHotels.dart';
-import 'splash/LOGIN.dart';
+import 'modules/detailsScreen/hotelsDetails/detailsHotels.dart';
+import 'modules/splash/LOGIN.dart';
 void main()  {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());

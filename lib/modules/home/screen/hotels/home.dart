@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../hotelsDetails/detailsHotels.dart';
-import '../../hotelsDetails/productModel.dart';
+import '../../../hotelsDetails/productModel.dart';
+
+import '../../../hotelsDetails/detailsHotels.dart';
 
 class Hotel {
   late final int id;
