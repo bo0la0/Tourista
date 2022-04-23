@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>236422918539-qdmms2eoeuivifr4ae6c3ash8r9e7040.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.236422918539-qdmms2eoeuivifr4ae6c3ash8r9e7040</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>236422918539-6sqkakpqasqudsskq0vbvp2ehj4hpaie.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC9pIotoODS5NhMyGAwi23ejjb3x2M9s1Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>236422918539</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tourista.tourista</string>
+	<key>PROJECT_ID</key>
+	<string>tourism-45327</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tourism-45327.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:236422918539:ios:a62d2341b96dad2a91ff8e</string>
+	<key>DATABASE_URL</key>
+	<string>https://tourism-45327-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

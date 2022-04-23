@@ -20,6 +20,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -36,10 +37,11 @@ dependencies:
   bulleted_list: ^0.0.1+0.1a
   flutter_screenutil: ^5.3.1
   calendar_timeline: ^1.0.4
+  flutter_svg: ^0.19.1
 
   qr_flutter:
     git:
-      url: git://github.com/lukef/qr.flutter.git
+      url: https://github.com/theyakka/qr.flutter.git
 
 
 dev_dependencies:
@@ -59,22 +61,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - "assets/images/tourista.jpg"
-    - "assets/images/imm.png"
-    - "assets/images/im.jpg"
-    - "assets/images/images.png"
-    - "assets/images/kk.jpg"
-    - "assets/images/book.jpg"
-    - "assets/images/verti.jpg"
-    - "assets/images/1-egypt-pyramids-giza.jpg"
-    - "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg"
-    - "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg"
-    - "assets/images/Cairo-McDonalds.jpg"
-    - "assets/images/big.jpg"
-    - "assets/images/Dokki-KFC.jpg"
-    - "assets/images/steack.jpg"
-    - "assets/images/pharmacy.jpg"
-    - "assets/images/1-a.jpg"
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
