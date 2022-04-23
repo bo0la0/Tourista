@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/Homenavigation_par.dart';
-import 'package:tourista/modules/splash/LOGIN.dart';
+import 'package:tourista/modules/splash/login/login_screen.dart';
 import 'package:tourista/modules/splash/signup/background.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
