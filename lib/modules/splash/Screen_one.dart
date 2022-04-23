@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
 import 'package:tourista/model/style/TextStyle.dart';
 
-import 'LOGIN.dart';
+import 'login/login_screen.dart';
+
 class Data {
 
    final String  title;

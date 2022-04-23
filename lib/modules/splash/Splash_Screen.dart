@@ -26,6 +26,7 @@ class _Splash_ScreenState extends State<Splash_Screen>{
                     child: Image.asset('assets/images/tourista.jpg',
                       fit: BoxFit.cover,),
                     height: double.infinity,
+                    width: double.infinity,
                 ),
                 Container(
                   alignment: AlignmentDirectional.bottomCenter,

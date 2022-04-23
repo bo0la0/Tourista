@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'Screen_one.dart';
+import '../Screen_one.dart';
 class Loading extends StatefulWidget {
   @override
   _LoadingState createState() => _LoadingState();
