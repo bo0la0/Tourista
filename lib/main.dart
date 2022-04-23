@@ -7,6 +7,9 @@ import 'package:tourista/modules/splash/Screen_one.dart';
 
 import 'modules/detailsScreen/hotelsDetails/detailsHotels.dart';
 import 'modules/splash/LOGIN.dart';
+import 'modules/splash/signup/SignUp.dart';
+import 'modules/splash/signup/body.dart';
+import 'shared/components/constants.dart';
 void main()  {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
@@ -17,9 +20,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          backgroundColor: Colors.white
+          backgroundColor: Colors.white,
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
       ),
-    home: Screen_one (),
+
+    home: SignUpScreen(),
 
     );
 // hello
