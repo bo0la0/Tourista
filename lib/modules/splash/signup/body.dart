@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/Homenavigation_par.dart';
 import 'package:tourista/modules/splash/login/login_screen.dart';
 import 'package:tourista/modules/splash/signup/background.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
+import 'package:tourista/modules/splash/signup/verfiying.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Tourista",
+              "signup",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40 ),
             ),
             SizedBox(height: size.height * 0.03),
@@ -35,7 +35,10 @@ class Body extends StatelessWidget {
             ),
             RoundedPasswordField(
               onChanged: (value) {},
-
+            ),
+            RoundedPasswordField(
+              onChanged: (value) {},
+              hintText: 'retype password',
             ),
             RoundedButton(
               text: "SIGNUP",
@@ -44,7 +47,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return navigationbar();
+                      return verfey();
                     },
                   ),
                 );
