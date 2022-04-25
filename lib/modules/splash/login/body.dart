@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tourista/modules/splash/signup/SignUp.dart';
+import 'package:tourista/modules/splash/signup/or_divider.dart';
+import 'package:tourista/modules/splash/signup/social_icon.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
@@ -54,6 +56,24 @@ class Body extends StatelessWidget {
                 );
               },
             ),
+            OrDivider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SocalIcon(
+                  iconSrc: "assets/icons/facebook.svg",
+                  press: () {},
+                ),
+                SocalIcon(
+                  iconSrc: "assets/icons/twitter.svg",
+                  press: () {},
+                ),
+                SocalIcon(
+                  iconSrc: "assets/icons/google-plus.svg",
+                  press: () {},
+                ),
+              ],
+            )
           ],
         ),
       ),
