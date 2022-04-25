@@ -1,8 +1,8 @@
   import 'package:flutter/material.dart';
 
 Widget defaultButton({
-    @required double width =  double.infinity,
-    @required Color background = Colors.blue,
+    double width =  double.infinity,
+    Color background = Colors.blue,
     required VoidCallback function,
     required String text,
   }) => Container(
