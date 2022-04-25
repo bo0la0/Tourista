@@ -34,6 +34,7 @@ class verfey extends StatelessWidget {
                   hintText: "verification code",
                   onChanged: (value) {},
                   icon: Icons.alarm_rounded ,
+                  controller: TextEditingController(),
                 ),
                 RoundedButton(
                   text: "submit",

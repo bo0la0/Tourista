@@ -10,9 +10,9 @@ import 'package:tourista/modules/splash/login/background.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
 
 class Body extends StatelessWidget {
-  const Body({
-    Key? key,
-  }) : super(key: key);
+  var emailcontroller = TextEditingController();
+  var passwordcontroller = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,11 @@ class Body extends StatelessWidget {
             RoundedInputField(
               hintText: "Your Email",
               onChanged: (value) {},
+              controller: emailcontroller,
             ),
             RoundedPasswordField(
               onChanged: (value) {},
+              controller: passwordcontroller,
             ),
             RoundedButton(
               text: "LOGIN",

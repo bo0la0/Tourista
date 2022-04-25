@@ -12,6 +12,9 @@ import 'package:tourista/shared/components/rounded_password_field.dart';
 
 
 class Body extends StatelessWidget {
+  var emailcontroller = TextEditingController();
+  var passwordcontroller1 = TextEditingController();
+  var passwordcontroller2 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,13 +35,16 @@ class Body extends StatelessWidget {
             RoundedInputField(
               hintText: "Your Email",
               onChanged: (value) {},
+              controller: emailcontroller,
             ),
             RoundedPasswordField(
               onChanged: (value) {},
+              controller: passwordcontroller1,
             ),
             RoundedPasswordField(
               onChanged: (value) {},
               hintText: 'retype password',
+              controller: passwordcontroller2,
             ),
             RoundedButton(
               text: "SIGNUP",

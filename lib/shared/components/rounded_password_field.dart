@@ -5,18 +5,21 @@ import 'package:tourista/shared/components/text_field_container.dart';
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
+  final TextEditingController controller;
   const RoundedPasswordField({
     Key? key,
     required this.onChanged,
     this.hintText='password',
+    required this.controller ,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
         onChanged: onChanged,
+        controller: controller,
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           hintText: hintText,
