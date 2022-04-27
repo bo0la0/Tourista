@@ -9,13 +9,15 @@ class RoundedInputField extends StatelessWidget {
   final TextInputType type;
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
-  const RoundedInputField({
+  Function? validate;
+   RoundedInputField({
     Key? key,
     required this.hintText,
     this.icon = Icons.person,
     required this.onChanged,
     this.type = TextInputType.emailAddress,
     required this.controller,
+     this.validate,
 
   }) : super(key: key);
 
@@ -27,6 +29,12 @@ class RoundedInputField extends StatelessWidget {
         onFieldSubmitted : onChanged,
         cursorColor: kPrimaryColor,
         controller: controller,
+        validator: (String? s){
+        if (s!.isEmpty){
+          return 'email must not be empty' ;
+        }
+        return null;
+        },
         decoration: InputDecoration(
           icon: Icon(
             icon,

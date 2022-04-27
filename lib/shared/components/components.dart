@@ -1,5 +1,7 @@
   import 'package:flutter/material.dart';
 
+import 'constants.dart';
+
 Widget defaultButton({
     double width =  double.infinity,
     Color background = Colors.blue,
@@ -21,18 +23,20 @@ Widget defaultButton({
 
 Widget dfaultTexField({
   required TextEditingController controller,
-  required TextInputType type,
+  TextInputType type = TextInputType.text,
   VoidCallback? onSubmit,
   VoidCallback? onChanged,
-  required VoidCallback validate,
+  Function? validate,
   required String label,
   required IconData prefix,
   })=> TextFormField(
   controller: controller,
   keyboardType: type ,
-  onFieldSubmitted: onSubmit,
-  onChanged: onChanged,
-  validator: validate,
+  // onFieldSubmitted: onSubmit,
+  // onChanged: onChanged,
+   validator: (v){
+    validate!(v);
+   },
   decoration: InputDecoration(
   labelText : label,
   prefixIcon : Icon (
@@ -42,3 +46,5 @@ Widget dfaultTexField({
 ),
 
 );
+
+

@@ -3,9 +3,9 @@ import 'package:tourista/shared/components/constants.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
-  final VoidCallback press;
+  Function press;
   final Color color, textColor;
-  const RoundedButton({
+   RoundedButton({
     Key? key,
     required this.text,
     required this.press,
@@ -35,7 +35,9 @@ class RoundedButton extends StatelessWidget {
         text,
         style: TextStyle(color: textColor),
       ),
-      onPressed: press,
+      onPressed: (){
+        press();
+      },
       style: ElevatedButton.styleFrom(
           primary: color,
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),

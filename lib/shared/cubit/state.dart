@@ -1,3 +1,2 @@
 abstract class AppStates {}
-
-class AppInitialState extends AppStates {}
+class AppinitailState extends AppStates {}

@@ -3,7 +3,9 @@ import 'package:tourista/shared/cubit/state.dart';
 
 class AppCubit extends Cubit<AppStates>
 {
-  AppCubit() : super(AppInitialState());
+  AppCubit() : super(AppinitailState());
 
-  static AppCubit get(context)=> BlocProvider.of(context);
+  static AppCubit get(context) => BlocProvider.of(context);
+
+
 }
