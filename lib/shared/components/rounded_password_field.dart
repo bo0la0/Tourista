@@ -7,12 +7,14 @@ class RoundedPasswordField extends StatefulWidget {
   final String hintText;
   final TextEditingController controller;
   bool isPass;
+  Function? validate;
   RoundedPasswordField({
     Key? key,
     required this.onChanged,
     this.hintText='password',
     required this.controller ,
     this.isPass = true,
+    this.validate,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,12 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         onChanged: widget.onChanged,
         controller: widget.controller,
         cursorColor: kPrimaryColor,
+        validator: (String? s){
+        if (s!.isEmpty){
+        return 'password must not be empty';
+      }
+        return null;
+        },
         decoration: InputDecoration(
           hintText: widget.hintText,
           icon: Icon(

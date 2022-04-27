@@ -1,18 +1,14 @@
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/Homenavigation_par.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/favouritScreen/favourite.dart';
-import 'package:tourista/modules/splash/Screen_one.dart';
-import 'package:tourista/modules/splash/Splash_Screen.dart';
 
-
-import 'modules/detailsScreen/hotelsDetails/detailsHotels.dart';
-import 'modules/splash/extra/LOGIN.dart';
-import 'modules/splash/signup/SignUp.dart';
-import 'modules/splash/signup/body.dart';
+import 'package:tourista/shared/BlocObserver.dart';
+import 'modules/splash/login/login_screen.dart';
 import 'shared/components/constants.dart';
-void main()  {
+
+void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  blocObserver: MyBlocObserver();
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -26,7 +22,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
       ),
 
-    home: Splash_Screen(),
+    home: LoginScreen(),
 
     );
 // hello
