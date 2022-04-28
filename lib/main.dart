@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:tourista/shared/BlocObserver.dart';
 import 'modules/splash/login/login_screen.dart';
+import 'modules/splash/signup/SignUp.dart';
 import 'shared/components/constants.dart';
 
 void main() async  {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
       ),
 
-    home: LoginScreen(),
+    home: SignUpScreen(),
 
     );
 // hello
