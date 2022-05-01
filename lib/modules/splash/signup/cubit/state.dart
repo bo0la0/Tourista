@@ -8,7 +8,17 @@ class UserRegisterLoading extends RegisterStates {}
 class UserRegisterSuccess extends RegisterStates {}
 
 class UserRegisterError extends RegisterStates {
+  final String error;
+
+  UserRegisterError(this.error);
 
 }
 
+class CreateUserSuccess extends RegisterStates {}
+
+class CreateUserError extends RegisterStates {
+  final String error;
+
+  CreateUserError(this.error);
+}
 class ChangePasswordVisibilityState extends RegisterStates {}

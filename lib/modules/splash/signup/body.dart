@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tourista/modules/home/screen/Widgets/homeNav.dart';
 import 'package:tourista/modules/splash/login/login_screen.dart';
 import 'package:tourista/modules/splash/signup/background.dart';
 import 'package:tourista/modules/splash/signup/cubit/cubit.dart';
 import 'package:tourista/modules/splash/signup/cubit/state.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
-import 'package:tourista/modules/splash/signup/verfiying.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
@@ -25,7 +25,14 @@ class Body extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is CreateUserSuccess){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const homeNav()),
+            );
+          }
+        },
         builder: (context,state){
           return Background(
             child: SingleChildScrollView(
@@ -60,16 +67,18 @@ class Body extends StatelessWidget {
                     RoundedButton(
                       text: "SIGNUP",
                       press: () {
-                        if(formKey.currentState!.validate()){
-                          RegisterCubit.get(context).userRegister(email: emailcontroller.text, password: passwordcontroller1.text);
 
-                        }
+                        if(formKey.currentState!.validate() && passwordcontroller2.text == passwordcontroller1.text){
+                          RegisterCubit.get(context).userRegister(email: emailcontroller.text, password: passwordcontroller1.text);
+                        }else{
+                          print('not match');
+                          return 'not match';}
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
                         //     builder: (context) {
                         //       return verfey();
-                        //     },
+                        //     },.
                         //   ),
                         // );
                       },

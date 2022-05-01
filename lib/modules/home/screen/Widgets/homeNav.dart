@@ -6,7 +6,6 @@ import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/scan_qr.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/user_accont.dart';
 
-import '../tripsPages/BODY.dart';
 
 
 class homeNav extends StatefulWidget {
