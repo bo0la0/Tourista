@@ -8,7 +8,6 @@ import 'package:tourista/modules/splash/signup/cubit/cubit.dart';
 import 'package:tourista/modules/splash/signup/cubit/state.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
-import 'package:tourista/modules/splash/signup/verfiying.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
@@ -79,7 +78,7 @@ class Body extends StatelessWidget {
                         //   MaterialPageRoute(
                         //     builder: (context) {
                         //       return verfey();
-                        //     },
+                        //     },.
                         //   ),
                         // );
                       },
