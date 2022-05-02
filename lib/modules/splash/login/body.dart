@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -65,15 +66,19 @@ class Body extends StatelessWidget {
                       //   return null;
                       // },
                     ),
-                    RoundedButton(
-                      text: "LOGIN",
-                      press: () {
-                        if (formKey.currentState!.validate()){
-                          LoginCubit.get(context).userLogin(email: emailcontroller.text, password: passwordcontroller.text);
-                          print(emailcontroller.text);
-                          print(passwordcontroller.text);
-                        }
-                      },
+                    ConditionalBuilder(
+                      condition: state is! UserLoginLoading,
+                      builder: (context)=> RoundedButton(
+                        text: "LOGIN",
+                        press: () {
+                          if (formKey.currentState!.validate()){
+                            LoginCubit.get(context).userLogin(email: emailcontroller.text, password: passwordcontroller.text);
+                            print(emailcontroller.text);
+                            print(passwordcontroller.text);
+                          }
+                        },
+                      ),
+                      fallback: (context)=>Center(child: CircularProgressIndicator()),
                     ),
                     SizedBox(height: size.height * 0.03),
                     AlreadyHaveAnAccountCheck(
