@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +13,7 @@ import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
+
 
 
 class Body extends StatelessWidget {
@@ -64,24 +66,25 @@ class Body extends StatelessWidget {
                       hintText: 'retype password',
                       controller: passwordcontroller2,
                     ),
-                    RoundedButton(
-                      text: "SIGNUP",
-                      press: () {
-
-                        if(formKey.currentState!.validate() && passwordcontroller2.text == passwordcontroller1.text){
-                          RegisterCubit.get(context).userRegister(email: emailcontroller.text, password: passwordcontroller1.text);
-                        }else{
-                          print('not match');
-                          return 'not match';}
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return verfey();
-                        //     },.
-                        //   ),
-                        // );
-                      },
+                    ConditionalBuilder(
+                      condition: state is! UserRegisterLoading,
+                      builder: (context)=> RoundedButton(
+                        text: "SIGNUP",
+                        press: () {
+                          if(formKey.currentState!.validate() && passwordcontroller2.text == passwordcontroller1.text){
+                            RegisterCubit.get(context).userRegister(email: emailcontroller.text, password: passwordcontroller1.text);
+                          }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return verfey();
+                          //     },.
+                          //   ),
+                          // );
+                        },
+                      ),
+                      fallback: (context)=>Center(child: CircularProgressIndicator()),
                     ),//signup button
                     SizedBox(height: size.height * 0.03),
                     AlreadyHaveAnAccountCheck(
@@ -125,4 +128,6 @@ class Body extends StatelessWidget {
     );
 
   }
+
 }
+
