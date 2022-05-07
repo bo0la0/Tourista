@@ -2,13 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tourista/modules/home/screen/Widgets/homeNav.dart';
 import 'package:tourista/modules/splash/login/cubit/cubit.dart';
 import 'package:tourista/modules/splash/login/cubit/state.dart';
 import 'package:tourista/modules/splash/signup/SignUp.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
-import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
 import 'package:tourista/modules/splash/login/background.dart';
@@ -25,7 +25,15 @@ class Body extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is UserLoginSuccess){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const homeNav()),
+            );
+          }
+
+        },
         builder: (context,state){
          return Background(
             child: SingleChildScrollView(
@@ -73,8 +81,6 @@ class Body extends StatelessWidget {
                         press: () {
                           if (formKey.currentState!.validate()){
                             LoginCubit.get(context).userLogin(email: emailcontroller.text, password: passwordcontroller.text);
-                            print(emailcontroller.text);
-                            print(passwordcontroller.text);
                           }
                         },
                       ),

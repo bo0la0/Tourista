@@ -9,7 +9,7 @@ class LoginCubit extends Cubit<LoginStates> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
   void userLogin({
-  required String email,
+    required String email,
     required String password,
 
 }){
@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginStates> {
     ).then((value){
       emit(UserLoginSuccess());
     }).catchError((erorr){
-      emit(UserLoginError());
+      emit(UserLoginError(erorr));
     });
 
   }
