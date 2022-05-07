@@ -14,6 +14,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
   void userRegister({
   required String email,
   required String password,
+  required String name,
+  required String phone,
 }){
     emit(UserRegisterLoading());
 
@@ -21,12 +23,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
         email: email,
         password: password,
     ).then((value){
-      print(value.user?.email);
-      print(value.user?.uid);
+      // print(value.user?.email);
+      // print(value.user?.uid);
       userCreate(
-          name: null,
+          name: name,
           email: email,
-          phone: null,
+          phone: phone,
           uId: value.user?.uid);
 
     })

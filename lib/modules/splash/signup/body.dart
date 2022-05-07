@@ -13,11 +13,15 @@ import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 
 
 class Body extends StatelessWidget {
   var emailcontroller = TextEditingController();
+  var nameController = TextEditingController();
+  var phoneController = TextEditingController();
   var passwordcontroller1 = TextEditingController();
   var passwordcontroller2 = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -57,6 +61,16 @@ class Body extends StatelessWidget {
                       onChanged: (value) {},
                       controller: emailcontroller,
                     ),
+                    RoundedInputField(
+                      hintText: "Full name",
+                      onChanged: (value) {},
+                      controller: nameController,
+                    ),
+                    RoundedInputField(
+                      hintText: "phone",
+                      onChanged: (value) {},
+                      controller: phoneController,
+                    ),
                     RoundedPasswordField(
                       onChanged: (value) {},
                       controller: passwordcontroller1,
@@ -71,9 +85,18 @@ class Body extends StatelessWidget {
                       builder: (context)=> RoundedButton(
                         text: "SIGNUP",
                         press: () {
-                          if(formKey.currentState!.validate() && passwordcontroller2.text == passwordcontroller1.text){
-                            RegisterCubit.get(context).userRegister(email: emailcontroller.text, password: passwordcontroller1.text);
+                          if(formKey.currentState!.validate()){
+                            if (passwordcontroller2.text != passwordcontroller1.text){
+                              Alert(context: context, title: "passwords dosen't match", desc: "please check your password").show();
+                            }else{
+                            RegisterCubit.get(context).userRegister(
+                                email: emailcontroller.text,
+                                password: passwordcontroller1.text,
+                                name: nameController.text,
+                                phone: phoneController.text,
+                            );}
                           }
+
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
@@ -125,6 +148,7 @@ class Body extends StatelessWidget {
           );
         },
       ),
+
     );
 
   }
