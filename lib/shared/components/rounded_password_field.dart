@@ -19,7 +19,7 @@ class RoundedPasswordField extends StatelessWidget {
     this.hintText='password',
     required this.controller ,
     this.validate,
-    this.text = 'password must not be empty',
+    this.text = 'password must be at least 8 chars!',
 
   }) : super(key: key);
 
@@ -37,7 +37,7 @@ class RoundedPasswordField extends StatelessWidget {
               controller: controller,
               cursorColor: kPrimaryColor,
               validator: (String? s){
-                if (s!.isEmpty){
+                if (s!.length < 8){
                   return text;
                 }
                 return null;
