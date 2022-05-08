@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../../pages/Welcome_scr.dart';
 import 'Screen_one.dart';
 class Splash_Screen extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _Splash_ScreenState extends State<Splash_Screen>{
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => Screen_one()));
+          MaterialPageRoute(builder: (_) => WelcomPage()));
     });
   }
   Widget build(BuildContext context) {

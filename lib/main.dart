@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tourista/pages/Welcome_scr.dart';
 
 import 'package:tourista/shared/BlocObserver.dart';
+import 'modules/splash/Screen_one.dart';
+import 'modules/splash/Splash_Screen.dart';
 import 'modules/splash/login/login_screen.dart';
 import 'modules/splash/signup/SignUp.dart';
 import 'shared/components/constants.dart';
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
       ),
 
-    home: SignUpScreen(),
+    home: Splash_Screen()
 
     );
 // hello
