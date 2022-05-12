@@ -24,4 +24,3 @@ class ChangePasswordVisibilityState extends RegisterStates {
 
 }
 
-class ValidatePasswordState extends RegisterStates {}

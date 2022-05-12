@@ -60,6 +60,7 @@ class Body extends StatelessWidget {
                       hintText: "Your Email",
                       onChanged: (value) {},
                       controller: emailcontroller,
+                      icon: Icons.email,
                     ),
                     RoundedInputField(
                       hintText: "Full name",
@@ -70,6 +71,7 @@ class Body extends StatelessWidget {
                       hintText: "phone",
                       onChanged: (value) {},
                       controller: phoneController,
+                      icon: Icons.phone,
                     ),
                     RoundedPasswordField(
                       onChanged: (value) {},
