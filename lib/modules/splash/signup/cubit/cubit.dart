@@ -62,18 +62,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           emit(CreateUserError(error.toString()));
     });
   }
-// bool? isCorrect ;
-//   void checkPassword({
-//   required String password1,
-//   required String password2,
-// }){
-//     if (password1 != password2){
-//       isCorrect = false;
-//     }else {
-//       isCorrect = true;
-//     }
-//     emit(ValidatePasswordState());
-//   }
+
   IconData suffix = Icons.visibility;
   bool isPass = true;
   void passwordVisibility(){

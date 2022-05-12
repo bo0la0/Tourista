@@ -13,6 +13,7 @@ import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
 import 'package:tourista/modules/splash/login/background.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
+import 'package:tourista/shared/network/local/cache_helper.dart';
 
 class Body extends StatelessWidget {
   var emailcontroller = TextEditingController();
@@ -27,10 +28,15 @@ class Body extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is UserLoginSuccess){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const homeNav()),
-            );
+            CacheHelper.saveData(
+                key: 'uId',
+                value: state.uId,
+            ).then((value){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const homeNav()),
+              );
+            });
           }
 
         },
