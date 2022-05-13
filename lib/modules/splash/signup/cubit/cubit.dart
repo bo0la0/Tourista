@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/splash/signup/cubit/state.dart';
-import 'package:tourista/shared/components/constants.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(Empty());
@@ -18,25 +16,34 @@ class RegisterCubit extends Cubit<RegisterStates> {
   required String phone,
 }){
     emit(UserRegisterLoading());
-
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
+// try {
+  FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: email,
+    password: password,
+  ).then((value) {
+    // print(value.user?.email);
+    // print(value.user?.uid);
+    userCreate(
+        name: name,
         email: email,
-        password: password,
-    ).then((value){
-      // print(value.user?.email);
-      // print(value.user?.uid);
-      userCreate(
-          name: name,
-          email: email,
-          phone: phone,
-          uId: value.user?.uid);
-
-    })
-        .catchError((error){
-          emit(UserRegisterError(error.toString()));
-    });
-
+        phone: phone,
+        uId: value.user?.uid);
+  })
+      .catchError((error) {
+    emit(UserRegisterError(error.toString()));
+  });
+/*} on FirebaseAuthException catch (e){
+  if (e.code == 'weak-password'){
+    print('weak password');
+  } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
   }
+} catch (e) {
+  print(e);
+}*/
+
+}
+
 
   void userCreate({
   required name,
