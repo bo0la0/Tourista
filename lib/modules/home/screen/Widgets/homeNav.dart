@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/editProfile/pages/profile_page.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/favouritScreen/favourite.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/scan_qr.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/user_accont.dart';
 
 
 
@@ -20,10 +20,10 @@ class _homeNavState extends State<homeNav> {
   List <Widget> _listoption =<Widget>
   [
     home(),
-   camera(),
+    camera(),
     Scan_qr(),
     favourite(),
-    user_accont(),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

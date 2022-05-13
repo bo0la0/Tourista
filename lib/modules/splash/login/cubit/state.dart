@@ -20,3 +20,6 @@ class UserLoginError extends LoginStates {
 }
 
 class ChangePasswordVisibilityState extends LoginStates {}
+
+class UserLoginSuccessWithGoogle extends LoginStates{}
+class UserSignOutGoogle extends LoginStates{}

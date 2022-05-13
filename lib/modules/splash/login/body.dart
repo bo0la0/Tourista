@@ -115,11 +115,27 @@ class Body extends StatelessWidget {
                         ),
                         SocalIcon(
                           iconSrc: "assets/icons/twitter.svg",
-                          press: () {},
+                          press: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute<void>(builder: (BuildContext context) => const homeNav()) ,
+                                    (route) => false
+                            );
+                          },
                         ),
                         SocalIcon(
                           iconSrc: "assets/icons/google-plus.svg",
-                          press: () {},
+                          press: () async {
+                             await LoginCubit.get(context).signInwithGoogle();
+                             Navigator.pushAndRemoveUntil(
+                                 context,
+                                 MaterialPageRoute<void>(builder: (BuildContext context) => const homeNav()) ,
+                                     (route) => false
+                             );
+
+
+
+                          },
                         ),
                       ],
                     )
