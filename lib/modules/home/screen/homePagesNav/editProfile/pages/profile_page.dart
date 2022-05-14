@@ -21,8 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = UserData.myUser;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      body:Column(
           children: [
             AppBar(
               backgroundColor: Colors.transparent,
@@ -56,7 +55,6 @@ class _ProfilePageState extends State<ProfilePage> {
               flex: 4,
             )
           ],
-        ),
       ),
     );
   }
