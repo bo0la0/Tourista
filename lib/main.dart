@@ -7,7 +7,7 @@ import 'package:tourista/modules/splash/login/cubit/cubit.dart';
 import 'package:tourista/modules/splash/signup/cubit/cubit.dart';
 
 import 'package:tourista/pages/Welcome_scr.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:tourista/shared/BlocObserver.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
@@ -18,7 +18,7 @@ import 'modules/splash/login/cubit/state.dart';
 import 'modules/splash/login/login_screen.dart';
 import 'modules/splash/signup/SignUp.dart';
 import 'shared/components/constants.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
