@@ -9,10 +9,12 @@ import 'package:tourista/modules/splash/signup/SignUp.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
+import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
 import 'package:tourista/modules/splash/login/background.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
+import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/network/local/cache_helper.dart';
 
 class Body extends StatelessWidget {
@@ -23,18 +25,20 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (BuildContext context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
+    return   BlocProvider(create: (BuildContext context) => LoginCubit(),
+    child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is UserLoginSuccess){
             CacheHelper.saveData(
                 key: 'uId',
                 value: state.uId,
             ).then((value){
-              Navigator.push(
+              uId = state.uId;
+              AppCubit.get(context).getUserData();
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const homeNav()),
+                MaterialPageRoute(builder: (context) => homeNav()),
+                    (Route<dynamic> route) => false,
               );
             });
           }
@@ -60,14 +64,7 @@ class Body extends StatelessWidget {
                     SizedBox(height: size.height * 0.03),
                     RoundedInputField(
                       hintText: "Your Email",
-                      onChanged: (value) {},
                       controller: emailcontroller,
-                    //   validate: (String value){
-                    //     if (value.isEmpty){
-                    //       return 'email must not be empty';
-                    //     }
-                    //     return null;
-                    // },
 
                     ),
                     RoundedPasswordField(
@@ -145,7 +142,8 @@ class Body extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
+
+    ),
+      );
   }
 }

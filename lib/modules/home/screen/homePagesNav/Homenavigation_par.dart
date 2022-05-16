@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/editProfile/pages/profile_page.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/editProfile/profile_screen.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/scan_qr.dart';
 import 'camera.dart';
 import 'favouritScreen/favourite.dart';
@@ -21,7 +21,7 @@ class _navigationbarState extends State<navigationbar> {
     camera(),
     Scan_qr(),
     favourite(),
-    ProfilePage(),
+    ProfileScreen(),
 
   ];
   @override

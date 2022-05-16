@@ -4,7 +4,7 @@ import 'constants.dart';
 
 Widget defaultButton({
     double width =  double.infinity,
-    Color background = Colors.grey,
+    Color background = kPrimaryColor,
     required VoidCallback function,
     required String text,
   }) => Container(

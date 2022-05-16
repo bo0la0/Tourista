@@ -15,9 +15,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
   required String name,
   required String phone,
 }){
-    emit(UserRegisterLoading());
-// try {
-  FirebaseAuth.instance.createUserWithEmailAndPassword(
+ try {
+   emit(UserRegisterLoading());
+   FirebaseAuth.instance.createUserWithEmailAndPassword(
     email: email,
     password: password,
   ).then((value) {
@@ -28,11 +28,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
         email: email,
         phone: phone,
         uId: value.user?.uid);
+
   })
       .catchError((error) {
     emit(UserRegisterError(error.toString()));
   });
-/*} on FirebaseAuthException catch (e){
+} on FirebaseAuthException catch (e){
   if (e.code == 'weak-password'){
     print('weak password');
   } else if (e.code == 'email-already-in-use') {
@@ -40,7 +41,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 } catch (e) {
   print(e);
-}*/
+}
 
 }
 
@@ -57,13 +58,16 @@ class RegisterCubit extends Cubit<RegisterStates> {
       email: email,
       phone: phone,
       uId: uId,
+      balance: '0',
+      language: 'English',
+      image: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1652563326~exp=1652563926~hmac=241db1afd8ffb462f7980cf4f4ef350f21b9bf14a09e1071f39baee992ef321c&w=826',
     );
     FirebaseFirestore.instance
         .collection('accounts')
         .doc(uId)
         .set(model.toMap())
         .then((value){
-          emit(CreateUserSuccess());
+      emit(CreateUserSuccess(uId));
     })
         .catchError((error){
           emit(CreateUserError(error.toString()));

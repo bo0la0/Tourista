@@ -10,10 +10,13 @@ import 'package:tourista/modules/splash/signup/cubit/state.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
+import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
 import 'package:tourista/shared/components/rounded_password_field.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:tourista/shared/cubit/cubit.dart';
+import 'package:tourista/shared/network/local/cache_helper.dart';
 
 
 
@@ -33,10 +36,18 @@ class Body extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is CreateUserSuccess){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const homeNav()),
-            );
+            CacheHelper.saveData(
+              key: 'uId',
+              value: state.uId,
+            ).then((value){
+              uId = state.uId;
+              AppCubit.get(context).getUserData();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => homeNav()),
+                    (Route<dynamic> route) => false,
+              );
+            });
           }
         },
         builder: (context,state){
@@ -58,20 +69,19 @@ class Body extends StatelessWidget {
                     ),
                     RoundedInputField(
                       hintText: "Your Email",
-                      onChanged: (value) {},
                       controller: emailcontroller,
                       icon: Icons.email,
                     ),
                     RoundedInputField(
                       hintText: "Full name",
-                      onChanged: (value) {},
                       controller: nameController,
+                      text: 'name must not be empty',
                     ),
                     RoundedInputField(
                       hintText: "phone",
-                      onChanged: (value) {},
                       controller: phoneController,
                       icon: Icons.phone,
+                      text: 'phone must not be empty',
                     ),
                     RoundedPasswordField(
                       onChanged: (value) {},
@@ -91,12 +101,12 @@ class Body extends StatelessWidget {
                             if (passwordcontroller2.text != passwordcontroller1.text){
                               Alert(context: context, title: "passwords dosen't match", desc: "please check your password").show();
                             }else{
-                            RegisterCubit.get(context).userRegister(
+                              RegisterCubit.get(context).userRegister(
                                 email: emailcontroller.text,
                                 password: passwordcontroller1.text,
                                 name: nameController.text,
                                 phone: phoneController.text,
-                            );}
+                              );}
                           }
 
                           // Navigator.push(
@@ -150,8 +160,8 @@ class Body extends StatelessWidget {
           );
         },
       ),
-
     );
+
 
   }
 
