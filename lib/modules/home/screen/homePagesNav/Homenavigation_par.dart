@@ -20,7 +20,7 @@ class _navigationbarState extends State<navigationbar> {
     home(),
     camera(),
     Scan_qr(),
-    favourite(),
+    //favourite(),
     ProfileScreen(),
 
   ];
@@ -46,7 +46,7 @@ class _navigationbarState extends State<navigationbar> {
                 BottomNavigationBarItem(
                   label: "Scan", icon: Icon(Icons.qr_code_2_outlined,size: 35,color: Color(-1088543194)),),
                 BottomNavigationBarItem(
-                  label: "faourite", icon: Icon(Icons.favorite_border_outlined,size: 30,color: Color(-1088543194)),
+                label: "faourite", icon: Icon(Icons.favorite_border_outlined,size: 30,color: Color(-1088543194)),
                 ),
                 BottomNavigationBarItem(
                   label: "Account", icon: Icon(Icons.perm_identity_outlined,size: 30,color: Color(-1088543194)),

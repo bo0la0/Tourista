@@ -26,12 +26,12 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return   BlocProvider(create: (BuildContext context) => LoginCubit(),
-    child: BlocConsumer<LoginCubit, LoginStates>(
+      child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is UserLoginSuccess){
             CacheHelper.saveData(
-                key: 'uId',
-                value: state.uId,
+              key: 'uId',
+              value: state.uId,
             ).then((value){
               uId = state.uId;
               AppCubit.get(context).getUserData();
@@ -45,7 +45,7 @@ class Body extends StatelessWidget {
 
         },
         builder: (context,state){
-         return Background(
+          return Background(
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
@@ -123,12 +123,12 @@ class Body extends StatelessWidget {
                         SocalIcon(
                           iconSrc: "assets/icons/google-plus.svg",
                           press: () async {
-                             await LoginCubit.get(context).signInwithGoogle();
-                             Navigator.pushAndRemoveUntil(
-                                 context,
-                                 MaterialPageRoute<void>(builder: (BuildContext context) => const homeNav()) ,
-                                     (route) => false
-                             );
+                            await LoginCubit.get(context).signInwithGoogle();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute<void>(builder: (BuildContext context) => const homeNav()) ,
+                                    (route) => false
+                            );
 
 
 
@@ -143,7 +143,7 @@ class Body extends StatelessWidget {
           );
         },
 
-    ),
-      );
+      ),
+    );
   }
 }
