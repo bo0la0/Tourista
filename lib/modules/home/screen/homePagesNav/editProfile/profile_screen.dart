@@ -7,8 +7,6 @@ import 'package:tourista/shared/cubit/states.dart';
 
 
 
-
-
 class ProfileScreen extends StatelessWidget
 {
   @override
@@ -141,7 +139,9 @@ class ProfileScreen extends StatelessWidget
                   Container(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        AppCubit.get(context).addBalance();
+                      },
                       child: Text('make a deposit'),
                     ),
                   ),
@@ -152,7 +152,9 @@ class ProfileScreen extends StatelessWidget
                   Container(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       child: Text('make a withdraw'),
                     ),
                   ),

@@ -45,7 +45,7 @@ class LoginCubit extends Cubit<LoginStates> {
       );
 
       await _auth.signInWithCredential(credential);
-      emit(UserLoginSuccessWithGoogle());
+      emit(UserLoginSuccess('${_auth.currentUser?.uid}'));
 
     } on FirebaseAuthException catch (e) {
       emit(UserLoginError(e.toString()));
@@ -59,7 +59,6 @@ class LoginCubit extends Cubit<LoginStates> {
     await _auth.signOut();
     emit(UserSignOutGoogle());
   }
-
 
 
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
-
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
 
@@ -52,7 +50,6 @@ class homeNav extends StatelessWidget {
   }
 
 }
-
 
 
 

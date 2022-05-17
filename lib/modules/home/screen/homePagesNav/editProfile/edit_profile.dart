@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
@@ -8,18 +9,45 @@ import 'package:tourista/shared/cubit/states.dart';
 class EditProfile extends StatelessWidget {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
+  var phoneController = TextEditingController();
+
+
+
+
 
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
       listener: (context, state){},
       builder: (context, state){
         var userModel = AppCubit.get(context).model;
+        var ProfilePic = AppCubit.get(context).profilePic;
+        nameController.text = '${userModel?.name}';
+        emailController.text = '${userModel?.email}';
+        phoneController.text = '${userModel?.phone}';
+
         return Scaffold(
           appBar: AppBar(
             title: Text('edit profile'),
             actions: [
               ElevatedButton(
-                onPressed: () {  },
+                onPressed: () {
+                  if(AppCubit.get(context).ProfileUrl != null ){
+                  AppCubit.get(context).updateUser(
+                      name: nameController.text,
+                      email: emailController.text,
+                      phone: phoneController.text,
+                      image:AppCubit.get(context).ProfileUrl
+                  )
+                  ;}
+                  else{
+                    AppCubit.get(context).updateUser(
+                      name: nameController.text,
+                      email: emailController.text,
+                      phone: phoneController.text,
+                    );
+                  }
+
+                },
                 child:
                 Text('update'),
               ),
@@ -29,7 +57,9 @@ class EditProfile extends StatelessWidget {
           body:SingleChildScrollView(
             child: Column(
               children: [
-                Container(
+                if(state is ImageUpdateLoadingState)
+                  LinearProgressIndicator(),
+                  Container(
                   height: 190.0,
                   child: Stack(
                     alignment: AlignmentDirectional.bottomCenter,
@@ -62,13 +92,15 @@ class EditProfile extends StatelessWidget {
                                 .scaffoldBackgroundColor,
                             child: CircleAvatar(
                               radius: 60.0,
-                              backgroundImage: NetworkImage(
+                              backgroundImage: ProfilePic == null ? NetworkImage(
                                   '${userModel?.image}'
-                              ),
+                              ) : FileImage(ProfilePic) as ImageProvider ,
                             ),
                           ),
                           IconButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                AppCubit.get(context).getImage();
+                              },
                               icon: CircleAvatar(
                                 radius: 15,
                                   child: Icon(Icons.camera_alt_outlined))),
@@ -82,6 +114,18 @@ class EditProfile extends StatelessWidget {
                   hintText: 'Name',
                   controller: nameController ,
                   text: 'name must not be empty',
+                ),
+                RoundedInputField(
+                  hintText: 'email',
+                  controller: emailController ,
+                  text: 'name must not be empty',
+                  icon: Icons.email,
+                ),
+                RoundedInputField(
+                  hintText: 'phone',
+                  controller: phoneController ,
+                  text: 'phone must not be empty',
+                  icon: Icons.phone,
                 ),
               ],
             ),

@@ -15,3 +15,11 @@ class AppGetUserErrorState extends AppStates
 
 // class scanqrState extends AppStates {}
 class AppChangeBottomNavState extends AppStates {}
+class AppImagePickedSuccessState extends AppStates {}
+class AppImagePickedErorrState extends AppStates {}
+class ImageUploadSuccessState extends AppStates {}
+class ImageUploadErrorState extends AppStates {}
+class ImageUpdateErrorState extends AppStates {}
+class ImageUpdateLoadingState extends AppStates {}
+class AddBalanceState extends AppStates {}
+

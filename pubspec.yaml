@@ -60,6 +60,7 @@ dependencies:
 #  path_provider:
   path:
   barcode_widget:
+  firebase_storage: ^10.2.16
 
 dev_dependencies:
   flutter_test:
