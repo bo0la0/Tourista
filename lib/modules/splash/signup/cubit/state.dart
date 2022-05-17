@@ -24,7 +24,5 @@ class CreateUserError extends RegisterStates {
 
   CreateUserError(this.error);
 }
-class ChangePasswordVisibilityState extends RegisterStates {
-
-}
+class ChangePasswordVisibilityState extends RegisterStates {}
 

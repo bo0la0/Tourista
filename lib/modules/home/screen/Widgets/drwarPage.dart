@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/style/TextStyle.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/editProfile/profile_screen.dart';
 import 'package:tourista/modules/splash/login/login_screen.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
@@ -29,21 +28,6 @@ class Drwer extends  StatelessWidget {
                   crossAxisAlignment:CrossAxisAlignment.center ,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Container(
-                    //   alignment: AlignmentDirectional.centerEnd,
-                    //   child: IconButton(
-                    //     onPressed: (){
-                    //       Navigator.push(context,
-                    //         MaterialPageRoute(
-                    //           builder:(context) => SettingsScreen(),
-                    //         ),
-                    //       );
-                    //     },
-                    //     icon: new Icon(
-                    //       Icons.manage_accounts_outlined,
-                    //       size: 35,
-                    //       color: Colors.white,
-                    //     ),),),
                     Container(
                       height : 100,
                       width: 100,
@@ -152,7 +136,6 @@ class Drwer extends  StatelessWidget {
                           leading: Icon(Icons.logout,size: 30,color:Color(-1088543194),),
                           title: Text(" log out", style: s1,),
                           onTap:(){
-                            //uId = '';
                             CacheHelper.removeData(key: 'uId');
                             Navigator.pushAndRemoveUntil(
                               context,

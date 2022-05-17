@@ -52,27 +52,29 @@ class _cameraState extends State<camera> {
           title: Text("camera"),
          // title: const Text("Image Picker Example"),
         ),
-        body: Center(
-             child: Column(
-                children: [
-                  MaterialButton(
-                      color: Color(-1088543194),
-                      child: const Text(
-                          "Pick Image from Camera",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold
-                          )
-                      ),
-                      onPressed: () {
-                        pickImageC();
-                      }
-                  ),
-                  SizedBox(height: 20,),
-                  image != null ? Image.file(image!): Text("No image selected")
-                ],
-             ),
+        body: SingleChildScrollView(
+          child: Center(
+               child: Column(
+                  children: [
+                    MaterialButton(
+                        color: Color(-1088543194),
+                        child: const Text(
+                            "Pick Image from Camera",
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold
+                            )
+                        ),
+                        onPressed: () {
+                          pickImageC();
+                        }
+                    ),
+                    SizedBox(height: 20,),
+                    image != null ? Image.file(image!): Text("No image selected")
+                  ],
+               ),
 
     ),
+        ),
     );
   }
 }

@@ -42,7 +42,6 @@ class Body extends StatelessWidget {
               );
             });
           }
-
         },
         builder: (context,state){
           return Background(
@@ -106,20 +105,20 @@ class Body extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        SocalIcon(
-                          iconSrc: "assets/icons/facebook.svg",
-                          press: () {},
-                        ),
-                        SocalIcon(
-                          iconSrc: "assets/icons/twitter.svg",
-                          press: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute<void>(builder: (BuildContext context) => const homeNav()) ,
-                                    (route) => false
-                            );
-                          },
-                        ),
+                        // SocalIcon(
+                        //   iconSrc: "assets/icons/facebook.svg",
+                        //   press: () {},
+                        // ),
+                        // SocalIcon(
+                        //   iconSrc: "assets/icons/twitter.svg",
+                        //   press: () {
+                        //     Navigator.pushAndRemoveUntil(
+                        //         context,
+                        //         MaterialPageRoute<void>(builder: (BuildContext context) => const homeNav()) ,
+                        //             (route) => false
+                        //     );
+                        //   },
+                        // ),
                         SocalIcon(
                           iconSrc: "assets/icons/google-plus.svg",
                           press: () async {

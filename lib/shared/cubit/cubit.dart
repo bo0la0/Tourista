@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
@@ -8,7 +12,6 @@ import 'package:tourista/modules/home/screen/homePagesNav/editProfile/profile_sc
 import 'package:tourista/modules/home/screen/homePagesNav/favouritScreen/favourite.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/states.dart';
-import 'package:tourista/shared/network/local/cache_helper.dart';
 
 import '../../modules/home/screen/homePagesNav/scan_qr.dart';
 
@@ -24,7 +27,6 @@ class AppCubit extends Cubit<AppStates> {
   void getUserData()
   {
     emit(AppGetUserLoadingState());
-print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
     FirebaseFirestore.instance
         .collection('accounts')
         .doc(uId)
@@ -69,5 +71,90 @@ print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
 
   }
 
+  File? profilePic;
+  var picker = ImagePicker();
+
+  Future<void> getImage() async
+  {
+    final pickedFile = await picker.getImage(
+        source: ImageSource.gallery
+    );
+    if (pickedFile != null){
+      profilePic = File(pickedFile.path);
+      uploadProfilPic();
+      emit(AppImagePickedSuccessState());
+    }else
+      {
+        print('no picked image');
+        emit(AppImagePickedErorrState());
+      }
+
+  }
+
+  String? ProfileUrl = null;
+  void uploadProfilPic(){
+    FirebaseStorage.instance
+        .ref()
+        .child('users/profilePic/${Uri.file(profilePic!.path).pathSegments.last}')
+        .putFile(profilePic!)
+        .then((value){
+          value.ref.getDownloadURL()
+              .then((value){
+                ProfileUrl = value;
+                emit(ImageUploadSuccessState());
+          }).catchError((error){
+            emit(ImageUploadErrorState());
+          });
+    })
+        .catchError((error){
+      emit(ImageUploadErrorState());
+
+    });
+  }
+
+  void updateUser({
+  String? name,
+  String? email,
+  String? phone,
+  String? image,
+  String? balance,
+  String? language,
+})
+  {
+    emit(ImageUpdateLoadingState());
+
+      UserModel modelUpdate = UserModel(
+        name: name??model?.name,
+        email: email??model?.email,
+        phone: phone??model?.phone,
+        image: image??model?.image,
+        balance: balance??model?.balance,
+        uId: model?.uId,
+        language: language??model?.language,
+      );
+      FirebaseFirestore.instance
+          .collection('accounts')
+          .doc(model?.uId)
+          .update(modelUpdate.toMap())
+          .then((value) {
+        getUserData();
+      })
+          .catchError((error) {
+        emit(ImageUpdateErrorState());
+      });
+
+  }
+
+  //for balance
+  int? x = 0 ;
+
+  void addBalance()
+{
+x = (x! + 1000) ;
+updateUser(balance: '$x');
+    // model?.balance = '$x';
+    // emit(AddBalanceState());
+
+}
 
  }
