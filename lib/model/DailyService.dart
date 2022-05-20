@@ -1,26 +1,27 @@
-class dailyService {
+class Model {
 
-  String? image, title,location,id;
+  String? name,email,id;
+  int? balance;
 
-  dailyService({
-    this.title,
-    this.image,
-    this.location,
+  Model({
+    this.name,
+    this.balance,
+    this.email,
     this.id,
   });
 
-  dailyService.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    image = json['image'];
-    location = json['location'];
+  Model.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    balance = json['balance'];
+    email = json['email'];
     id = json['id'];
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'title': title,
-      'image': image,
-      'location': location,
+      'name': name,
+      'balance': balance,
+      'email': email,
       'id': id,
     };
   }

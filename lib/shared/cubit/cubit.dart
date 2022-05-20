@@ -137,27 +137,22 @@ class AppCubit extends Cubit<AppStates> {
     // emit(AddBalanceState());
   }
 
-  List<bazarModel> bazar = [];
-  void getData() {
-    emit(AppGetdataLoadingState());
-    // FirebaseFirestore.instance
-    //     .collection('Bazzars')
-    //     .where('uId').get()
-    //     .then((value) { value.docs.forEach((element) {
-    //   //bazar.add(bazarModel.fromJson(element.data()));
-    //   bazarId.add(element.id);
-    // });
-    // print(bazarId);
-    //
-    // emit(AppGetdataSuccessState());
-    // })
-    //     .catchError((e) {
-    //   print(e);
-    // });
+  List<ServiceProviderModel> bazar = [];
+  List<ServiceProviderModel> nightservices = [];
+  List<ServiceProviderModel> dailyservices = [];
+  List<ServiceProviderModel> resturantservices = [];
+  void getData(){
+    getDatatoList(collectionName: 'Bazzars',List: bazar);
+    getDatatoList(collectionName: 'NightServices',List: nightservices);
+    getDatatoList(collectionName: 'restaurants',List: resturantservices);
+    getDatatoList(collectionName: 'DailyServices',List: dailyservices);
 
-    FirebaseFirestore.instance.collection('Bazzars').get().then((value) {
+  }
+  void getDatatoList({required String collectionName,required List<ServiceProviderModel> List}) {
+    emit(AppGetdataLoadingState());
+    FirebaseFirestore.instance.collection(collectionName).get().then((value) {
       value.docs.forEach((element) {
-            bazar.add(bazarModel.fromJson(element.data()));
+        List.add(ServiceProviderModel.fromJson(element.data()));
       });
       emit(AppGetdataSuccessState());
     }).catchError((error) {
@@ -175,9 +170,10 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   List<ProductsModel> productModel = [];
-  void getProducts({required String collectionName}){
+
+  void getProducts(){
     emit(AppGetdataLoadingState());
-    FirebaseFirestore.instance.collection(collectionName).get().then((value) {
+    FirebaseFirestore.instance.collection('products').get().then((value) {
       value.docs.forEach((element) {
         productModel.add(ProductsModel.fromJson(element.data()));
       });

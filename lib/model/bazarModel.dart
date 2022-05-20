@@ -1,10 +1,10 @@
 
-class bazarModel {
+class ServiceProviderModel {
 
   String? image, title,id,location;
 
 
-  bazarModel({
+  ServiceProviderModel({
     this.title,
     this.image,
     this.id,
@@ -12,7 +12,7 @@ class bazarModel {
 
   });
 
-  bazarModel.fromJson(Map<String, dynamic> json) {
+  ServiceProviderModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     image = json['image'];
     id = json['id'];
