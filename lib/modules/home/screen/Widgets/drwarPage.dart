@@ -9,19 +9,18 @@ import 'package:tourista/shared/network/local/cache_helper.dart';
 class Drwer extends  StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context,state){},
       builder: (context,state){
         var userModel = AppCubit.get(context).model;
-
         return Drawer(
-
           child: Column(
-
             children: [
-              Container(
-                height: 200,
+              Container (
+                height: 180,
                 width: 400,
                 color: Color(-1088543194),
                 child: Column(
@@ -47,7 +46,6 @@ class Drwer extends  StatelessWidget {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-
                     Container(
                       height: 50.0,
                       width: 50.0,

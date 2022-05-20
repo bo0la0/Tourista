@@ -1,114 +1,96 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:tourista/model/style/TextStyle.dart';
-class Bazzars {
-  late final int id;
-  late final String title,image;
+import 'package:tourista/modules/home/screen/services/products_screen.dart';
+import 'package:tourista/shared/components/components.dart';
+import 'package:tourista/shared/cubit/cubit.dart';
+import 'package:tourista/shared/cubit/states.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-  Bazzars({required this.id,  required this.title,required this.image,});
-}
-List<Bazzars> myDummy = [
-  Bazzars(
-    id: 1,
-    title: "Khan Elkhalili",
-    image: "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg",
-
-  ),
-  Bazzars(
-    id: 2,
-    title: " Aswan Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-
-  ),
-  Bazzars(
-    id: 3,
-    title: "sharm Elshaikh",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-
-  ),
-  Bazzars(
-    id: 4,
-    title: "Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-
-  ),
-  Bazzars(
-    id: 5,
-    title: "Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-
-  ),Bazzars(
-    id: 6,
-    title: "Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-  ),
-
-
-
-];
-class BazzarServices extends StatefulWidget {
-  const BazzarServices({Key? key}) : super(key: key);
-
-  @override
-  _BazzarServicesState createState() => _BazzarServicesState();
-}
-
-class _BazzarServicesState extends State<BazzarServices> {
-
+class BazzarServices extends StatelessWidget {
+  //
+  // List<IconData> faouriteIcons = [
+  //   Icons.favorite_outline,
+  //   Icons.favorite_outline,
+  //   Icons.favorite_outline,
+  //   Icons.favorite_outline,
+  //   Icons.favorite_outline,
+  //   Icons.favorite_outline,
+  //   Icons.favorite_outline,
+  // ];
+  // List<bool> isPressed = [
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  // ];
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-          height: 210,
-          width: 250,
-          child:  ListView(
-            scrollDirection: Axis.horizontal,
-
-            children: [
-
-              ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: myDummy.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 200,
-                      width: 150,
-                      child: Container(
+    var cubit = AppCubit.get(context);
+    double height = MediaQuery.of(context).size.height;
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+              height: height * 0.38,
+              width: 250,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: cubit.bazar.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: height * 0.38,
+                          width: 150,
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
                                       width: 150,
-                                      height: 140,
-                                      child: Stack(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
+                                      height: 120,
+                                      child: Stack(children: [
+                                        ClipRRect(
+                                          borderRadius:
                                               BorderRadius.circular(10),
-                                              child: Image.asset(myDummy[index].image,
-                                                height: 140.0,
-                                                width: 120.0,
-                                                fit: BoxFit.fitHeight,),),
-                                            Container(
-                                              height: 25,
-                                              width: 120,
-                                              alignment: AlignmentDirectional.topEnd,
-                                              child: CircleAvatar(
-                                                backgroundColor: Colors.white,
-
-                                                child: Icon(Icons.favorite_outline, color: Colors.red,
-                                                  size: 20,),
-                                              ),
-
-                                            ),])
-                                  ),
+                                          child: Image.network(
+                                            cubit.bazar[index].image.toString(),
+                                            height: 120.0,
+                                            width: 120.0,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
+                                        // Container(
+                                        //   height: 25,
+                                        //   width: 120,
+                                        //   alignment: AlignmentDirectional.topEnd,
+                                        //   child: CircleAvatar(
+                                        //     backgroundColor: Colors.white,
+                                        //     child: IconButton(
+                                        //       onPressed:(){
+                                        //         if(cubit.bazar[index].id == index.toString()) {
+                                        //           cubit.changeIcon(index: index,faouriteIcons: faouriteIcons,isPressed: isPressed);
+                                        //         }
+                                        //       } ,
+                                        //        icon:Icon(
+                                        //         faouriteIcons[index],
+                                        //         color: Colors.red,
+                                        //         size: 17,
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ])),
                                 ),
                                 RatingBar.builder(
                                   initialRating: 5,
@@ -116,38 +98,66 @@ class _BazzarServicesState extends State<BazzarServices> {
                                   minRating: 1,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
-                                  itemCount: 5, itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                  itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber,),
+                                  itemCount: 5,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 1.0),
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
                                   onRatingUpdate: (rating) {
                                     print(rating);
-                                  },),
-                                Text(myDummy[index].title,
-                                    style: TextStyle(fontSize: 13.0,)),
-                                SizedBox(height: 10,),
-                                /**Container(
-                                    height: 30,
-                                    width: 130,
-                                    alignment: AlignmentDirectional.bottomEnd,
-                                    child: MaterialButton(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                  },
+                                ),
+                                Text(cubit.bazar[index].title.toString(),
+                                    style: TextStyle(
+                                      fontSize: 13.0,
+                                    )),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                InkWell(
+                                  child: Text('Location',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                      )),
+                                  onTap: ()=> launch('${cubit.bazar[index].location}'),
+                                ),
+                                SizedBox(height: 5,),
+                                Container(
+                                  height: 30,
+                                  width: 130,
+                                  alignment: AlignmentDirectional.bottomCenter,
+                                  child: MaterialButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0))),
                                     elevation: 5.0,
-                                    child: Text("more details",style: TextStyle(color: Colors.white,fontSize: 10),),
+                                    child: Text(
+                                      "more details",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 10),
+                                    ),
                                     color: Color(-1088543194),
                                     onPressed: () {
-
+                                      if(cubit.bazar != null){
+                                      navigateTo(context, products_Screen(
+                                            cubit.bazar[index].id.toString(),
+                                            cubit.bazar[index].title.toString()),
+                                      );}else{
+                                        ShowToast(text: 'Bad Network');
+                                        cubit.getProducts(collectionName: 'BazaarProducts');
+                                      }
                                     },
-                                    ),
-                                    )**/
-                              ]
-
-                          )),
-                    );
-                  }
-              ),],
-          )
-
-      ),
+                                  ),
+                                )
+                              ]),
+                        );
+                      }),
+                ],
+              )),
+        );
+      },
     );
   }
 }
-

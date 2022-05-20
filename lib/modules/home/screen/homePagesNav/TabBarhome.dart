@@ -5,6 +5,7 @@ import 'package:tourista/modules/home/screen/hotels/home.dart';
 import 'package:tourista/modules/home/screen/services/BODYservices.dart';
 import 'package:tourista/modules/home/screen/tripsPages/BODY.dart';
 import 'package:tourista/modules/home/screen/Widgets/drwarPage.dart';
+import 'package:tourista/shared/components/constants.dart';
 import 'homeVisitScreens/homeVisit.dart';
 class home extends StatefulWidget {
   @override
@@ -27,14 +28,15 @@ class _homeState extends State<home> {
   }
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     var _controller;
     return DefaultTabController(
         length: 4,
         child: Scaffold(
           drawer: Drwer(),
           appBar: AppBar(
-            toolbarHeight: 100,
-            backgroundColor: Color(-1088543194),
+            toolbarHeight: height * 0.1,
+            backgroundColor: kPrimaryColor,
             title: Text("Tourista",style: TextStyle(fontSize: 20),),
             elevation: 0.8,
             actions: [
@@ -100,14 +102,14 @@ class _homeState extends State<home> {
                       Container(
                         color: Colors.white,
                         height: 60,
-
+                        width: double.infinity,
                         child: TabBar(
                             onTap: _onItemTappedForTabBar,
-                            unselectedLabelColor: Colors.black54,
+                            unselectedLabelColor: Colors.black,
                             labelColor: Colors.white,
                             indicator: BoxDecoration(
                              borderRadius: BorderRadius.circular(2),
-                             color: Color(-1088543194),),
+                             color: kPrimaryColor,),
                          tabs: [
                           Center(child: Text("places to visit",)),
                           Center(child: Text("Trips",)),
@@ -115,7 +117,7 @@ class _homeState extends State<home> {
                           Center(child: Text("services",)),
                          ],
                         isScrollable: true,
-                        indicatorColor: Colors.grey,
+                        indicatorColor: kPrimaryColor,
                        automaticIndicatorColorAdjustment: false,
                        unselectedLabelStyle: TextStyle(fontSize: 15)),
                    ),
