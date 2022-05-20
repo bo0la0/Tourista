@@ -23,3 +23,18 @@ class ImageUpdateErrorState extends AppStates {}
 class ImageUpdateLoadingState extends AppStates {}
 class AddBalanceState extends AppStates {}
 
+class AppGetdataLoadingState extends AppStates {}
+
+class AppGetdataSuccessState extends AppStates {}
+
+class AppGetdataErrorState extends AppStates
+{
+  final String error;
+
+  AppGetdataErrorState(this.error);
+}
+
+
+class ChangeIconState extends AppStates {}
+class ChangeIconState2 extends AppStates {}
+

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/modules/home/screen/services/row1.dart';
 import 'BazzarsServices.dart';
@@ -16,7 +15,7 @@ class BodyServices extends StatelessWidget {
       body: SafeArea(
           child: ListView(
               children: <Widget>[
-                SizedBox(height: 20,),
+                SizedBox(height: 10,),
                 ROW1(),
                 RestuServices(),
                 SizedBox(height: 10,),

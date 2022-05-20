@@ -12,6 +12,7 @@ import 'package:tourista/shared/BlocObserver.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
 import 'package:tourista/shared/network/local/cache_helper.dart';
+import 'package:tourista/shared/network/remote/dio_helper.dart';
 import 'modules/splash/Screen_one.dart';
 import 'modules/splash/Splash_Screen.dart';
 import 'modules/splash/login/cubit/state.dart';
@@ -23,6 +24,7 @@ void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   blocObserver: MyBlocObserver();
+  await DioHelper.init();
   await CacheHelper.init();
 
   Widget widget;
@@ -61,7 +63,7 @@ class MyApp extends StatelessWidget {
       providers: [
 
         BlocProvider(
-          create: (BuildContext context) => AppCubit()..getUserData(),
+          create: (BuildContext context) => AppCubit()..getUserData()..getData()..getProducts(collectionName: 'BazaarProducts'),
         ),
 
 
