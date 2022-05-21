@@ -2,110 +2,42 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tourista/modules/home/screen/services/products_screen.dart';
+import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DailyS {
-  late final int id;
-  late final String title, image;
-  bool? isFavourite;
 
-  DailyS({
-    required this.id,
-    required this.title,
-    required this.image,
-    this.isFavourite,
-  });
-}
-
-List<DailyS> myDummy = [
-  DailyS(
-    id: 0,
-    title: "pharmacy",
-    image: "assets/images/pharmacy.jpg",
-    isFavourite: false,
-  ),
-  DailyS(
-    id: 1,
-    title: " market ",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-    isFavourite: false,
-
-  ),
-  DailyS(
-    id: 2,
-    title: "moll",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-    isFavourite: false,
-
-  ),
-  DailyS(
-    id: 3,
-    title: "Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-    isFavourite: false,
-
-  ),
-  DailyS(
-    id: 4,
-    title: "Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-    isFavourite: false,
-
-  ),
-  DailyS(
-    id: 5,
-    title: "Bazzars",
-    image: "assets/images/sharm-el-sheikh-old-market-sinai-egypt-B6MADK.jpg",
-    isFavourite: false,
-
-  ),
-];
 
 class DailyServices extends StatelessWidget {
 
-  List<IconData> faouriteIcons = [
-    Icons.favorite_outline,
-    Icons.favorite_outline,
-    Icons.favorite_outline,
-    Icons.favorite_outline,
-    Icons.favorite_outline,
-    Icons.favorite_outline,
-    Icons.favorite_outline,
-  ];
-  List<bool> isPressed = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){},
-      builder : (context,state){
+    var cubit = AppCubit.get(context);
+    double height = MediaQuery.of(context).size.height;
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-              height: 210,
+              height: height * 0.38,
               width: 250,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: myDummy.length,
+                      itemCount: cubit.dailyservices.length,
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 200,
+                          height: height * 0.38,
                           width: 150,
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -114,38 +46,39 @@ class DailyServices extends StatelessWidget {
                                       height: 120,
                                       child: Stack(children: [
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            myDummy[index].image,
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          child: Image.network(
+                                            cubit.dailyservices[index].image.toString(),
                                             height: 120.0,
                                             width: 120.0,
                                             fit: BoxFit.fitHeight,
                                           ),
                                         ),
-                                        Container(
-                                          height: 25,
-                                          width: 120,
-                                          alignment: AlignmentDirectional.topEnd,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            child: IconButton(
-                                              onPressed:(){
-                                                if(myDummy[index].id == index) {
-                                                  AppCubit.get(context).changeIcon(index: index,faouriteIcons: faouriteIcons, isPressed: isPressed);
-                                                }
-                                              } ,
-                                              icon:Icon(
-                                                faouriteIcons[index],
-                                                color: Colors.red,
-                                                size: 17,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        // Container(
+                                        //   height: 25,
+                                        //   width: 120,
+                                        //   alignment: AlignmentDirectional.topEnd,
+                                        //   child: CircleAvatar(
+                                        //     backgroundColor: Colors.white,
+                                        //     child: IconButton(
+                                        //       onPressed:(){
+                                        //         if(cubit.dailyservices[index].id == index.toString()) {
+                                        //           cubit.changeIcon(index: index,faouriteIcons: faouriteIcons,isPressed: isPressed);
+                                        //         }
+                                        //       } ,
+                                        //        icon:Icon(
+                                        //         faouriteIcons[index],
+                                        //         color: Colors.red,
+                                        //         size: 17,
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
                                       ])),
                                 ),
                                 RatingBar.builder(
-                                  initialRating: 3,
+                                  initialRating: 5,
                                   itemSize: 15,
                                   minRating: 1,
                                   direction: Axis.horizontal,
@@ -157,18 +90,26 @@ class DailyServices extends StatelessWidget {
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-                                  onRatingUpdate: (rating) {},
+                                  onRatingUpdate: (rating) {
+                                    print(rating);
+                                  },
                                 ),
-                                Container(
-                                  alignment: AlignmentDirectional.bottomCenter,
-                                  child: Text(myDummy[index].title,
-                                      style: TextStyle(
-                                        fontSize: 13.0,
-                                      )),
-                                ),
+                                Text(cubit.dailyservices[index].title.toString(),
+                                    style: TextStyle(
+                                      fontSize: 13.0,
+                                    )),
                                 SizedBox(
-                                  height: 10,
+                                  height: 5,
                                 ),
+                                InkWell(
+                                  child: Text('Location',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                  onTap: ()=> launch('${cubit.dailyservices[index].location}'),
+                                ),
+                                SizedBox(height: 5,),
                                 Container(
                                   height: 30,
                                   width: 130,
@@ -184,7 +125,16 @@ class DailyServices extends StatelessWidget {
                                           color: Colors.white, fontSize: 10),
                                     ),
                                     color: Color(-1088543194),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if(cubit.dailyservices != null){
+                                        navigateTo(context, products_Screen(
+                                            cubit.dailyservices[index].id.toString(),
+                                            cubit.dailyservices[index].title.toString()),
+                                        );}else{
+                                        ShowToast(text: 'Bad Network');
+                                        // cubit.getProducts();
+                                      }
+                                    },
                                   ),
                                 )
                               ]),

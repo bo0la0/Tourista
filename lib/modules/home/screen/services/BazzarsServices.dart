@@ -8,25 +8,7 @@ import 'package:tourista/shared/cubit/states.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BazzarServices extends StatelessWidget {
-  //
-  // List<IconData> faouriteIcons = [
-  //   Icons.favorite_outline,
-  //   Icons.favorite_outline,
-  //   Icons.favorite_outline,
-  //   Icons.favorite_outline,
-  //   Icons.favorite_outline,
-  //   Icons.favorite_outline,
-  //   Icons.favorite_outline,
-  // ];
-  // List<bool> isPressed = [
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  // ];
+
   @override
   Widget build(BuildContext context) {
     var cubit = AppCubit.get(context);
@@ -120,6 +102,7 @@ class BazzarServices extends StatelessWidget {
                                   child: Text('Location',
                                       style: TextStyle(
                                         fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
                                       )),
                                   onTap: ()=> launch('${cubit.bazar[index].location}'),
                                 ),
@@ -146,7 +129,7 @@ class BazzarServices extends StatelessWidget {
                                             cubit.bazar[index].title.toString()),
                                       );}else{
                                         ShowToast(text: 'Bad Network');
-                                        cubit.getProducts(collectionName: 'BazaarProducts');
+                                       // cubit.getProducts();
                                       }
                                     },
                                   ),
