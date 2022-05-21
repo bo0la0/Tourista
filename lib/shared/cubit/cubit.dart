@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tourista/model/ProductsModel.dart';
-import 'package:tourista/model/bazarModel.dart';
+import 'package:tourista/model/ServiceProvidrModel.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
