@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tourista/hotel_booking/hotel_home_screen.dart';
 import 'package:tourista/modules/home/screen/chatUser/chat_screen.dart';
 import 'package:tourista/modules/home/screen/hotels/home.dart';
 import 'package:tourista/modules/home/screen/services/BODYservices.dart';
@@ -17,7 +18,7 @@ class _homeState extends State<home> {
   static List<Widget> _listOfIconsForTabBar = <Widget>[
     homevisit(),
     BODY(),
-    Home_Hotel(),
+    HotelHomeScreen(),
     BodyServices(),
   ];
   TextEditingController _controller = TextEditingController();
