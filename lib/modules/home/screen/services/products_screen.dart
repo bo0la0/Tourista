@@ -16,6 +16,7 @@ class products_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     List<ProductsModel> Items = [];
 
     for(var i = 0 ; i < AppCubit.get(context).productModel.length ; i++ ){
@@ -41,14 +42,14 @@ class products_Screen extends StatelessWidget {
               color: kPrimaryLightColor,
             ),
           ),
-          body: builderWidget(Items),
+          body: builderWidget(Items,width),
         );
       },
 
     );
   }
 
-  Widget builderWidget(List<ProductsModel> model) =>
+  Widget builderWidget(List<ProductsModel> model,double width) =>
       SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -113,7 +114,7 @@ class products_Screen extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0,
-                childAspectRatio: 1 / 1.18,
+                childAspectRatio: 1 / (width * 0.0033),
                 children: List.generate(
                  model.length,
                       (index) => buildGridProduct(model[index]),
