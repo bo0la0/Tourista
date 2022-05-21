@@ -35,21 +35,20 @@ class products_Screen extends StatelessWidget {
                 Navigator.pop(context);
               },),
             backgroundColor: kPrimaryColor,
-            toolbarHeight: height * 0.1,
             title: Text("${providerName}"),
             titleTextStyle: TextStyle(
               fontSize: 20,
               color: kPrimaryLightColor,
             ),
           ),
-          body: builderWidget(Items,width),
+          body: builderWidget(Items,width,height),
         );
       },
 
     );
   }
 
-  Widget builderWidget(List<ProductsModel> model,double width) =>
+  Widget builderWidget(List<ProductsModel> model,double width,double height) =>
       SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -90,9 +89,7 @@ class products_Screen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 20.0,
-                  ),
+
                   Text(
                     'Products',
                     style: TextStyle(
@@ -114,7 +111,7 @@ class products_Screen extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0,
-                childAspectRatio: 1 / (width * 0.0033),
+                childAspectRatio: height  / width * 0.5,
                 children: List.generate(
                  model.length,
                       (index) => buildGridProduct(model[index]),
