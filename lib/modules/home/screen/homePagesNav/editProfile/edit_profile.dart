@@ -11,10 +11,6 @@ class EditProfile extends StatelessWidget {
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
 
-
-
-
-
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
       listener: (context, state){},
@@ -29,29 +25,31 @@ class EditProfile extends StatelessWidget {
           appBar: AppBar(
             title: Text('edit profile'),
             actions: [
-              ElevatedButton(
-                onPressed: () {
-                  if(AppCubit.get(context).ProfileUrl != null ){
-                  AppCubit.get(context).updateUser(
-                      name: nameController.text,
-                      email: emailController.text,
-                      phone: phoneController.text,
-                      image:AppCubit.get(context).ProfileUrl
-                  )
-                  ;}
-                  else{
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if(AppCubit.get(context).ProfileUrl != null ){
                     AppCubit.get(context).updateUser(
-                      name: nameController.text,
-                      email: emailController.text,
-                      phone: phoneController.text,
-                    );
-                  }
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        image:AppCubit.get(context).ProfileUrl
+                    )
+                    ;}
+                    else{
+                      AppCubit.get(context).updateUser(
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                      );
+                    }
 
-                },
-                child:
-                Text('update'),
+                  },
+                  focusNode: FocusScopeNode(),
+                  child: Text('update'),
+                ),
               ),
-              SizedBox(width: 10,),
             ],
           ),
           body:SingleChildScrollView(

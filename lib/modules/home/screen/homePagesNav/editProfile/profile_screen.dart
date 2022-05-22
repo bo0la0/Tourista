@@ -20,7 +20,6 @@ class ProfileScreen extends StatelessWidget
           appBar: AppBar(
             backgroundColor: kPrimaryColor,
             toolbarHeight: 20,
-
           ),
           body: Container(
             color: Colors.white,
@@ -28,48 +27,20 @@ class ProfileScreen extends StatelessWidget
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  Container(
-                    height: 190.0,
-                    child: Stack(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      children: [
-                        Align(
-                          child: Container(
-                            height: 140.0,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(
-                                  4.0,
-                                ),
-                                topRight: Radius.circular(
-                                  4.0,
-                                ),
-                              ),
-                              // image: DecorationImage(
-                              //   image: NetworkImage(
-                              //     '${userModel.cover}',
-                              //   ),
-                              //   fit: BoxFit.cover,
-                              // ),
-                            ),
-                          ),
-                          alignment: AlignmentDirectional.topCenter,
+                  Padding(
+                    padding: const EdgeInsets.only(top:30),
+                    child: CircleAvatar(
+                      radius: 64.0,
+                      backgroundColor:
+                      Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      child: CircleAvatar(
+                        radius: 60.0,
+                        backgroundImage: NetworkImage(
+                            '${userModel?.image}'
                         ),
-                        CircleAvatar(
-                          radius: 64.0,
-                          backgroundColor:
-                          Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
-                          child: CircleAvatar(
-                            radius: 60.0,
-                            backgroundImage: NetworkImage(
-                              '${userModel?.image}'
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -85,7 +56,6 @@ class ProfileScreen extends StatelessWidget
                   SizedBox(
                     height: 5.0,
                   ),
-
                   Text(
                     '${userModel?.email}',
                     style: Theme
@@ -103,18 +73,6 @@ class ProfileScreen extends StatelessWidget
                         .textTheme
                         .caption,
                   ),
-
-                  // Align(
-                  //   child: Text(
-                  //     'Balance is : ${userModel?.balance}\$',
-                  //     style: Theme
-                  //         .of(context)
-                  //         .textTheme
-                  //         .caption,
-                  //   ),
-                  //   alignment: AlignmentDirectional.topCenter,
-                  //
-                  // ),
                   SizedBox(
                     height: 10.0,
                   ),
