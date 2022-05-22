@@ -59,7 +59,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       email: email,
       phone: phone,
       uId: uId,
-      balance: '0',
+      balance: 0,
       language: 'English',
       image: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1652563326~exp=1652563926~hmac=241db1afd8ffb462f7980cf4f4ef350f21b9bf14a09e1071f39baee992ef321c&w=826',
     );
@@ -106,7 +106,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           email: _auth.currentUser?.email,
           phone: 'please enter phone number',
           uId: _auth.currentUser?.uid,
-          balance: '0',
+          balance: 0,
           language: 'English',
           image: '${_auth.currentUser?.photoURL}',);
       FirebaseFirestore.instance

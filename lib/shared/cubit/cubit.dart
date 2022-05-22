@@ -102,7 +102,7 @@ class AppCubit extends Cubit<AppStates> {
     String? email,
     String? phone,
     String? image,
-    String? balance,
+    int? balance,
     String? language,
   }) {
     emit(ImageUpdateLoadingState());
@@ -132,7 +132,7 @@ class AppCubit extends Cubit<AppStates> {
 
   void addBalance() {
     x = (x! + 1000);
-    updateUser(balance: '$x');
+    updateUser(balance: x);
     // model?.balance = '$x';
     // emit(AddBalanceState());
   }

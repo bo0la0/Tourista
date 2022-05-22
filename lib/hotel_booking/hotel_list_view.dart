@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tourista/hotel_booking/details.dart';
 import 'package:tourista/hotel_booking/hotel_app_theme.dart';
-
-import 'model/hotel_list_data.dart';
+import 'package:tourista/model/hotelDetialsModel.dart';
+import 'package:tourista/shared/components/components.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HotelListView extends StatelessWidget {
   const HotelListView(
       {Key? key,
-      this.hotelData,
+      required this.hotelData,
       this.animationController,
       this.animation,
       this.callback})
       : super(key: key);
 
   final VoidCallback? callback;
-  final HotelListData? hotelData;
+  final hotelModel hotelData;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -33,7 +35,10 @@ class HotelListView extends StatelessWidget {
                   left: 24, right: 24, top: 8, bottom: 16),
               child: InkWell(
                 splashColor: Colors.transparent,
-                onTap: callback,
+                onTap: (){
+                  navigateTo(context, HotelDetailsPage(model: hotelData,));
+
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -54,7 +59,7 @@ class HotelListView extends StatelessWidget {
                             AspectRatio(
                               aspectRatio: 2,
                               child: Image.network(
-                                hotelData!.imagePath,
+                                "${hotelData.image}",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -77,7 +82,7 @@ class HotelListView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              hotelData!.titleTxt,
+                                              hotelData.title.toString(),
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -90,34 +95,34 @@ class HotelListView extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
-                                                Text(
-                                                  hotelData!.subTxt,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.8)),
+                                                InkWell(
+                                                  child: Text('Location',
+                                                      style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          color: Colors.grey.withOpacity(0.9))),
+                                                  onTap: () => launch('${hotelData.location}'),
                                                 ),
+
                                                 const SizedBox(
                                                   width: 4,
                                                 ),
                                                 Icon(
-                                                  Icons.map,
-                                                  size: 12,
-                                                  color: HotelAppTheme
-                                                          .buildLightTheme()
+                                                  Icons.location_on,
+                                                  size: 16,
+                                                  color: HotelAppTheme.buildLightTheme()
                                                       .primaryColor,
                                                 ),
-                                                Expanded(
-                                                  child: Text(
-                                                    '${hotelData!.dist.toStringAsFixed(1)} km to city',
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey
-                                                            .withOpacity(0.8)),
-                                                  ),
-                                                ),
+                                                // Expanded(
+                                                //   child: Text(
+                                                //     '${hotelData!.dist.toStringAsFixed(1)} km to city',
+                                                //     overflow:
+                                                //         TextOverflow.ellipsis,
+                                                //     style: TextStyle(
+                                                //         fontSize: 14,
+                                                //         color: Colors.grey
+                                                //             .withOpacity(0.8)),
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                             Padding(
@@ -127,7 +132,7 @@ class HotelListView extends StatelessWidget {
                                                 children: <Widget>[
                                                   RatingBar(
                                                     initialRating:
-                                                        hotelData!.rating,
+                                                        hotelData.rating?? 4.5,
                                                     direction: Axis.horizontal,
                                                     allowHalfRating: true,
                                                     itemCount: 5,
@@ -160,7 +165,7 @@ class HotelListView extends StatelessWidget {
                                                     },
                                                   ),
                                                   Text(
-                                                    ' ${hotelData!.reviews} Reviews',
+                                                    ' ${hotelData.reviews} Reviews',
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         color: Colors.grey
@@ -184,7 +189,7 @@ class HotelListView extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '\$${hotelData!.perNight}',
+                                          '\$${hotelData.pricePerNight}',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -206,27 +211,28 @@ class HotelListView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(32.0),
-                              ),
-                              onTap: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  color: HotelAppTheme.buildLightTheme()
-                                      .primaryColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
+                        // favourite comment
+                        // Positioned(
+                        //   top: 8,
+                        //   right: 8,
+                        //   child: Material(
+                        //     color: Colors.transparent,
+                        //     child: InkWell(
+                        //       borderRadius: const BorderRadius.all(
+                        //         Radius.circular(32.0),
+                        //       ),
+                        //       onTap: () {},
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.all(8.0),
+                        //         child: Icon(
+                        //           Icons.favorite_border,
+                        //           color: HotelAppTheme.buildLightTheme()
+                        //               .primaryColor,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

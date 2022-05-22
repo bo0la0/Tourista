@@ -1,12 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:tourista/hotel_booking/calendar_popup_view.dart';
 import 'package:tourista/hotel_booking/hotel_list_view.dart';
-import 'package:tourista/hotel_booking/model/hotel_list_data.dart';
-import 'filters_screen.dart';
+import 'package:tourista/hotel_booking/rooms_popup_view.dart';
+import 'package:tourista/model/hotelDetialsModel.dart';
+import 'package:tourista/shared/components/components.dart';
+import 'package:tourista/shared/components/constants.dart';
 import 'hotel_app_theme.dart';
 
 class HotelHomeScreen extends StatefulWidget {
@@ -17,11 +16,112 @@ class HotelHomeScreen extends StatefulWidget {
 class _HotelHomeScreenState extends State<HotelHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<HotelListData> hotelList = HotelListData.hotelList;
+  List<hotelModel> Model = [
+    hotelModel(
+      id: 1,
+      pricePerNight: '19',
+      title: 'Castle Hostel, cairo',
+      image:
+          'https://lh5.googleusercontent.com/p/AF1QipN-JkGcagbyiI9T3mSTvCnKQJeCn2-zoUYkGaFe=w408-h306-k-no',
+      location: 'https://g.page/castle-hostel-cairo?share',
+      reviews: 139,
+      city: 'cairo',
+      rating: 4.2,
+    ),
+    hotelModel(
+      id: 2,
+      pricePerNight: '39',
+      title: 'Cairo House Hotel',
+      image:
+          'https://lh5.googleusercontent.com/p/AF1QipOSuPqN_ccotlKgXucQDjdnA9kb0KAyiT53PYVg=w408-h306-k-no',
+      location: 'https://goo.gl/maps/AZ73xCjz5HYvJbQK9',
+      reviews: 43,
+      city: 'cairo',
+      rating: 3.9,
+    ),
+    hotelModel(
+      id: 3,
+      pricePerNight: '98',
+      title: 'Arabia Azur Resort',
+      image:
+          'https://lh5.googleusercontent.com/proxy/RP_UHMZTqXc4HLKO50BxcShabx9zu3KUqyB8g8GovqZ5qTIoPTVWkZghBNNbVLZAx3r_Kt1MQdkiUu90mrd-tTlw14ZARZ77QyS6XvUkpIAVj_ioUgXiIKgS36F9Dt4v6rRJxS3-RSBBMaiRmUmzqmqdMLdHBA=w413-h240-k-no',
+      location: 'https://goo.gl/maps/pH7EQ6nmfVwURL6PA',
+      reviews: 4533,
+      city: 'Hurghada',
+      rating: 4.4,
+    ),
+    hotelModel(
+      id: 4,
+      pricePerNight: '50',
+      title: 'Giftun Azur Beach Resort',
+      image:
+          'https://exp.cdn-hotels.com/hotels/45000000/44090000/44087000/44086918/16f1da52_z.jpg?impolicy=fcrop&w=1000&h=666&q=medium',
+      location: 'https://goo.gl/maps/ccSjbXwfMv7Rz66v5',
+      reviews: 3797,
+      city: 'Hurghada',
+      rating: 4,
+    ),
+    hotelModel(
+      id: 5,
+      pricePerNight: '39',
+      title: 'Ladybird - Golden Europe Hotel',
+      image:
+          'https://lh5.googleusercontent.com/proxy/Yb49uIhBhoKyP3-0njVHL5hkhK1evVLRAP4WeCvoCdkjgqc-j4ar5BOnTsRgjG6_eaXbmWghnHqmsZf26UH-_DF6gNAZIuYyhimsMJzrJ6i52qltV3Q4A5H3NVOEri3IDuc6mkHyxGirQ_6KYE5Bv4qGtG0qkUU=w408-h443-k-no',
+      location: 'https://g.page/GoldenEuropeHotel?share',
+      reviews: 313,
+      city: 'dahab',
+      rating: 4.3,
+    ),
+    hotelModel(
+      id: 6,
+      pricePerNight: '73',
+      title: 'Tirana Dahab Resort',
+      image:
+          'https://lh5.googleusercontent.com/p/AF1QipP1jozBNMEffmvrurDpDHhL6aR--_jm693tSVig=w408-h306-k-no',
+      location: 'https://goo.gl/maps/nafFVYAVQ62s7sGi7',
+      reviews: 2000,
+      city: 'dahab',
+      rating: 4.2,
+    ),
+    hotelModel(
+      id: 7,
+      pricePerNight: '21',
+      title: 'Royal Grand Sharm',
+      image:
+          'https://lh5.googleusercontent.com/proxy/jChSMNyV6I17koSa5j5pXcoplQqVZEroU2EQWnjuOqQPf4e7vU23s-JqVI3_O1Y-2LnnzvB2MJiHQwHfuN2cUxVCwVq9JfD8vwxaAeshghCct_H2qN2hrzNBWOqeRLj059B0IY2tBOPyX7atvTs_VSKO2oVrQTQ=w408-h279-k-no',
+      location: 'https://goo.gl/maps/pFjVEdmBHJDYPfBx5',
+      reviews: 3731,
+      city: 'Sharm El-Sheikh',
+      rating: 4.3,
+    ),
+    hotelModel(
+      id: 8,
+      pricePerNight: '106',
+      title: 'Mövenpick Resort Taba',
+      image:
+      'https://lh5.googleusercontent.com/p/AF1QipOX7qrB3ykEANRNsqwoehZTRz2oRc-Y6KkYIbWJ=w408-h272-k-no',
+      location: 'https://g.page/movenpick-taba?share',
+      reviews: 1477,
+      city: 'taba',
+      rating: 4.7,
+    ),
+    hotelModel(
+      id: 9,
+      pricePerNight: '21',
+      title: 'Basma hotel',
+      image: 'https://lh5.googleusercontent.com/p/AF1QipPPEPbtXP1AGtAHic2l4O7Nu7bLF8b8j7FlmiWb=w408-h272-k-no',
+      location: 'https://g.page/Basmahotel?share',
+      reviews: 1441,
+      city: 'aswan',
+      rating: 3.8,
+    ),
+  ];
   final ScrollController _scrollController = ScrollController();
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
+  String Rooms = '1';
+  String Adults = '1';
 
   @override
   void initState() {
@@ -43,6 +143,60 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    List<hotelModel> NewModel = Model;
+    if (dropdownvalue == 'cairo') {
+      NewModel = [];
+      for (var i = 0; i < Model.length; i++) {
+        if (Model[i].city == 'cairo') {
+          NewModel.add(Model[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'Hurghada') {
+      NewModel = [];
+      for (var i = 0; i < Model.length; i++) {
+        if (Model[i].city == 'Hurghada') {
+          NewModel.add(Model[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'dahab') {
+      NewModel = [];
+      for (var i = 0; i < Model.length; i++) {
+        if (Model[i].city == 'dahab') {
+          NewModel.add(Model[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'Sharm El-Sheikh') {
+      NewModel = [];
+      for (var i = 0; i < Model.length; i++) {
+        if (Model[i].city == 'Sharm El-Sheikh') {
+          NewModel.add(Model[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'aswan') {
+      NewModel = [];
+      for (var i = 0; i < Model.length; i++) {
+        if (Model[i].city == 'aswan') {
+          NewModel.add(Model[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'taba') {
+      NewModel = [];
+      for (var i = 0; i < Model.length; i++) {
+        if (Model[i].city == 'taba') {
+          NewModel.add(Model[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'All') {
+      NewModel = Model;
+    }
+
+
     return Theme(
       data: HotelAppTheme.buildLightTheme(),
       child: Container(
@@ -71,18 +225,11 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                                   (BuildContext context, int index) {
                                 return Column(
                                   children: <Widget>[
-                                    getSearchBarUI(),
+                                    getLocationBarUI(),
                                     getTimeDateUI(),
                                   ],
                                 );
                               }, childCount: 1),
-                            ),
-                            SliverPersistentHeader(
-                              pinned: true,
-                              floating: true,
-                              delegate: ContestTabHeader(
-                                getFilterBarUI(),
-                              ),
                             ),
                           ];
                         },
@@ -90,12 +237,12 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           color:
                               HotelAppTheme.buildLightTheme().backgroundColor,
                           child: ListView.builder(
-                            itemCount: hotelList.length,
+                            itemCount: NewModel.length,
                             padding: const EdgeInsets.only(top: 8),
                             scrollDirection: Axis.vertical,
                             itemBuilder: (BuildContext context, int index) {
                               final int count =
-                                  hotelList.length > 10 ? 10 : hotelList.length;
+                                  NewModel.length > 10 ? 10 : NewModel.length;
                               final Animation<double> animation =
                                   Tween<double>(begin: 0.0, end: 1.0).animate(
                                       CurvedAnimation(
@@ -106,7 +253,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                               animationController?.forward();
                               return HotelListView(
                                 callback: () {},
-                                hotelData: hotelList[index],
+                                hotelData: NewModel[index],
                                 animation: animation,
                                 animationController: animationController!,
                               );
@@ -147,11 +294,10 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   return const SizedBox();
                 } else {
                   return ListView.builder(
-                    itemCount: hotelList.length,
+                    itemCount: Model.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (BuildContext context, int index) {
-                      final int count =
-                          hotelList.length > 10 ? 10 : hotelList.length;
+                      final int count = Model.length > 10 ? 10 : Model.length;
                       final Animation<double> animation =
                           Tween<double>(begin: 0.0, end: 1.0).animate(
                               CurvedAnimation(
@@ -162,7 +308,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
 
                       return HotelListView(
                         callback: () {},
-                        hotelData: hotelList[index],
+                        hotelData: Model[index],
                         animation: animation,
                         animationController: animationController!,
                       );
@@ -179,8 +325,8 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
 
   Widget getHotelViewList() {
     final List<Widget> hotelListViews = <Widget>[];
-    for (int i = 0; i < hotelList.length; i++) {
-      final int count = hotelList.length;
+    for (int i = 0; i < Model.length; i++) {
+      final int count = Model.length;
       final Animation<double> animation =
           Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
@@ -191,7 +337,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
       hotelListViews.add(
         HotelListView(
           callback: () {},
-          hotelData: hotelList[i],
+          hotelData: Model[i],
           animation: animation,
           animationController: animationController!,
         ),
@@ -238,7 +384,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           Text(
                             'Choose date',
                             style: TextStyle(
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 16,
                                 color: Colors.grey.withOpacity(0.8)),
                           ),
@@ -248,7 +394,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           Text(
                             '${DateFormat("dd, MMM").format(startDate)} - ${DateFormat("dd, MMM").format(endDate)}',
                             style: TextStyle(
-                              fontWeight: FontWeight.w100,
+                              fontWeight: FontWeight.w300,
                               fontSize: 16,
                             ),
                           ),
@@ -283,7 +429,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                     ),
                     onTap: () {
                       FocusScope.of(context).requestFocus(FocusNode());
-                      showDemoDialog(context: context);
+                      showRoomsDialog(context: context);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(
@@ -295,7 +441,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           Text(
                             'Number of Rooms',
                             style: TextStyle(
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 16,
                                 color: Colors.grey.withOpacity(0.8)),
                           ),
@@ -303,9 +449,9 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                             height: 8,
                           ),
                           Text(
-                            '1 Room - 2 Adults',
+                            '$Rooms Room - $Adults Adults',
                             style: TextStyle(
-                              fontWeight: FontWeight.w100,
+                              fontWeight: FontWeight.w300,
                               fontSize: 16,
                             ),
                           ),
@@ -322,48 +468,24 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     );
   }
 
-  Widget getSearchBarUI() {
+  String dropdownvalue = 'All';
+  var items = [
+    'All',
+    'cairo',
+    'Hurghada',
+    'Sharm El-Sheikh',
+    'dahab',
+    'taba',
+    'aswan',
+  ];
+  Widget getLocationBarUI() {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
       child: Row(
         children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16, top: 2, bottom: 2),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().backgroundColor,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(38.0),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        offset: const Offset(0, 2),
-                        blurRadius: 8.0),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 0, bottom: 0),
-                  child: TextField(
-                    onChanged: (String txt) {},
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                    cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Cairo...',
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
           Container(
             decoration: BoxDecoration(
-              color: HotelAppTheme.buildLightTheme().primaryColor,
+              color: kPrimaryColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(38.0),
               ),
@@ -385,111 +507,27 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Icon(Icons.search,
-                      size: 20,
-                      color: HotelAppTheme.buildLightTheme().backgroundColor),
+                  child: Text(
+                    'Select location :',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
           ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, top: 0, bottom: 0),
+              child: DropDownButton(selectedValue: dropdownvalue, items: items,onChanged: (value){
+                    setState(() {
+                      dropdownvalue = value!;
+                    });
+              }),
+            ),
+          ),
         ],
       ),
-    );
-  }
-
-  Widget getFilterBarUI() {
-    return Stack(
-      children: <Widget>[
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 24,
-            decoration: BoxDecoration(
-              color: HotelAppTheme.buildLightTheme().backgroundColor,
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    offset: const Offset(0, -2),
-                    blurRadius: 8.0),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          color: HotelAppTheme.buildLightTheme().backgroundColor,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '120 hotels found',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.grey.withOpacity(0.2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4.0),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) => FiltersScreen(),
-                            fullscreenDialog: true),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.sort,
-                                color: HotelAppTheme.buildLightTheme()
-                                    .primaryColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Divider(
-            height: 1,
-          ),
-        )
-      ],
     );
   }
 
@@ -512,117 +550,19 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
       ),
     );
   }
-
-  Widget getAppBarUI() {
-    return Container(
-      decoration: BoxDecoration(
-        color: HotelAppTheme.buildLightTheme().backgroundColor,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              offset: const Offset(0, 2),
-              blurRadius: 8.0),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top, left: 8, right: 8),
-        child: Row(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerLeft,
-              width: AppBar().preferredSize.height + 40,
-              height: AppBar().preferredSize.height,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(32.0),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.arrow_back),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  'Explore',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 22,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: AppBar().preferredSize.height + 40,
-              height: AppBar().preferredSize.height,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(32.0),
-                      ),
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.favorite_border),
-                      ),
-                    ),
-                  ),
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(32.0),
-                      ),
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.map),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+  void showRoomsDialog({BuildContext? context}) {
+    showDialog<dynamic>(
+      context: context!,
+      builder: (BuildContext context) => RoomsPopupView(
+        barrierDismissible: true,
+        onApplyClick: (String Room,String Adult) {
+          setState(() {
+            Rooms = Room;
+            Adults = Adult;
+          });
+        },
+        onCancelClick: () {},
       ),
     );
-  }
-}
-
-class ContestTabHeader extends SliverPersistentHeaderDelegate {
-  ContestTabHeader(
-    this.searchUI,
-  );
-  final Widget searchUI;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return searchUI;
-  }
-
-  @override
-  double get maxExtent => 52.0;
-
-  @override
-  double get minExtent => 52.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }

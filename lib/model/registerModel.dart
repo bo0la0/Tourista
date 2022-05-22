@@ -5,7 +5,7 @@ class UserModel
   String? phone;
   String? uId;
   String? image;
-  String? balance;
+  int? balance;
   String? language;
 
 

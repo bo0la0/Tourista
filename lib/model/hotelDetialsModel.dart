@@ -1,30 +1,40 @@
 class hotelModel {
-  int? id;
-  String? title, price, image, address;
+  double? rating;
+  int? id,reviews;
+  String? title, pricePerNight, image, location,city;
 
   hotelModel({
     this.id,
-    this.price,
+    this.pricePerNight,
     this.title,
     this.image,
-    this.address,
+    this.location,
+    this.reviews,
+    this.city,
+    this.rating,
   });
 
   hotelModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    price = json['price'];
+    pricePerNight = json['price'];
     title = json['title'];
     image = json['image'];
-    address = json['address'];
+    location = json['location'];
+    reviews = json['reviews'];
+    city = json['city'];
+    rating = json['rating'];
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'price': price,
+      'price': pricePerNight,
       'title': title,
       'image': image,
-      'address': address,
+      'location': location,
+      'reviews': reviews,
+      'rating': rating,
     };
   }
+
 }
