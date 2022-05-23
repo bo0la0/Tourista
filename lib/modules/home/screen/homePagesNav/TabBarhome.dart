@@ -6,7 +6,9 @@ import 'package:tourista/modules/home/screen/hotels/home.dart';
 import 'package:tourista/modules/home/screen/services/BODYservices.dart';
 import 'package:tourista/modules/home/screen/tripsPages/BODY.dart';
 import 'package:tourista/modules/home/screen/Widgets/drwarPage.dart';
+import 'package:tourista/modules/home/screen/tripsnew/trips_home_screen.dart';
 import 'package:tourista/shared/components/constants.dart';
+import '../tripsnew/trips_home_screen.dart';
 import 'homeVisitScreens/homeVisit.dart';
 class home extends StatefulWidget {
   @override
@@ -17,7 +19,7 @@ class _homeState extends State<home> {
 
   static List<Widget> _listOfIconsForTabBar = <Widget>[
     homevisit(),
-    BODY(),
+    tripsHomeScreen(),
     HotelHomeScreen(),
     BodyServices(),
   ];
@@ -35,7 +37,9 @@ class _homeState extends State<home> {
         length: 4,
         child: Scaffold(
           drawer: Drwer(),
-          appBar: AppBar(
+          appBar:PreferredSize(
+          preferredSize: Size.fromHeight(130.0),
+          child: AppBar(
             toolbarHeight: height * 0.1,
             backgroundColor: kPrimaryColor,
             title: Text("Tourista",style: TextStyle(fontSize: 20),),
@@ -101,16 +105,29 @@ class _homeState extends State<home> {
                       ),*/
                       SizedBox(height:10,),
                       Container(
-                        color: Colors.white,
-                        height: 60,
+                        //color: Colors.white,
+
+                        height: 50,
                         width: double.infinity,
+                        /*decoration: BoxDecoration(
+                          height: 60,
+                          width: double.infinity,
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30),
+                          ),
+                        ),*/
                         child: TabBar(
+
                             onTap: _onItemTappedForTabBar,
-                            unselectedLabelColor: Colors.black,
-                            labelColor: Colors.white,
+                            unselectedLabelColor: Colors.white54,
+                            labelColor: Colors.black87,
                             indicator: BoxDecoration(
-                             borderRadius: BorderRadius.circular(2),
-                             color: kPrimaryColor,),
+                              color: Colors.white,
+                             borderRadius: BorderRadius.circular(40),
+                            // color: kPrimaryColor,
+                                ),
                          tabs: [
                           Center(child: Text("places to visit",)),
                           Center(child: Text("Trips",)),
@@ -124,7 +141,7 @@ class _homeState extends State<home> {
                    ),
               ]),
                 preferredSize: const Size.fromHeight(70)
-            ),),
+            ),),),
           body: _listOfIconsForTabBar.elementAt(_selectedIndexForTabBar ),
 
         ));

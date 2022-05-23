@@ -16,7 +16,7 @@ class homeNav extends StatelessWidget {
         return Scaffold(
           body: Cubit.screens[Cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
+            type: BottomNavigationBarType.shifting,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 label: "Home",
