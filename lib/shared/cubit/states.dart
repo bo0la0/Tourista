@@ -35,6 +35,16 @@ class AppGetdataErrorState extends AppStates
 }
 
 
+class AppGetTripsLoadingState extends AppStates {}
+
+class AppGetTripsSuccessState extends AppStates {}
+
+class AppGetTripsErrorState extends AppStates
+{
+  final String error;
+
+  AppGetTripsErrorState(this.error);
+}
 class ChangeIconState extends AppStates {}
 class ChangeIconState2 extends AppStates {}
 

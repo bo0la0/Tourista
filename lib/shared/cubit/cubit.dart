@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tourista/model/ProductsModel.dart';
 import 'package:tourista/model/ServiceProvidrModel.dart';
+import 'package:tourista/model/Trips.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
@@ -183,8 +184,43 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppGetdataErrorState(error.toString()));
     });
   }
+  List<Trips> trips=[];
+  void getTrips(/*{required String collectionName,required List<ServiceProviderModel> List}*/) {
+    emit(AppGetTripsLoadingState());
+    FirebaseFirestore.instance.collection('Trips').get().then((value) {
+      value.docs.forEach((element) {
+        trips.add(Trips.fromJson(element.data()));
+      });
+      emit(AppGetTripsSuccessState());
+    }).catchError((error) {
+      //print(error.toString());
+      emit(AppGetTripsErrorState(error.toString()));
+    });
+  }
+/*
+  List<ServiceProviderModel>  = [];
+  List<ServiceProviderModel> nightservices = [];
+  List<ServiceProviderModel> dailyservices = [];
+  List<ServiceProviderModel> resturantservices = [];
+  void getData(){
+    getDatatoList(collectionName: 'Bazzars',List: bazar);
+    getDatatoList(collectionName: 'NightServices',List: nightservices);
+    getDatatoList(collectionName: 'restaurants',List: resturantservices);
+    getDatatoList(collectionName: 'DailyServices',List: dailyservices);
 
-
+  }
+  void getDatatoList({required String collectionName,required List<ServiceProviderModel> List}) {
+    emit(AppGetdataLoadingState());
+    FirebaseFirestore.instance.collection(collectionName).get().then((value) {
+      value.docs.forEach((element) {
+        List.add(ServiceProviderModel.fromJson(element.data()));
+      });
+      emit(AppGetdataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AppGetdataErrorState(error.toString()));
+    });
+  }*/
 
   }
 
