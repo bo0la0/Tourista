@@ -100,7 +100,7 @@ class _GizaPlaceState extends State<GizaPlace> {
                                                 height: 140.0,
                                                 width: 120.0,
                                                 fit: BoxFit.fitHeight,),),
-                                            Container(
+                                            /*Container(
                                               height: 25,
                                               width: 120,
                                               alignment: AlignmentDirectional.topEnd,
@@ -108,8 +108,8 @@ class _GizaPlaceState extends State<GizaPlace> {
                                                   backgroundColor: Colors.white,
                                                   child:  IsFavourite? Icon(Icons.favorite, color: Colors.red,
                                                     size: 20,):Icon(Icons.favorite_border, color: Colors.yellow,
-                                                ),),),])),),
-                                RatingBar.builder(
+                                                ),),),*/])),),
+                                /*RatingBar.builder(
                                   initialRating: 5,
                                   itemSize: 15,
                                   minRating: 1,
@@ -119,7 +119,7 @@ class _GizaPlaceState extends State<GizaPlace> {
                                   itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber,),
                                   onRatingUpdate: (rating) {
                                     print(rating);
-                                  },),
+                                  },),*/
                                 SizedBox(width: 60,height: 20,),
                                 Text(MyData[index].title,
                                     style: TextStyle(fontSize: 15.0,)),
