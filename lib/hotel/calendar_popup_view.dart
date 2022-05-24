@@ -1,42 +1,51 @@
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:tourista/hotel_booking/hotel_app_theme.dart';
-import 'package:tourista/shared/components/components.dart';
+import 'package:intl/intl.dart';
+import 'package:tourista/hotel/hotel_app_theme.dart';
 
-class RoomsPopupView extends StatefulWidget {
-  const RoomsPopupView(
+import 'custom_calendar.dart';
+
+class CalendarPopupView extends StatefulWidget {
+  const CalendarPopupView(
       {Key? key,
-
+      this.initialStartDate,
+      this.initialEndDate,
       this.onApplyClick,
       this.onCancelClick,
       this.barrierDismissible = true,
-      })
+      this.minimumDate,
+      this.maximumDate})
       : super(key: key);
+
+  final DateTime? minimumDate;
+  final DateTime? maximumDate;
   final bool barrierDismissible;
-  final Function(String, String)? onApplyClick;
+  final DateTime? initialStartDate;
+  final DateTime? initialEndDate;
+  final Function(DateTime, DateTime)? onApplyClick;
+
   final Function()? onCancelClick;
   @override
-  _RoomsPopupViewState createState() => _RoomsPopupViewState();
+  _CalendarPopupViewState createState() => _CalendarPopupViewState();
 }
-class _RoomsPopupViewState extends State<RoomsPopupView>
+
+class _CalendarPopupViewState extends State<CalendarPopupView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  String Rooms = '1' ;
-  String Adults = '1';
-  var items = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-  ];
+  DateTime? startDate;
+  DateTime? endDate;
+
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 400), vsync: this);
+    if (widget.initialStartDate != null) {
+      startDate = widget.initialStartDate;
+    }
+    if (widget.initialEndDate != null) {
+      endDate = widget.initialEndDate;
+    }
     animationController?.forward();
     super.initState();
   }
@@ -49,7 +58,6 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -71,7 +79,7 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                 },
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(60.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: HotelAppTheme.buildLightTheme().backgroundColor,
@@ -102,10 +110,10 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        'Adults',
+                                        'From',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w100,
                                             fontSize: 16,
                                             color:
                                                 Colors.grey.withOpacity(0.8)),
@@ -113,21 +121,15 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                                       const SizedBox(
                                         height: 4,
                                       ),
-                                      DropDownButton(items: items,
-                                        onChanged: (value){
-                                          setState(() {
-                                            Adults = value!;
-                                          });
-
-                                        },
-                                        selectedValue: Adults,
-                                        buttonHeight: 30,
-                                        buttonWidth: 100,
-                                        dropDownHeight: 200,
-                                        dropDownWidth: 100,
-                                        buttonColor: Colors.lightBlueAccent,
-                                        dropDownColor: Colors.lightBlueAccent,
-
+                                      Text(
+                                        startDate != null
+                                            ? DateFormat('EEE, dd MMM')
+                                                .format(startDate!)
+                                            : '--/-- ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -140,13 +142,14 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                                 ),
                                 Expanded(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        'Rooms',
+                                        'To',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w100,
                                             fontSize: 16,
                                             color:
                                                 Colors.grey.withOpacity(0.8)),
@@ -154,21 +157,15 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                                       const SizedBox(
                                         height: 4,
                                       ),
-                                      DropDownButton(items: items,
-                                        onChanged: (value){
-                                        setState(() {
-                                          Rooms = value!;
-                                        });
-
-                                      },
-                                        selectedValue: Rooms,
-                                        buttonHeight: 30,
-                                        buttonWidth: 100,
-                                        dropDownHeight: 200,
-                                        dropDownWidth: 100,
-                                        buttonColor: Colors.lightBlueAccent,
-                                        dropDownColor: Colors.lightBlueAccent,
-                                      )
+                                      Text(
+                                        endDate != null
+                                            ? DateFormat('EEE, dd MMM')
+                                                .format(endDate!)
+                                            : '--/-- ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
                                     ],
                                   ),
                                 )
@@ -176,6 +173,19 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                             ),
                             const Divider(
                               height: 1,
+                            ),
+                            CustomCalendarView(
+                              minimumDate: widget.minimumDate,
+                              maximumDate: widget.maximumDate,
+                              initialEndDate: widget.initialEndDate,
+                              initialStartDate: widget.initialStartDate,
+                              startEndDateChange: (DateTime startDateData,
+                                  DateTime endDateData) {
+                                setState(() {
+                                  startDate = startDateData;
+                                  endDate = endDateData;
+                                });
+                              },
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -206,7 +216,7 @@ class _RoomsPopupViewState extends State<RoomsPopupView>
                                         // animationController.reverse().then((f) {
 
                                         // });
-                                        widget.onApplyClick!(Rooms, Adults);
+                                        widget.onApplyClick!(startDate!, endDate!);
                                         Navigator.pop(context);
                                       } catch (_) {}
                                     },

@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tourista/hotel_booking/hotel_home_screen.dart';
+import 'package:tourista/hotel/hotel_home_screen.dart';
 import 'package:tourista/modules/home/screen/chatUser/chat_screen.dart';
-import 'package:tourista/modules/home/screen/hotels/home.dart';
 import 'package:tourista/modules/home/screen/services/BODYservices.dart';
-import 'package:tourista/modules/home/screen/tripsPages/BODY.dart';
 import 'package:tourista/modules/home/screen/Widgets/drwarPage.dart';
+import 'package:tourista/modules/home/screen/tripsPages/trip_home_screen.dart';
 
-//import 'package:tourista/modules/home/screen/tripsnew/trips_home_screen.dart';
 import 'package:tourista/shared/components/constants.dart';
-//import '../tripsnew/trips_home_screen.dart';
 import 'homeVisitScreens/homeVisit.dart';
 class home extends StatefulWidget {
   @override
@@ -20,7 +17,7 @@ class _homeState extends State<home> {
 
   static List<Widget> _listOfIconsForTabBar = <Widget>[
     homevisit(),
-    BODY(),
+    TripHomeScreen(),
     HotelHomeScreen(),
     BodyServices(),
   ];

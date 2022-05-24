@@ -5,7 +5,7 @@ class UserModel
   String? phone;
   String? uId;
   String? image;
-  int? balance;
+  int balance = 0;
   String? language;
 
 
@@ -15,7 +15,7 @@ class UserModel
     this.name,
     this.uId,
     this.image,
-    this.balance,
+    required this.balance,
     this.language,
 });
 

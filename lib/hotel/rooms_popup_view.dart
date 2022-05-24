@@ -1,51 +1,42 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:tourista/hotel_booking/hotel_app_theme.dart';
+import 'package:tourista/hotel/hotel_app_theme.dart';
+import 'package:tourista/shared/components/components.dart';
 
-import 'custom_calendar.dart';
-
-class CalendarPopupView extends StatefulWidget {
-  const CalendarPopupView(
+class RoomsPopupView extends StatefulWidget {
+  const RoomsPopupView(
       {Key? key,
-      this.initialStartDate,
-      this.initialEndDate,
+
       this.onApplyClick,
       this.onCancelClick,
       this.barrierDismissible = true,
-      this.minimumDate,
-      this.maximumDate})
+      })
       : super(key: key);
-
-  final DateTime? minimumDate;
-  final DateTime? maximumDate;
   final bool barrierDismissible;
-  final DateTime? initialStartDate;
-  final DateTime? initialEndDate;
-  final Function(DateTime, DateTime)? onApplyClick;
-
+  final Function(String, String)? onApplyClick;
   final Function()? onCancelClick;
   @override
-  _CalendarPopupViewState createState() => _CalendarPopupViewState();
+  _RoomsPopupViewState createState() => _RoomsPopupViewState();
 }
-
-class _CalendarPopupViewState extends State<CalendarPopupView>
+class _RoomsPopupViewState extends State<RoomsPopupView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  DateTime? startDate;
-  DateTime? endDate;
-
+  String Rooms = '1' ;
+  String Adults = '1';
+  var items = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+  ];
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 400), vsync: this);
-    if (widget.initialStartDate != null) {
-      startDate = widget.initialStartDate;
-    }
-    if (widget.initialEndDate != null) {
-      endDate = widget.initialEndDate;
-    }
     animationController?.forward();
     super.initState();
   }
@@ -58,6 +49,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
 
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -79,7 +71,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                 },
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(60.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: HotelAppTheme.buildLightTheme().backgroundColor,
@@ -110,10 +102,10 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        'From',
+                                        'Adults',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w100,
+                                            fontWeight: FontWeight.w400,
                                             fontSize: 16,
                                             color:
                                                 Colors.grey.withOpacity(0.8)),
@@ -121,15 +113,21 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                       const SizedBox(
                                         height: 4,
                                       ),
-                                      Text(
-                                        startDate != null
-                                            ? DateFormat('EEE, dd MMM')
-                                                .format(startDate!)
-                                            : '--/-- ',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
+                                      DropDownButton(items: items,
+                                        onChanged: (value){
+                                          setState(() {
+                                            Adults = value!;
+                                          });
+
+                                        },
+                                        selectedValue: Adults,
+                                        buttonHeight: 30,
+                                        buttonWidth: 100,
+                                        dropDownHeight: 200,
+                                        dropDownWidth: 100,
+                                        buttonColor: Colors.lightBlueAccent,
+                                        dropDownColor: Colors.lightBlueAccent,
+
                                       ),
                                     ],
                                   ),
@@ -142,14 +140,13 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                 ),
                                 Expanded(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        'To',
+                                        'Rooms',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w100,
+                                            fontWeight: FontWeight.w400,
                                             fontSize: 16,
                                             color:
                                                 Colors.grey.withOpacity(0.8)),
@@ -157,15 +154,21 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                       const SizedBox(
                                         height: 4,
                                       ),
-                                      Text(
-                                        endDate != null
-                                            ? DateFormat('EEE, dd MMM')
-                                                .format(endDate!)
-                                            : '--/-- ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
+                                      DropDownButton(items: items,
+                                        onChanged: (value){
+                                        setState(() {
+                                          Rooms = value!;
+                                        });
+
+                                      },
+                                        selectedValue: Rooms,
+                                        buttonHeight: 30,
+                                        buttonWidth: 100,
+                                        dropDownHeight: 200,
+                                        dropDownWidth: 100,
+                                        buttonColor: Colors.lightBlueAccent,
+                                        dropDownColor: Colors.lightBlueAccent,
+                                      )
                                     ],
                                   ),
                                 )
@@ -173,19 +176,6 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                             ),
                             const Divider(
                               height: 1,
-                            ),
-                            CustomCalendarView(
-                              minimumDate: widget.minimumDate,
-                              maximumDate: widget.maximumDate,
-                              initialEndDate: widget.initialEndDate,
-                              initialStartDate: widget.initialStartDate,
-                              startEndDateChange: (DateTime startDateData,
-                                  DateTime endDateData) {
-                                setState(() {
-                                  startDate = startDateData;
-                                  endDate = endDateData;
-                                });
-                              },
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -216,7 +206,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                         // animationController.reverse().then((f) {
 
                                         // });
-                                        widget.onApplyClick!(startDate!, endDate!);
+                                        widget.onApplyClick!(Rooms, Adults);
                                         Navigator.pop(context);
                                       } catch (_) {}
                                     },

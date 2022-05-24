@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tourista/hotel_booking/calendar_popup_view.dart';
-import 'package:tourista/hotel_booking/hotel_list_view.dart';
-import 'package:tourista/hotel_booking/rooms_popup_view.dart';
+import 'package:tourista/hotel/calendar_popup_view.dart';
+import 'package:tourista/hotel/hotel_list_view.dart';
+import 'package:tourista/hotel/rooms_popup_view.dart';
 import 'package:tourista/model/hotelDetialsModel.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
