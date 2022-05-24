@@ -116,7 +116,7 @@ class AppCubit extends Cubit<AppStates> {
       email: email ?? model?.email,
       phone: phone ?? model?.phone,
       image: image ?? model?.image,
-      balance: balance ?? model?.balance,
+      balance: balance ?? model!.balance,
       uId: model?.uId,
       language: language ?? model?.language,
     );
@@ -187,8 +187,67 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppGetdataErrorState(error.toString()));
     });
   }
+  List<Trips> trips=[];
+  void getTrips(/*{required String collectionName,required List<ServiceProviderModel> List}*/) {
+    emit(AppGetTripsLoadingState());
+    FirebaseFirestore.instance.collection('Trips').get().then((value) {
+      value.docs.forEach((element) {
+        trips.add(Trips.fromJson(element.data()));
+      });
+      emit(AppGetTripsSuccessState());
+    }).catchError((error) {
+      //print(error.toString());
+      emit(AppGetTripsErrorState(error.toString()));
+    });
+  }
 
+  void bookTrip(
+      {required int price,
+        required int balance,
+        required String details,
+        required DateTime time,
+        String? tripId,}) {
+    emit(BookingTripLoadingState());
 
+    TransactionModel TransModel = TransactionModel(
+      transactionId: '',
+      TouristUid: uId,
+      Time: time,
+      details: details,
+      balance: balance,
+      price: price,
+    );
+    if (balance >= price) {
+      balance -= price;
+      FirebaseFirestore.instance
+          .collection('transactions')
+          .add(TransModel.toMap())
+          .then((value) {
+        TransModel = TransactionModel(
+          transactionId: value.id,
+          TouristUid: uId,
+          Time: time,
+          details: details,
+          balance: balance,
+          price: price,
+          trip: tripId ?? 'done',
+
+        );
+        FirebaseFirestore.instance
+            .collection('transactions')
+            .doc(value.id)
+            .set(TransModel.toMap())
+            .then((value) {
+          updateUser(balance: balance);
+          emit(BookingTripSuccessState());
+        });
+      }).catchError((error) {
+        emit(BookingTripErrorState());
+      });
+    } else {
+      ShowToast(text: 'please recharge your balance');
+    }
+  }
 
   }
 

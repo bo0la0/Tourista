@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:tourista/hotel_booking/details.dart';
-import 'package:tourista/hotel_booking/hotel_app_theme.dart';
-import 'package:tourista/model/hotelDetialsModel.dart';
+import 'package:tourista/model/Trips.dart';
+import 'package:tourista/modules/home/screen/tripsPages/details.dart';
+import 'package:tourista/modules/home/screen/tripsPages/trip_app_theme.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HotelListView extends StatelessWidget {
-  const HotelListView(
+class TripsListView extends StatelessWidget {
+  const TripsListView(
       {Key? key,
-      required this.hotelData,
+      required this.tripData,
       this.animationController,
       this.animation,
       this.callback})
       : super(key: key);
 
   final VoidCallback? callback;
-  final hotelModel hotelData;
+  final Trips tripData;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -36,7 +36,7 @@ class HotelListView extends StatelessWidget {
               child: InkWell(
                 splashColor: Colors.transparent,
                 onTap: (){
-                  navigateTo(context, HotelDetailsPage(model: hotelData,));
+                  navigateTo(context, tripsPages(model: tripData,));
 
                 },
                 child: Container(
@@ -59,7 +59,7 @@ class HotelListView extends StatelessWidget {
                             AspectRatio(
                               aspectRatio: 2,
                               child: Image.network(
-                                "${hotelData.image}",
+                                "${tripData.tripImg}",
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -82,7 +82,7 @@ class HotelListView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              hotelData.title.toString(),
+                                              tripData.tripPlace.toString(),
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -100,7 +100,7 @@ class HotelListView extends StatelessWidget {
                                                       style: TextStyle(
                                                           fontSize: 16.0,
                                                           color: Colors.grey.withOpacity(0.9))),
-                                                  onTap: () => launch('${hotelData.location}'),
+                                                  onTap: () => launch('${tripData.tripLocation}'),
                                                 ),
 
                                                 const SizedBox(
@@ -114,7 +114,7 @@ class HotelListView extends StatelessWidget {
                                                 ),
                                                 // Expanded(
                                                 //   child: Text(
-                                                //     '${hotelData!.dist.toStringAsFixed(1)} km to city',
+                                                //     '${tripData!.dist.toStringAsFixed(1)} km to city',
                                                 //     overflow:
                                                 //         TextOverflow.ellipsis,
                                                 //     style: TextStyle(
@@ -130,42 +130,8 @@ class HotelListView extends StatelessWidget {
                                                   const EdgeInsets.only(top: 4),
                                               child: Row(
                                                 children: <Widget>[
-                                                  RatingBar(
-                                                    initialRating:
-                                                        hotelData.rating?? 4.5,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    itemSize: 24,
-                                                    ratingWidget: RatingWidget(
-                                                      full: Icon(
-                                                        Icons.star_rate_rounded,
-                                                        color: HotelAppTheme
-                                                                .buildLightTheme()
-                                                            .primaryColor,
-                                                      ),
-                                                      half: Icon(
-                                                        Icons.star_half_rounded,
-                                                        color: HotelAppTheme
-                                                                .buildLightTheme()
-                                                            .primaryColor,
-                                                      ),
-                                                      empty: Icon(
-                                                        Icons
-                                                            .star_border_rounded,
-                                                        color: HotelAppTheme
-                                                                .buildLightTheme()
-                                                            .primaryColor,
-                                                      ),
-                                                    ),
-                                                    itemPadding:
-                                                        EdgeInsets.zero,
-                                                    onRatingUpdate: (rating) {
-                                                      print(rating);
-                                                    },
-                                                  ),
                                                   Text(
-                                                    ' ${hotelData.reviews} Reviews',
+                                                    ' ${tripData.availableSeats} Reviews',
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         color: Colors.grey
@@ -189,7 +155,7 @@ class HotelListView extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '\$${hotelData.pricePerNight}',
+                                          '\$${tripData.price}',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,

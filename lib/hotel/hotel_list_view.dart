@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:tourista/hotel_booking/details.dart';
-import 'package:tourista/hotel_booking/hotel_app_theme.dart';
+import 'package:tourista/hotel/details.dart';
+import 'package:tourista/hotel/hotel_app_theme.dart';
 import 'package:tourista/model/hotelDetialsModel.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:url_launcher/url_launcher.dart';
