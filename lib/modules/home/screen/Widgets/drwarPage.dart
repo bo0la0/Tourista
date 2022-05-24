@@ -53,7 +53,9 @@ class Drwer extends  StatelessWidget {
                       child: ListTile(
                           leading: Icon(Icons.assignment_turned_in_outlined,size: 30,color: Color(-1088543194),),
                           title: Text("my Activity", style: s1,),
-                          onTap:(){ }
+                          onTap:(){
+                            AppCubit.get(context).bookTrip(price: 100, balance: AppCubit.get(context).model!.balance, details: 'Tripfksadj', time: DateTime.now());
+                          }
                       ),
                     ),
                     Divider(height: 10,

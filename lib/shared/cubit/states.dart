@@ -37,4 +37,7 @@ class AppGetdataErrorState extends AppStates
 
 class ChangeIconState extends AppStates {}
 class ChangeIconState2 extends AppStates {}
+class BookingTripLoadingState extends AppStates {}
+class BookingTripSuccessState extends AppStates {}
+class BookingTripErrorState extends AppStates {}
 
