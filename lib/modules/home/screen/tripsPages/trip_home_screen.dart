@@ -15,20 +15,7 @@ class TripHomeScreen extends StatefulWidget {
 class _TripHomeScreenState extends State<TripHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<Trips> Model = [
-    Trips(
-      TourGuidId : 'dfsa',
-      driverId : 'driverId',
-      tripId : 'afsd',
-      description : 'djkjk',
-      uId: 'fdksjf',
-      tripPlace : 'adfslkj',
-      tripLocation: 'cairo',
-      price: 100,
-      availableSeats: 10,
-      tripImg: 'dlkasfj',
-    ),
-  ];
+
   final ScrollController _scrollController = ScrollController();
 
   DateTime startDate = DateTime.now();
@@ -184,82 +171,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     );
   }
 
-  Widget getListUI() {
-    return Container(
-      decoration: BoxDecoration(
-        color: HotelAppTheme.buildLightTheme().backgroundColor,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              offset: const Offset(0, -2),
-              blurRadius: 8.0),
-        ],
-      ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height - 156 - 50,
-            child: FutureBuilder<bool>(
-              future: getData(),
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                if (!snapshot.hasData) {
-                  return const SizedBox();
-                } else {
-                  return ListView.builder(
-                    itemCount: Model.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (BuildContext context, int index) {
-                      final int count = Model.length > 10 ? 10 : Model.length;
-                      final Animation<double> animation =
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                              CurvedAnimation(
-                                  parent: animationController!,
-                                  curve: Interval((1 / count) * index, 1.0,
-                                      curve: Curves.fastOutSlowIn)));
-                      animationController?.forward();
 
-                      return TripsListView(
-                        callback: () {},
-                        tripData: Model[index],
-                        animation: animation,
-                        animationController: animationController!,
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget getHotelViewList() {
-    final List<Widget> hotelListViews = <Widget>[];
-    for (int i = 0; i < Model.length; i++) {
-      final int count = Model.length;
-      final Animation<double> animation =
-          Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: animationController!,
-          curve: Interval((1 / count) * i, 1.0, curve: Curves.fastOutSlowIn),
-        ),
-      );
-      hotelListViews.add(
-        TripsListView(
-          callback: () {},
-          tripData: Model[i],
-          animation: animation,
-          animationController: animationController!,
-        ),
-      );
-    }
-    animationController?.forward();
-    return Column(
-      children: hotelListViews,
-    );
-  }
 
   String dropdownvalue = 'All';
   var items = [
