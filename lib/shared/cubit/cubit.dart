@@ -131,12 +131,8 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  //for balance
-  int? x = 0;
-
   void addBalance() {
-    x = (x! + 1000);
-    updateUser(balance: x);
+    updateUser(balance: model!.balance + 1000);
     // model?.balance = '$x';
     // emit(AddBalanceState());
   }
@@ -188,7 +184,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
   List<Trips> trips=[];
-  void getTrips(/*{required String collectionName,required List<ServiceProviderModel> List}*/) {
+  void getTrips() {
     emit(AppGetTripsLoadingState());
     FirebaseFirestore.instance.collection('Trips').get().then((value) {
       value.docs.forEach((element) {
