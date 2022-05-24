@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tourista/model/ProductsModel.dart';
 import 'package:tourista/model/ServiceProvidrModel.dart';
 import 'package:tourista/model/TransactionModel.dart';
+import 'package:tourista/model/Trips.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
@@ -115,7 +116,7 @@ class AppCubit extends Cubit<AppStates> {
       email: email ?? model?.email,
       phone: phone ?? model?.phone,
       image: image ?? model?.image,
-      balance: balance ?? model!.balance,
+      balance: balance ?? model?.balance,
       uId: model?.uId,
       language: language ?? model?.language,
     );
@@ -135,7 +136,7 @@ class AppCubit extends Cubit<AppStates> {
 
   void addBalance() {
     x = (x! + 1000);
-    updateUser(balance: model!.balance + 1000);
+    updateUser(balance: x);
     // model?.balance = '$x';
     // emit(AddBalanceState());
   }
@@ -144,16 +145,14 @@ class AppCubit extends Cubit<AppStates> {
   List<ServiceProviderModel> nightservices = [];
   List<ServiceProviderModel> dailyservices = [];
   List<ServiceProviderModel> resturantservices = [];
-  void getData() {
-    getDatatoList(collectionName: 'Bazzars', List: bazar);
-    getDatatoList(collectionName: 'NightServices', List: nightservices);
-    getDatatoList(collectionName: 'restaurants', List: resturantservices);
-    getDatatoList(collectionName: 'DailyServices', List: dailyservices);
-  }
+  void getData(){
+    getDatatoList(collectionName: 'Bazzars',List: bazar);
+    getDatatoList(collectionName: 'NightServices',List: nightservices);
+    getDatatoList(collectionName: 'restaurants',List: resturantservices);
+    getDatatoList(collectionName: 'DailyServices',List: dailyservices);
 
-  void getDatatoList(
-      {required String collectionName,
-      required List<ServiceProviderModel> List}) {
+  }
+  void getDatatoList({required String collectionName,required List<ServiceProviderModel> List}) {
     emit(AppGetdataLoadingState());
     FirebaseFirestore.instance.collection(collectionName).get().then((value) {
       value.docs.forEach((element) {
@@ -166,10 +165,8 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  void changeIcon(
-      {required int index,
-      required List<IconData> faouriteIcons,
-      required List<bool> isPressed}) {
+
+  void changeIcon({required int index,required List<IconData>faouriteIcons,required List<bool> isPressed}) {
     isPressed[index] = !isPressed[index];
     faouriteIcons[index] =
         isPressed[index] ? Icons.favorite : Icons.favorite_outline;
@@ -178,7 +175,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<ProductsModel> productModel = [];
 
-  void getProducts() {
+  void getProducts(){
     emit(AppGetdataLoadingState());
     FirebaseFirestore.instance.collection('products').get().then((value) {
       value.docs.forEach((element) {
@@ -191,51 +188,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  void bookTrip(
-      {required int price,
-      required int balance,
-      required String details,
-      required DateTime time,
-      String? tripId,}) {
-    emit(BookingTripLoadingState());
 
-    TransactionModel TransModel = TransactionModel(
-        transactionId: '',
-        TouristUid: uId,
-        Time: time,
-        details: details,
-        balance: balance,
-        price: price,
-    );
-    if (balance >= price) {
-      balance -= price;
-      FirebaseFirestore.instance
-          .collection('transactions')
-          .add(TransModel.toMap())
-          .then((value) {
-        TransModel = TransactionModel(
-            transactionId: value.id,
-            TouristUid: uId,
-            Time: time,
-            details: details,
-            balance: balance,
-            price: price,
-            trip: tripId ?? 'done',
 
-        );
-        FirebaseFirestore.instance
-            .collection('transactions')
-            .doc(value.id)
-            .set(TransModel.toMap())
-            .then((value) {
-          updateUser(balance: balance);
-          emit(BookingTripSuccessState());
-        });
-      }).catchError((error) {
-        emit(BookingTripErrorState());
-      });
-    } else {
-      ShowToast(text: 'please recharge your balance');
-    }
   }
-}
+
