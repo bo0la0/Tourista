@@ -129,7 +129,9 @@ class DailyServices extends StatelessWidget {
                                       if(cubit.dailyservices != null){
                                         navigateTo(context, products_Screen(
                                             cubit.dailyservices[index].id.toString(),
-                                            cubit.dailyservices[index].title.toString()),
+                                            cubit.dailyservices[index].title.toString(),
+                                            'DailyServices',
+                                        ),
                                         );}else{
                                         ShowToast(text: 'Bad Network');
                                         // cubit.getProducts();

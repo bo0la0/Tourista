@@ -127,7 +127,9 @@ class RestuServices extends StatelessWidget {
                                       if(cubit.resturantservices != null){
                                         navigateTo(context, products_Screen(
                                             cubit.resturantservices[index].id.toString(),
-                                            cubit.resturantservices[index].title.toString()),
+                                            cubit.resturantservices[index].title.toString(),
+                                            'restaurants',
+                                        ),
                                         );}else{
                                         ShowToast(text: 'Bad Network');
                                       }
