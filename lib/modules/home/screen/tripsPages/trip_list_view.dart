@@ -82,11 +82,11 @@ class TripsListView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              tripData.tripPlace.toString(),
+                                              tripData.shortdesc.toString(),
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 22,
+                                                fontSize: 16,
                                               ),
                                             ),
                                             Row(
@@ -112,17 +112,6 @@ class TripsListView extends StatelessWidget {
                                                   color: HotelAppTheme.buildLightTheme()
                                                       .primaryColor,
                                                 ),
-                                                // Expanded(
-                                                //   child: Text(
-                                                //     '${tripData!.dist.toStringAsFixed(1)} km to city',
-                                                //     overflow:
-                                                //         TextOverflow.ellipsis,
-                                                //     style: TextStyle(
-                                                //         fontSize: 14,
-                                                //         color: Colors.grey
-                                                //             .withOpacity(0.8)),
-                                                //   ),
-                                                // ),
                                               ],
                                             ),
                                             Padding(
@@ -131,7 +120,7 @@ class TripsListView extends StatelessWidget {
                                               child: Row(
                                                 children: <Widget>[
                                                   Text(
-                                                    ' ${tripData.availableSeats} Reviews',
+                                                    ' ${tripData.availableSeats} availableSeats',
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         color: Colors.grey
@@ -163,7 +152,7 @@ class TripsListView extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '/per night',
+                                          '/per seat',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:

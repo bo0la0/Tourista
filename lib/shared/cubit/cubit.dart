@@ -192,7 +192,7 @@ class AppCubit extends Cubit<AppStates> {
       });
       emit(AppGetTripsSuccessState());
     }).catchError((error) {
-      //print(error.toString());
+      print(error.toString());
       emit(AppGetTripsErrorState(error.toString()));
     });
   }

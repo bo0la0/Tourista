@@ -126,7 +126,9 @@ class BazzarServices extends StatelessWidget {
                                       if(cubit.bazar != null){
                                       navigateTo(context, products_Screen(
                                             cubit.bazar[index].id.toString(),
-                                            cubit.bazar[index].title.toString()),
+                                            cubit.bazar[index].title.toString(),
+                                            'bazaars',
+                                      ),
                                       );}else{
                                         ShowToast(text: 'Bad Network');
                                        // cubit.getProducts();

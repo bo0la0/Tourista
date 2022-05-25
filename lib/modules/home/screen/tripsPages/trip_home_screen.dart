@@ -47,15 +47,15 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     if (dropdownvalue == 'cairo') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripLocation == 'cairo') {
+        if (AppCubit.get(context).trips[i].tripCity == 'cairo') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
     }
-    else if (dropdownvalue == 'Hurghada') {
+    else if (dropdownvalue == 'giza') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripLocation == 'Hurghada') {
+        if (AppCubit.get(context).trips[i].tripCity == 'giza') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -63,7 +63,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     else if (dropdownvalue == 'dahab') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripLocation == 'dahab') {
+        if (AppCubit.get(context).trips[i].tripCity == 'dahab') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -71,7 +71,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     else if (dropdownvalue == 'Sharm El-Sheikh') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripLocation == 'Sharm El-Sheikh') {
+        if (AppCubit.get(context).trips[i].tripCity == 'Sharm El-Sheikh') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -79,7 +79,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     else if (dropdownvalue == 'aswan') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripLocation == 'aswan') {
+        if (AppCubit.get(context).trips[i].tripCity == 'aswan') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -87,7 +87,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     else if (dropdownvalue == 'taba') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripLocation == 'taba') {
+        if (AppCubit.get(context).trips[i].tripCity == 'taba') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }

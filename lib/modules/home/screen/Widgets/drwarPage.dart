@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/style/TextStyle.dart';
 import 'package:tourista/modules/splash/login/login_screen.dart';
+import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
 import 'package:tourista/shared/network/local/cache_helper.dart';
@@ -17,12 +18,13 @@ class Drwer extends  StatelessWidget {
       builder: (context,state){
         var userModel = AppCubit.get(context).model;
         return Drawer(
+          backgroundColor: Colors.lightBlueAccent[50],
           child: Column(
             children: [
               Container (
                 height: 180,
                 width: 400,
-                color: Color(-1088543194),
+                color: kPrimaryColor,
                 child: Column(
                   crossAxisAlignment:CrossAxisAlignment.center ,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +70,10 @@ class Drwer extends  StatelessWidget {
                           leading: Icon(Icons.favorite,size: 30,color: Color(-1088543194),),
                           title: Text("Favourite", style: s1,),
                           onTap:(){
-
+                            print(AppCubit.get(context).trips[0].toMap());
+                            print(AppCubit.get(context).trips[1].tripLocation);
+                            print(AppCubit.get(context).trips[2].tripLocation);
+                            print(AppCubit.get(context).trips[3].tripLocation);
                           }
                       ),
                     ),

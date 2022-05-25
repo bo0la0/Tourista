@@ -26,7 +26,7 @@ class tripsPages extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 18,bottom: 10),
                   child: Text(
-                    "${model.description}",
+                    "${model.shortdesc}",
                     style: TextStyle(color: Colors.white, fontSize: 28.0, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -69,10 +69,10 @@ class tripsPages extends StatelessWidget {
                               children: <Widget>[
                                 Text.rich(TextSpan(children: [
                                   WidgetSpan(
-                                      child: Icon(Icons.location_on, size: 24.0, color: Colors.grey,)
+                                      child: Icon(Icons.access_time, size: 24.0, color: Colors.grey,)
                                   ),
                                   TextSpan(
-                                      text: "location"
+                                      text: "${model.date}"
                                   )
                                 ]), style: TextStyle(color: Colors.grey, fontSize: 20.0),)
                               ],
@@ -85,7 +85,7 @@ class tripsPages extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20.0
                               ),),
-                              Text("/per night",style: TextStyle(
+                              Text("/per seat",style: TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.grey
                               ),)
@@ -116,163 +116,17 @@ class tripsPages extends StatelessWidget {
                           fontSize: 14.0
                       ),),
                       const SizedBox(height: 20.0),
-                      Row(
-                        children: [
-                          const SizedBox(width: 20,),
-                          Column(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  Icons.contactless_outlined,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                             const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "free wifi",
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  Icons.live_tv_outlined,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Live Tv",
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  Icons.kitchen_outlined,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                " AC unit",
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  Icons.fitness_center_outlined,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                " GYM",
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  Icons.sports_bar_outlined,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                " BAR",
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10.0),
                       Text(
-                        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione architecto autem quasi nisi iusto eius ex dolorum velit! Atque, veniam! Atque incidunt laudantium eveniet sint quod harum facere numquam molestias?", textAlign: TextAlign.justify, style: TextStyle(
+                        "${model.description}", textAlign: TextAlign.justify, style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 14.0
                       ),),
-                      const SizedBox(height: 10.0),
-                      Text(
-                        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione architecto autem quasi nisi iusto eius ex dolorum velit! Atque, veniam! Atque incidunt laudantium eveniet sint quod harum facere numquam molestias?", textAlign: TextAlign.justify, style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 14.0
-                      ),),
+                      // const SizedBox(height: 10.0),
+                      // Text(
+                      //   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione architecto autem quasi nisi iusto eius ex dolorum velit! Atque, veniam! Atque incidunt laudantium eveniet sint quod harum facere numquam molestias?", textAlign: TextAlign.justify, style: TextStyle(
+                      //     fontWeight: FontWeight.w300,
+                      //     fontSize: 14.0
+                      // ),),
                     ],
                   ),
                 ),
