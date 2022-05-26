@@ -1,13 +1,14 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tourista/model/Trips.dart';
-import 'package:tourista/modules/home/screen/tripsPages/details.dart';
-import 'package:tourista/modules/home/screen/tripsPages/trip_app_theme.dart';
+import 'package:tourista/modules/home/screen/myactivity/details.dart';
+import 'package:tourista/modules/home/screen/myactivity/trip_app_theme.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class TripsListView extends StatelessWidget {
-  const TripsListView(
+class MyActivitylistview extends StatelessWidget {
+  const MyActivitylistview(
       {Key? key,
       required this.tripData,
       this.animationController,
@@ -36,7 +37,8 @@ class TripsListView extends StatelessWidget {
               child: InkWell(
                 splashColor: Colors.transparent,
                 onTap: (){
-                  navigateTo(context, tripsPages(model: tripData,));
+                  navigateTo(context, tripdetials(model: tripData,));
+
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -113,21 +115,6 @@ class TripsListView extends StatelessWidget {
                                                 ),
                                               ],
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 4),
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    ' ${tripData.availableSeats} availableSeats',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey
-                                                            .withOpacity(0.8)),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -149,13 +136,6 @@ class TripsListView extends StatelessWidget {
                                             fontWeight: FontWeight.w600,
                                             fontSize: 22,
                                           ),
-                                        ),
-                                        Text(
-                                          '/per seat',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color:
-                                                  Colors.grey.withOpacity(0.8)),
                                         ),
                                       ],
                                     ),

@@ -7,13 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tourista/model/ProductsModel.dart';
 import 'package:tourista/model/ServiceProvidrModel.dart';
+import 'package:tourista/model/TouristTripModel.dart';
 import 'package:tourista/model/TransactionModel.dart';
 import 'package:tourista/model/Trips.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/editProfile/profile_screen.dart';
-import 'package:tourista/modules/hotelsDetails/productModel.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/states.dart';
@@ -185,6 +185,7 @@ class AppCubit extends Cubit<AppStates> {
   }
   List<Trips> trips=[];
   void getTrips() {
+    trips=[];
     emit(AppGetTripsLoadingState());
     FirebaseFirestore.instance.collection('Trips').get().then((value) {
       value.docs.forEach((element) {
@@ -202,9 +203,12 @@ class AppCubit extends Cubit<AppStates> {
         required int balance,
         required String details,
         required DateTime time,
-        String? tripId,}) {
-    emit(BookingTripLoadingState());
+        String? tripId,
+        GeoPoint? geoPoint,
+        required int availbaleSeats,
+      }) {
 
+    emit(BookingTripLoadingState());
     TransactionModel TransModel = TransactionModel(
       transactionId: '',
       TouristUid: uId,
@@ -214,36 +218,102 @@ class AppCubit extends Cubit<AppStates> {
       price: price,
     );
     if (balance >= price) {
-      balance -= price;
-      FirebaseFirestore.instance
-          .collection('transactions')
-          .add(TransModel.toMap())
-          .then((value) {
-        TransModel = TransactionModel(
-          transactionId: value.id,
-          TouristUid: uId,
-          Time: time,
-          details: details,
-          balance: balance,
-          price: price,
-          trip: tripId ?? 'done',
-
-        );
-        FirebaseFirestore.instance
-            .collection('transactions')
-            .doc(value.id)
-            .set(TransModel.toMap())
-            .then((value) {
-          updateUser(balance: balance);
-          emit(BookingTripSuccessState());
-        });
-      }).catchError((error) {
-        emit(BookingTripErrorState());
-      });
+      if(availbaleSeats >= 1){
+        if(!contain) {
+          balance -= price;
+          FirebaseFirestore.instance
+              .collection('transactions')
+              .add(TransModel.toMap())
+              .then((value) {
+            TransModel = TransactionModel(
+              transactionId: value.id,
+              TouristUid: uId,
+              Time: time,
+              details: details,
+              balance: balance,
+              price: price,
+              trip: tripId,
+            );
+            FirebaseFirestore.instance
+                .collection('transactions')
+                .doc(value.id)
+                .set(TransModel.toMap())
+                .then((value) {
+              updateUser(balance: balance);
+              addTouristToTrip(tripId: tripId, touristId: uId, geoPoint: geoPoint);
+              updateSeats(seats: availbaleSeats - 1, id: tripId);
+              ShowToast(text: 'BookSuccess ');
+              getListofbookedtrips();
+              emit(BookingTripSuccessState());
+            });
+          }).catchError((error) {
+            emit(BookingTripErrorState());
+          });
+        }else{ShowToast(text: 'you already booked this trip');}
+      }else{ShowToast(text: 'sorry trip is completed');}
     } else {
       ShowToast(text: 'please recharge your balance');
     }
   }
 
+  void addTouristToTrip({
+    String? tripId,
+    String? touristId,
+    GeoPoint? geoPoint,
+  }){
+    TouristTripModel tourist = TouristTripModel(
+      touristuId: touristId,
+      location: geoPoint,
+      tripId: tripId,
+    );
+    FirebaseFirestore.instance
+        .collection('TouristsBookTrips')
+        .add(tourist.toMap())
+        .then((value){
+    })
+        .catchError((e){
+          print(e.toString());
+
+    });
+
+  }
+bool contain = false;
+  void updateSeats({required int seats, String? id}){
+    FirebaseFirestore.instance.collection('Trips').doc(id).update(
+        {'availableSeats': seats});
+  }
+  List<Trips> bookedTrips = [];
+  List<TouristTripModel> listofbookedtripsId = [];
+  void getListofbookedtrips(){
+    bookedTrips = [];
+    listofbookedtripsId = [];
+    FirebaseFirestore.instance.collection('TouristsBookTrips').where('touristuId',isEqualTo:'$uId' )
+        .get().then((value) {
+      value.docs.forEach((element) {
+        listofbookedtripsId.add(TouristTripModel.fromJson(element.data()));});
+          listofbookedtripsId.forEach((element) {
+            FirebaseFirestore.instance.collection('Trips').where('tripId',isEqualTo:'${element.tripId}')
+                .get().then((value){
+              value.docs.forEach((element) {
+                bookedTrips.add(Trips.fromJson(element.data()));}
+              );
+              emit(updatebookedlistscusses());
+            });
+          });
+        });
+    emit(updatebookedlist());
+  }
+
+  List<TouristTripModel> TouristsList = [];
+
+  void getTouristinTrips({required String tripId}) {
+    TouristsList = [];
+    FirebaseFirestore.instance.collection('TouristsBookTrips').where('tripId',isEqualTo: '$tripId')
+        .get().then((value) {
+  value.docs.forEach((element) { TouristsList.add(TouristTripModel.fromJson(element.data()));});
+  contain = TouristsList.any((element) => element.touristuId == "$uId");
+  print(contain.toString());
+    }).catchError((e){print(e.toString());});
+}
   }
 

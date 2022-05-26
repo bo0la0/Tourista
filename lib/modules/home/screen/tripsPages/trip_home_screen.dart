@@ -27,6 +27,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
+
     super.initState();
   }
 
@@ -43,7 +44,8 @@ class _TripHomeScreenState extends State<TripHomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    List<Trips> NewModel = AppCubit.get(context).trips;
+    List<Trips> NewModel = [];
+    NewModel = AppCubit.get(context).trips;
     if (dropdownvalue == 'cairo') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
