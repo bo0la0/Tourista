@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:tourista/modules/home/screen/tripsPages/row.dart';
 import 'package:tourista/widgests/app_large_text.dart';
 import 'package:tourista/widgests/app_text.dart';
 import 'package:tourista/widgests/responsive_buton.dart';

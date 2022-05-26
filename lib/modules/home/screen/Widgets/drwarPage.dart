@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/style/TextStyle.dart';
+import 'package:tourista/modules/home/screen/myactivity/trip_home_screen.dart';
 import 'package:tourista/modules/splash/login/login_screen.dart';
+import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
@@ -56,7 +58,8 @@ class Drwer extends  StatelessWidget {
                           leading: Icon(Icons.assignment_turned_in_outlined,size: 30,color: Color(-1088543194),),
                           title: Text("my Activity", style: s1,),
                           onTap:(){
-                            AppCubit.get(context).bookTrip(price: 100, balance: AppCubit.get(context).model!.balance, details: 'Tripfksadj', time: DateTime.now());
+                            navigateTo(context, MyActivity());
+
                           }
                       ),
                     ),
@@ -70,10 +73,7 @@ class Drwer extends  StatelessWidget {
                           leading: Icon(Icons.favorite,size: 30,color: Color(-1088543194),),
                           title: Text("Favourite", style: s1,),
                           onTap:(){
-                            print(AppCubit.get(context).trips[0].toMap());
-                            print(AppCubit.get(context).trips[1].tripLocation);
-                            print(AppCubit.get(context).trips[2].tripLocation);
-                            print(AppCubit.get(context).trips[3].tripLocation);
+
                           }
                       ),
                     ),

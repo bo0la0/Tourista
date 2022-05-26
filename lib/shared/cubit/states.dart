@@ -50,4 +50,9 @@ class ChangeIconState2 extends AppStates {}
 class BookingTripLoadingState extends AppStates {}
 class BookingTripSuccessState extends AppStates {}
 class BookingTripErrorState extends AppStates {}
+class updateState extends AppStates {}
+class updatebookedlist extends AppStates {}
+class updatebookedlistscusses extends AppStates {}
+
+
 
