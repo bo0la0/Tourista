@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/Trips.dart';
 import 'package:tourista/modules/home/screen/tripsPages/trip_app_theme.dart';
 import 'package:tourista/modules/home/screen/tripsPages/trip_list_view.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
+import 'package:tourista/shared/cubit/states.dart';
 
 
 class TripHomeScreen extends StatefulWidget {
@@ -18,16 +20,13 @@ class _TripHomeScreenState extends State<TripHomeScreen>
 
   final ScrollController _scrollController = ScrollController();
 
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(const Duration(days: 5));
-  String Rooms = '1';
-  String Adults = '1';
+  List<Trips> NewModel = [];
 
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
-
+    NewModel = AppCubit.get(context).trips;
     super.initState();
   }
 
@@ -44,8 +43,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    List<Trips> NewModel = [];
-    NewModel = AppCubit.get(context).trips;
+
     if (dropdownvalue == 'cairo') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
@@ -99,77 +97,86 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     }
 
 
-    return Theme(
-      data: HotelAppTheme.buildLightTheme(),
-      child: Container(
-        child: Scaffold(
-          body: Stack(
-            children: <Widget>[
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
-                child: Column(
-                  children: <Widget>[
-                    //getAppBarUI(),
-                    Expanded(
-                      child: NestedScrollView(
-                        controller: _scrollController,
-                        headerSliverBuilder:
-                            (BuildContext context, bool innerBoxIsScrolled) {
-                          return <Widget>[
-                            SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                return Column(
-                                  children: <Widget>[
-                                    getLocationBarUI(),
-                                  ],
-                                );
-                              }, childCount: 1),
-                            ),
-                          ];
-                        },
-                        body: Container(
-                          color:
+    return BlocConsumer<AppCubit,AppStates>(
+      listener: (context,state){
+        if(state is AppGetTripsSuccessState){
+          NewModel = AppCubit.get(context).trips;
+        }
+      },
+      builder : (context,state){
+
+        return Theme(
+          data: HotelAppTheme.buildLightTheme(),
+          child: Container(
+            child: Scaffold(
+              body: Stack(
+                children: <Widget>[
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: NestedScrollView(
+                            controller: _scrollController,
+                            headerSliverBuilder:
+                                (BuildContext context, bool innerBoxIsScrolled) {
+                              return <Widget>[
+                                SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                          (BuildContext context, int index) {
+                                        return Column(
+                                          children: <Widget>[
+                                            getLocationBarUI(),
+                                          ],
+                                        );
+                                      }, childCount: 1),
+                                ),
+                              ];
+                            },
+                            body: Container(
+                              color:
                               HotelAppTheme.buildLightTheme().backgroundColor,
-                          child: ListView.builder(
-                            itemCount: NewModel.length,
-                            padding: const EdgeInsets.only(top: 8),
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (BuildContext context, int index) {
-                              final int count =
+                              child: ListView.builder(
+                                itemCount: NewModel.length,
+                                padding: const EdgeInsets.only(top: 8),
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final int count =
                                   NewModel.length > 10 ? 10 : NewModel.length;
-                              final Animation<double> animation =
+                                  final Animation<double> animation =
                                   Tween<double>(begin: 0.0, end: 1.0).animate(
                                       CurvedAnimation(
                                           parent: animationController!,
                                           curve: Interval(
                                               (1 / count) * index, 1.0,
                                               curve: Curves.fastOutSlowIn)));
-                              animationController?.forward();
-                              return TripsListView(
-                                callback: () {},
-                                tripData: NewModel[index],
-                                animation: animation,
-                                animationController: animationController!,
-                              );
-                            },
+                                  animationController?.forward();
+                                  return TripsListView(
+                                    callback: () {},
+                                    tripData: NewModel[index],
+                                    animation: animation,
+                                    animationController: animationController!,
+                                  );
+                                },
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

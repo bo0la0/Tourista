@@ -16,13 +16,8 @@ class MyActivity extends StatefulWidget {
 class _MyActivityState extends State<MyActivity>
     with TickerProviderStateMixin {
   AnimationController? animy;
-
   final ScrollController _scrollController = ScrollController();
 
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(const Duration(days: 5));
-  String Rooms = '1';
-  String Adults = '1';
 
   @override
   void initState() {

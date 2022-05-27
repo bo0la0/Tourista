@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/Trips.dart';
@@ -9,14 +10,20 @@ import 'package:tourista/shared/cubit/states.dart';
 class tripsPages extends StatelessWidget {
   final Trips model ;
 
-  const tripsPages({ required this.model});
+  tripsPages({ required this.model});
+  bool cancelbutoon = false;
+
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<AppCubit,AppStates>(
       listener:(context, state) {
-        // if(state is BookingTripSuccessState){
-        //
-        // }
+        if(state is BookingTripSuccessState){
+          cancelbutoon = true;
+        }
+        if (state is cancelTripSuccessState){
+          cancelbutoon = false;
+        }
 
       },
       builder: (context,state){
@@ -109,27 +116,45 @@ class tripsPages extends StatelessWidget {
                           const SizedBox(height: 30.0),
                           SizedBox(
                             width: double.infinity,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                              color: kPrimaryColor,
-                              textColor: Colors.white,
-                              child: Text("Book Now", style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 16.0,
-                                horizontal: 32.0,
+                            child:
+                            ConditionalBuilder(
+                              condition: state is! BookingTripLoadingState || state is BookingTripErrorState,
+                              builder: (BuildContext) => cancelbutoon ? RaisedButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                color: Colors.red,
+                                textColor: Colors.white,
+                                child: Text("cancel", style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16.0,
+                                  horizontal: 32.0,
+                                ),
+                                onPressed: (){
+
+                                },
+                              ) : RaisedButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                color: kPrimaryColor,
+                                textColor: Colors.white,
+                                child: Text("Book Now", style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16.0,
+                                  horizontal: 32.0,
+                                ),
+                                onPressed: (){
+                                  AppCubit.get(context).bookTrip(
+                                      tripId: model.tripId,
+                                      geoPoint: GeoPoint(0, 0),
+                                      price:model.price!,
+                                      balance :AppCubit.get(context).model!.balance,
+                                      details: 'Trip',
+                                      time: DateTime.now() );
+                                },
                               ),
-                              onPressed: (){
-                                AppCubit.get(context).bookTrip(
-                                    tripId: model.tripId,
-                                    geoPoint: GeoPoint(0, 0),
-                                    price:model.price!,
-                                    balance :AppCubit.get(context).model!.balance,
-                                    details: 'Trip',
-                                    availbaleSeats: model.availableSeats,
-                                    time: DateTime.now() );
-                              },
+                              fallback: (BuildContext) => Center(child: CircularProgressIndicator()),
                             ),
                           ),
                           const SizedBox(height: 30.0),
