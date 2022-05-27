@@ -112,68 +112,66 @@ class _homevisitState extends State<homevisit> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return Card(
-                      child: Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Stack(children: [
-                                  Container(
-                                    width: 150,
-                                    height: 180,
-                                    child: ClipRRect(
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                      child: Image.asset(MyData[index].image,
-                                        fit: BoxFit.fitHeight,),),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top:0,right: 50),
-                                    child: IconButton(onPressed: (){}, icon:Icon(Icons.add_location,size: 30,color: Colors.grey,),
-                                    ),
-                                  ),
-                                ]
-                                  ,),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:20,left: 40),
-                                  child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children:[
-                                        Text(MyData[index].title,
-                                            style: TextStyle(fontSize: 20.0,
-                                            fontWeight: FontWeight.w500,)),
-                                        SizedBox(height: 10,),
-                                        Text(
-                                            MyData[index].address, style: TextStyle(fontSize: 17.0,)),
-                                        SizedBox(height: 20,),
-                                        RatingBar.builder(
-                                          initialRating: 5,
-                                          itemSize: 20,
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5, itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                          itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber,),
-                                          onRatingUpdate: (rating) {
-                                            print(rating);
-                                          },),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 10.0),
-                                          child: Text(
-                                              '516 Reviews', style: TextStyle(fontSize: 16.0,)),
-                                        ),
-                                      ]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(children: [
+                                Container(
+                                  width: 150,
+                                  height: 180,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    child: Image.asset(MyData[index].image,
+                                      fit: BoxFit.fitHeight,),),
                                 ),
-
-
-
-
-
+                                Padding(
+                                  padding: const EdgeInsets.only(top:0,right: 50),
+                                  child: IconButton(onPressed: (){}, icon:Icon(Icons.add_location,size: 30,color: Colors.grey,),
+                                  ),
+                                ),
                               ]
+                                ,),
+                              Padding(
+                                padding: const EdgeInsets.only(top:20,left: 40),
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:[
+                                      Text(MyData[index].title,
+                                          style: TextStyle(fontSize: 20.0,
+                                          fontWeight: FontWeight.w500,)),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                          MyData[index].address, style: TextStyle(fontSize: 17.0,)),
+                                      SizedBox(height: 20,),
+                                      RatingBar.builder(
+                                        initialRating: 5,
+                                        itemSize: 20,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5, itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                                        itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber,),
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10.0),
+                                        child: Text(
+                                            '516 Reviews', style: TextStyle(fontSize: 16.0,)),
+                                      ),
+                                    ]),
+                              ),
 
-                          ),
+
+
+
+
+                            ]
+
                         ),
                       )
 
