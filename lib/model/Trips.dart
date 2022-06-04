@@ -1,61 +1,61 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Trips {
-  String? TourGuidId,
-      driverId,
+  String?
       tripId,
       description,
       tripCity,
       tripLocation,
       tripImg,
       shortdesc;
-  int? price;
+  int price;
   int availableSeats;
-  Timestamp? date;
-  // DateTime.parse(timestamp.toDate().toString())
+  String? endTime;
+  String? fromTime;
+
   Trips({
-    this.TourGuidId,
-    this.driverId,
     this.tripId,
     this.description,
     this.tripCity,
     this.tripLocation,
-    this.price,
+    required this.price,
     required this.availableSeats,
     this.tripImg,
     this.shortdesc,
-    this.date,
+    this.fromTime,
+    this.endTime,
   });
 
   factory Trips.fromJson(Map<String, dynamic> json) {
     return Trips(
-      TourGuidId: json['TourGuidId'],
-      driverId: json['driverId'],
-      tripId: json['tripId'],
+      tripId: json['id'],
       description: json['description'],
-      tripCity: json['tripCity'],
-      tripLocation: json['tripLocation'],
+      tripCity: json['city'],
+      tripLocation: json['location'],
       price: json['price'],
       availableSeats: json['availableSeats'],
-      tripImg: json['tripImg'],
-      shortdesc: json['shortdesc'],
-      date: json['date'],
+      tripImg: json['image'],
+      shortdesc: json['shortDescription'],
+      endTime: json['endTime'],
+      fromTime: json['fromTime'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'TourGuidId': TourGuidId,
-      'driverId': driverId,
-      'tripId': tripId,
+      'id': tripId,
       'description': description,
-      'tripCity': tripCity,
-      'tripLocation': tripLocation,
+      'city': tripCity,
+      'location': tripLocation,
       'price': price,
       'availableSeats': availableSeats,
-      'tripImg': tripImg,
-      'shortdesc': shortdesc,
-      'date': date,
+      'image': tripImg,
+      'shortDescription': shortdesc,
+      'endTime': endTime,
+      'fromTime': fromTime,
     };
   }
 }
+
+
+
+

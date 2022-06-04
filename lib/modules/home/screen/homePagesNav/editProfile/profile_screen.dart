@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/editProfile/edit_profile.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/editProfile/amount_popup_view.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
@@ -25,98 +27,100 @@ class ProfileScreen extends StatelessWidget
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top:30),
-                    child: CircleAvatar(
-                      radius: 64.0,
-                      backgroundColor:
-                      Theme
-                          .of(context)
-                          .scaffoldBackgroundColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top:30),
                       child: CircleAvatar(
-                        radius: 60.0,
-                        backgroundImage: NetworkImage(
-                            '${userModel?.image}'
+                        radius: 64.0,
+                        backgroundColor:
+                        Theme
+                            .of(context)
+                            .scaffoldBackgroundColor,
+                        child: CircleAvatar(
+                          radius: 60.0,
+                          backgroundImage: NetworkImage(
+                              '${userModel?.image}'
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(
-                    '${userModel?.name}',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyText1,
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(
-                    '${userModel?.email}',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .caption,
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(
-                    'Balance is : ${userModel?.balance}\$',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .caption,
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      '${userModel?.name}',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText1,
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      '${userModel?.email}',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .caption,
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      'Balance is : ${userModel?.balance}\$',
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .caption,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
 
-                  Container(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  EditProfile()),
-                        );
-                        },
-                      child: Text(
-                        'edit profile info',
+                    Container(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  EditProfile()),
+                          );
+                          },
+                        child: Text(
+                          'edit profile info',
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        AppCubit.get(context).addBalance();
-                      },
-                      child: Text('make a deposit'),
+                    SizedBox(
+                      height: 10.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
+                    Container(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: ()  {
+                          showAmountDialog(context: context);
 
-                  Container(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () {
-
-                      },
-                      child: Text('make a withdraw'),
+                        },
+                        child: Text('make a deposit'),
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10.0,
+                    ),
+
+                    Container(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () {
+                        },
+                        child: Text('make a withdraw'),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -125,5 +129,15 @@ class ProfileScreen extends StatelessWidget
 
     );
   }
-
+  void showAmountDialog({BuildContext? context}) {
+    showDialog<dynamic>(
+      context: context!,
+      builder: (BuildContext context) => AmountView(
+        barrierDismissible: true,
+        onCancelClick: () {},
+      ),
+    );
   }
+
+
+}

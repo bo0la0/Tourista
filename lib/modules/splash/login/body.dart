@@ -35,6 +35,7 @@ class Body extends StatelessWidget {
             ).then((value){
               uId = state.uId;
               AppCubit.get(context).getUserData();
+              AppCubit.get(context).getActivity();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => homeNav()),

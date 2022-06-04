@@ -1,10 +1,12 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:tourista/model/TouristTripModel.dart';
 import 'package:tourista/model/Trips.dart';
 import 'package:tourista/modules/home/screen/myactivity/details.dart';
 import 'package:tourista/modules/home/screen/myactivity/trip_app_theme.dart';
 import 'package:tourista/shared/components/components.dart';
+import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyActivitylistview extends StatelessWidget {
@@ -23,6 +25,14 @@ class MyActivitylistview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TouristTripModel TripSeats =  TouristTripModel(
+      seats: 1,
+    );
+    AppCubit.get(context).listofbookedtripsId.forEach((element) {
+      if(element.tripId == tripData.tripId){
+        TripSeats = element;
+      }
+    });
     return AnimatedBuilder(
       animation: animationController!,
       builder: (BuildContext context, Widget? child) {
@@ -37,7 +47,7 @@ class MyActivitylistview extends StatelessWidget {
               child: InkWell(
                 splashColor: Colors.transparent,
                 onTap: (){
-                  navigateTo(context, tripdetials(model: tripData,));
+                  navigateTo(context, tripdetials(model: tripData, Seats: TripSeats.seats,));
 
                 },
                 child: Container(
@@ -130,7 +140,7 @@ class MyActivitylistview extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '\$${tripData.price}',
+                                          '\$${tripData.price * TripSeats.seats}',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,

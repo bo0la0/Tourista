@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:counter/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:tourista/model/Trips.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
@@ -11,23 +14,18 @@ class tripsPages extends StatelessWidget {
   final Trips model ;
 
   tripsPages({ required this.model});
-  bool cancelbutoon = false;
-
   @override
   Widget build(BuildContext context) {
-
+    AppCubit.get(context).getTouristinTrips(tripId: model.tripId!);
     return BlocConsumer<AppCubit,AppStates>(
       listener:(context, state) {
-        if(state is BookingTripSuccessState){
-          cancelbutoon = true;
-        }
-        if (state is cancelTripSuccessState){
-          cancelbutoon = false;
+        if(state is updatebookedlist){
+          Navigator.pop(context);
         }
 
       },
       builder: (context,state){
-        AppCubit.get(context).getTouristinTrips(tripId: model.tripId!);
+
         return Scaffold(
           body: Stack(
             children: <Widget>[
@@ -92,7 +90,8 @@ class tripsPages extends StatelessWidget {
                                           child: Icon(Icons.access_time, size: 24.0, color: Colors.grey,)
                                       ),
                                       TextSpan(
-                                          text: "${model.date?.toDate()}"
+                                          text: "${model.fromTime} to ${model.endTime}",
+                                        //{DateFormat.yMEd().add_jms().format(model.date!.toDate())
                                       )
                                     ]), style: TextStyle(color: Colors.grey, fontSize: 20.0),)
                                   ],
@@ -114,26 +113,30 @@ class tripsPages extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 30.0),
+                          Row(children: [
+                            Text('Total seats:'),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8 ,right: 14),
+                              child: Container(
+                                child: Counter(
+                                  min: 1,
+                                  max: 10,
+                                  bound: 1,
+                                  step: 1,
+                                  onValueChanged: (num){AppCubit.get(context).seats = num;
+                                    AppCubit.get(context).TotalPrice(price: model.price, seats: AppCubit.get(context).seats);},
+                                ),
+                              ),
+                            ),
+                            Text('Total amount : ${AppCubit.get(context).total ?? model.price}'),
+                          ],),
+                          const SizedBox(height: 20.0),
                           SizedBox(
                             width: double.infinity,
                             child:
                             ConditionalBuilder(
-                              condition: state is! BookingTripLoadingState || state is BookingTripErrorState,
-                              builder: (BuildContext) => cancelbutoon ? RaisedButton(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                                color: Colors.red,
-                                textColor: Colors.white,
-                                child: Text("cancel", style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0,
-                                  horizontal: 32.0,
-                                ),
-                                onPressed: (){
-
-                                },
-                              ) : RaisedButton(
+                              condition: state is! BookingTripLoadingState ,
+                              builder: (BuildContext) => RaisedButton(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                                 color: kPrimaryColor,
                                 textColor: Colors.white,
@@ -144,14 +147,20 @@ class tripsPages extends StatelessWidget {
                                   vertical: 16.0,
                                   horizontal: 32.0,
                                 ),
-                                onPressed: (){
+                                onPressed: () async{
+                                  Position position = await AppCubit.get(context).getGeoLocationPosition();
+                                  String Link = 'https://www.google.com/maps/search/?api=1&query=${position.latitude}%2C${position.longitude}';
+                                  // await AppCubit.get(context).GetAddressFromLatLong(position);
+                                  // get address
                                   AppCubit.get(context).bookTrip(
                                       tripId: model.tripId,
-                                      geoPoint: GeoPoint(0, 0),
-                                      price:model.price!,
+                                      Address: Link,
+                                      price:model.price,
                                       balance :AppCubit.get(context).model!.balance,
                                       details: 'Trip',
-                                      time: DateTime.now() );
+                                      time: DateTime.now(),
+                                      seats: AppCubit.get(context).seats,
+                                  );
                                 },
                               ),
                               fallback: (BuildContext) => Center(child: CircularProgressIndicator()),
