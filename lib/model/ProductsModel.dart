@@ -1,7 +1,8 @@
 
 class ProductsModel {
 
-  String? image, name,ItemId,price,providerId;
+  String? image, name,ItemId,providerId;
+  int? price;
 
   ProductsModel({
     this.name,
@@ -12,20 +13,20 @@ class ProductsModel {
   });
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+    name = json['title'];
     image = json['image'];
     ItemId = json['ItemId'];
     price = json['price'];
-    providerId = json['providerId'];
+    providerId = json['serviceProviderId'];
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
+      'title': name,
       'image': image,
       'ItemId': ItemId,
       'price': price,
-      'providerId': providerId,
+      'serviceProviderId': providerId,
     };
   }
 }

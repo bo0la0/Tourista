@@ -17,7 +17,7 @@ class NightLifeServices extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Container(
               height: height * 0.33,
-              width: 250,
+              width: double.infinity,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -46,19 +46,6 @@ class NightLifeServices extends StatelessWidget {
                                             height: 120.0,
                                             width: 120.0,
                                             fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 25,
-                                          width: 120,
-                                          alignment: AlignmentDirectional.topEnd,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            child: Icon(
-                                              Icons.favorite_outline,
-                                              color: Colors.red,
-                                              size: 20,
-                                            ),
                                           ),
                                         ),
                                       ])),

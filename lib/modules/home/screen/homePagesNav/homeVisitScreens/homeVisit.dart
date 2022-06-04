@@ -1,64 +1,45 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:tourista/model/bannerModel.dart';
 import 'package:tourista/model/style/TextStyle.dart';
+import 'package:tourista/shared/components/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 class visitplaces {
-  late final int id;
-  late final String title,image,address;
 
-  visitplaces({required this.id,  required this.title,required this.image, required  this.address});
+  late final String title,image,desc,location;
+
+  visitplaces({  required this.title,required this.image, required  this.desc,required this.location});
 }
 List<visitplaces> MyData = [
   visitplaces(
-    id: 1,
-    title: "Jw mariott",
-    address: 'cairo.Egypt',
-    image: "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg",
-
+    title: "Giza Pyramids",
+    desc: 'Explore the Giza Pyramids, Sphinx, and the Egyptian Museum, then visit Tahrir Square and Khan Khalili Bazaar on a full-day tour',
+    image: "assets/images/visitplaces/2.jpg",
+    location : 'https://goo.gl/maps/1v11W4JyRKUbib8BA',
   ),
   visitplaces(
-    id: 2,
-    title: "heleton ",
-    address: 'cairo.Egypt',
-
-
-    image: "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg",
-
+    title: "Luxor & Abu Simbel",
+    desc: 'explore the most sumptuous landmarks in three of the most majestic tourist cities all over Egypt',
+    image: "assets/images/visitplaces/luxor.jpg",
+    location : 'https://goo.gl/maps/Bt2SnWsDQxgT8Xwr8',
   ),
   visitplaces(
-    id: 3,
-    title: "pyramids",
-    address: 'cairo.Egypt',
-
-    image: "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg",
-
-  ),  visitplaces(
-    id: 4,
-    title: "khan khalil" ,
-    address: 'cairo.Egypt',
-
-    image: "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg",
-
-  ),  visitplaces(
-    id: 5,
-    title: "le passge ",
-    address: 'cairo.Egypt',
-
-    image: "assets/images/Khan-El-Khalili-Bazaar-trip2egypt-8.jpg",
-
+    title: "Alexandria",
+    desc: 'feel its majestic life force and uncover the glorious history Alexandria',
+    image: "assets/images/visitplaces/alex.jpg",
+    location : 'https://goo.gl/maps/poCyFnpg8bd2nU1A8',
   ),
 
 ];
 List<String> banner = [
-  'https://m.fourseasons.com/alt/img-opt/~70..0,0000-700,0000-3000,0000-2250,0000/publish/content/dam/fourseasons/images/web/JTT/JTT_269_original.jpg',
-  'https://www.etbtoursegypt.com/storage/117/fortress-qaitbay-alexandria-day-tour-cairo-trip-alexandria-excursion-day-tours-egypt-excursions.jpg',
-  'https://d3rr2gvhjw0wwy.cloudfront.net/uploads/activity_headers/301664/600x400-1-50-a9c042365c79321b30915cc19be2578e.jpg',
-  'https://www.mediastorehouse.com/p/629/colossi-memnon-11996690.jpg.webp',
-  'https://firebasestorage.googleapis.com/v0/b/tourism-45327.appspot.com/o/placestovisit%2Fluxor-egypt-january-mortuary-temple-hatshepsut-also-known-as-djeser-djeseru-mortuary-temple-ancient-luxor-egypt-173573225.jpg?alt=media&token=56d8fc26-234c-4ec6-aff4-49b970a20670',
-  'https://firebasestorage.googleapis.com/v0/b/tourism-45327.appspot.com/o/placestovisit%2F8d.jpg?alt=media&token=40eafc16-acb0-4bd3-96f0-a0fc984bcdcf',
-  'https://firebasestorage.googleapis.com/v0/b/tourism-45327.appspot.com/o/placestovisit%2F3.jpg?alt=media&token=41ca9722-fc4d-4fcf-ab2f-2b6b59d43e3a',
-  'https://firebasestorage.googleapis.com/v0/b/tourism-45327.appspot.com/o/placestovisit%2F2.jpg?alt=media&token=5b6f8c39-727c-4a7f-9872-deae09bea634',
+  'assets/images/visitplaces/2.jpg',
+  'assets/images/visitplaces/3.jpg',
+  'assets/images/visitplaces/4.jpg',
+  'assets/images/visitplaces/5.webp',
+  'assets/images/visitplaces/6.jpg',
+  'assets/images/visitplaces/7.jpg',
+  'assets/images/visitplaces/8.jpg',
+  'assets/images/visitplaces/9.jpg',
 
 ];
 class homevisit extends StatefulWidget {
@@ -84,10 +65,9 @@ class _homevisitState extends State<homevisit> {
                   child: Text("Top Destenation",style: s2,)),
             ),
             CarouselSlider(
-              items: banner
-                  .map((e) =>
-                    Image(
-                      image: NetworkImage(e),
+              items: banner.map((e) =>
+                  Image(
+                      image: AssetImage(e),
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),).toList(),
@@ -113,13 +93,13 @@ class _homevisitState extends State<homevisit> {
                 itemBuilder: (context, index) {
                   return Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(children: [
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
                                 Container(
-                                  width: 150,
+                                  width: width * 0.4,
                                   height: 180,
                                   child: ClipRRect(
                                     borderRadius:
@@ -128,50 +108,54 @@ class _homevisitState extends State<homevisit> {
                                       fit: BoxFit.fitHeight,),),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top:0,right: 50),
-                                  child: IconButton(onPressed: (){}, icon:Icon(Icons.add_location,size: 30,color: Colors.grey,),
-                                  ),
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children:[
+                                        Text(MyData[index].title,
+                                            style: TextStyle(fontSize: 16.0,
+                                            fontWeight: FontWeight.w500,)),
+                                        SizedBox(height: 10,),
+                                        Container(width: width * 0.5,
+                                            child: Text(MyData[index].desc, style: TextStyle(fontSize: 14.0,))),
+                                        SizedBox(height: 15,),
+                                        RatingBar.builder(
+                                          initialRating: 4,
+                                          itemSize: 20,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: false,
+                                          itemCount: 5, itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                                          itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            print(rating);
+                                          },),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 10.0),
+                                          child: Row(children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              size: 16,
+                                              color: kPrimaryColor,
+                                            ),
+                                            const SizedBox(width: 5,),
+                                            InkWell(
+                                              child: Text('Location',
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.grey.withOpacity(0.9))),
+                                              onTap: () => launch('${MyData[index].location}'),
+                                            ),
+                                          ],),
+                                        ),
+
+                                      ]),
                                 ),
+
                               ]
-                                ,),
-                              Padding(
-                                padding: const EdgeInsets.only(top:20,left: 40),
-                                child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children:[
-                                      Text(MyData[index].title,
-                                          style: TextStyle(fontSize: 20.0,
-                                          fontWeight: FontWeight.w500,)),
-                                      SizedBox(height: 10,),
-                                      Text(
-                                          MyData[index].address, style: TextStyle(fontSize: 17.0,)),
-                                      SizedBox(height: 20,),
-                                      RatingBar.builder(
-                                        initialRating: 5,
-                                        itemSize: 20,
-                                        minRating: 1,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemCount: 5, itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                        itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber,),
-                                        onRatingUpdate: (rating) {
-                                          print(rating);
-                                        },),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10.0),
-                                        child: Text(
-                                            '516 Reviews', style: TextStyle(fontSize: 16.0,)),
-                                      ),
-                                    ]),
-                              ),
 
-
-
-
-
-                            ]
-
+                          ),
                         ),
                       )
 

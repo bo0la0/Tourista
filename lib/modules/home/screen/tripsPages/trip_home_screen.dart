@@ -26,7 +26,6 @@ class _TripHomeScreenState extends State<TripHomeScreen>
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
-    NewModel = AppCubit.get(context).trips;
     super.initState();
   }
 
@@ -43,7 +42,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
 
   @override
   Widget build(BuildContext context) {
-
+    NewModel = AppCubit.get(context).trips;
     if (dropdownvalue == 'cairo') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
@@ -92,17 +91,10 @@ class _TripHomeScreenState extends State<TripHomeScreen>
         }
       }
     }
-    else if (dropdownvalue == 'All') {
-      NewModel = AppCubit.get(context).trips;
-    }
 
 
     return BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){
-        if(state is AppGetTripsSuccessState){
-          NewModel = AppCubit.get(context).trips;
-        }
-      },
+      listener: (context,state){},
       builder : (context,state){
 
         return Theme(
@@ -143,12 +135,12 @@ class _TripHomeScreenState extends State<TripHomeScreen>
                               color:
                               HotelAppTheme.buildLightTheme().backgroundColor,
                               child: ListView.builder(
-                                itemCount: NewModel.length,
+                                itemCount: dropdownvalue == 'All' ? AppCubit.get(context).trips.length : NewModel.length,
                                 padding: const EdgeInsets.only(top: 8),
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (BuildContext context, int index) {
                                   final int count =
-                                  NewModel.length > 10 ? 10 : NewModel.length;
+                                  AppCubit.get(context).trips.length > 10 ? 10 : AppCubit.get(context).trips.length;
                                   final Animation<double> animation =
                                   Tween<double>(begin: 0.0, end: 1.0).animate(
                                       CurvedAnimation(
@@ -159,7 +151,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
                                   animationController?.forward();
                                   return TripsListView(
                                     callback: () {},
-                                    tripData: NewModel[index],
+                                    tripData: dropdownvalue == 'All' ? AppCubit.get(context).trips[index] : NewModel[index],
                                     animation: animation,
                                     animationController: animationController!,
                                   );
@@ -186,7 +178,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
   var items = [
     'All',
     'cairo',
-    'Hurghada',
+    'giza',
     'Sharm El-Sheikh',
     'dahab',
     'taba',

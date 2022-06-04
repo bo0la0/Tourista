@@ -52,12 +52,14 @@ class BookingTripLoadingState extends AppStates {}
 class BookingTripSuccessState extends AppStates {}
 class BookingTripErrorState extends AppStates {}
 
-class updateState extends AppStates {}
+class updateSeatState extends AppStates {}
 class updatebookedlist extends AppStates {}
 class updatebookedlistscusses extends AppStates {}
 
+class cancelTripLoadingState extends AppStates {}
 class cancelTripSuccessState extends AppStates {}
 class cancelTripErrorState extends AppStates {}
+class cancelTripSeatSuccessState   extends AppStates {}
 
 
 
