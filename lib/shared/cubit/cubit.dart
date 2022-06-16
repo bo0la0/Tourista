@@ -3,18 +3,23 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tourista/model/CartModel.dart';
 import 'package:tourista/model/ProductsModel.dart';
 import 'package:tourista/model/ServiceProvidrModel.dart';
 import 'package:tourista/model/TouristTripModel.dart';
 import 'package:tourista/model/TransactionModel.dart';
 import 'package:tourista/model/Trips.dart';
+import 'package:tourista/model/chat_model.dart';
+import 'package:tourista/model/message_model.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/editProfile/profile_screen.dart';
+import 'package:tourista/modules/home/screen/homePagesNav/scanQr/scanningqr.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/states.dart';
@@ -49,7 +54,8 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screens = [
     home(),
     camera(),
-    Scan_qr(),
+   // Scan_qr(),
+    ScanScreen(),
     // CategoriesScreen(),
     ProfileScreen(),
   ];
@@ -209,6 +215,8 @@ class AppCubit extends Cubit<AppStates> {
         required DateTime time,
         String? tripId,
         String? Address,
+        String? tripName,
+        String? tripImage,
         int seats = 1,
       }) {
     final TripRef = FirebaseFirestore.instance.collection("Trips").doc(tripId);
@@ -257,7 +265,7 @@ print(contain.toString());
               .set(TransModel.toMap())
               .then((value) {
             ShowToast(text: 'Book Success ** to cancel go to my activity');
-            addTouristToTrip(tripId: tripId, Address: Address,seats: seats);
+            addTouristToTrip(tripId: tripId, Address: Address,seats: seats,tripName: tripName,tripImage : tripImage);
             getActivity();
             emit(BookingTripSuccessState());
           }).catchError((e){print(e.toString());});
@@ -280,6 +288,8 @@ print(contain.toString());
   void addTouristToTrip({
     String? tripId,
     String? Address,
+    String? tripName,
+    String? tripImage,
     required int seats,
   }){
     TouristTripModel tourist = TouristTripModel(
@@ -291,6 +301,8 @@ print(contain.toString());
       phone: model?.phone,
       attend: false,
       image: model?.image,
+      tripName: tripName,
+      tripImage: tripImage,
     );
     FirebaseFirestore.instance
         .collection('Trips').doc('$tripId').collection('Tourists')
@@ -473,5 +485,253 @@ void cancelTrip({String? TripId, int? price, int seats =1}){
 // (value) => print("DocumentSnapshot successfully updated!"),
 // onError: (e) => print("Error updating document $e"),
 // );}
+
+
+ TextEditingController messageController = TextEditingController();
+   TouristTripModel? user;
+void sendMessage(TouristTripModel touristtripmodel,{required String tripId}) {
+
+    FirebaseFirestore.instance
+        .collection('TouristsBookTrips')
+        .where('tripId',isEqualTo: '$tripId')
+        .get().then((value) {
+      MessageDataModel dataa = MessageDataModel(
+        time: DateTime.now().toString(),
+        message: messageController.text,
+        receiverId: user!.touristuId!,
+        senderId: uId!,
+      );
+
+      if (value.docs
+          .any((element) => element.reference.id != touristtripmodel.touristuId )!=null) {
+        ChatDataModel chatDataModel = ChatDataModel(
+          username: touristtripmodel.name!,
+          userId: uId!,
+          userImage: touristtripmodel.image!,
+          tripId: touristtripmodel.tripId!,
+          tripName: touristtripmodel.tripName!,
+        );
+
+        FirebaseFirestore.instance
+            .collection('TouristsBookTrips')
+            .doc(user!.tripId)
+            //.collection('chats')
+            //.doc(userDataModel.uId)
+            .set(chatDataModel.toJson())
+            .then((value) {})
+            .catchError((error) {
+          debugPrint(error.toString());
+
+          emit(CreateChatError(
+            message: error.toString(),
+          ));
+        });
+
+        FirebaseFirestore.instance
+            .collection('TouristsBookTrips')
+            .doc(touristtripmodel.tripId)
+            /*.collection('chats')
+            .doc(user!.uId)*/
+            .set(chatDataModel.toJson())
+            .then((value) {})
+            .catchError((error) {
+          debugPrint(error.toString());
+
+          emit(CreateChatError(
+            message: error.toString(),
+          ));
+        });
+      } else {
+        FirebaseFirestore.instance
+            .collection('TouristsBookTrips')
+            .doc(touristtripmodel.tripId)
+            /*.collection('chats')
+            .doc(userDataModel.uId)*/
+            .collection('messages')
+            .add(dataa.toJson())
+            .then((value) {
+          messageController.clear();
+        }).catchError((error) {
+          debugPrint(error.toString());
+
+          emit(CreateChatError(
+            message: error.toString(),
+          ));
+        });
+
+        FirebaseFirestore.instance
+            .collection('TouristsBookTrips')
+            .doc(touristtripmodel.tripId)
+            /*.collection('chats')
+            .doc(user!.uId)*/
+            .collection('messages')
+            .add(dataa.toJson())
+            .then((value) {
+          messageController.clear();
+        }).catchError((error) {
+          debugPrint(error.toString());
+
+          emit(CreateChatError(
+            message: error.toString(),
+          ));
+        });
+      }
+    }).catchError((error) {
+      debugPrint(error.toString());
+
+      emit(SendMessage(
+        message: error.toString(),
+      ));
+    });
   }
+
+  List<MessageDataModel> messagesList = [];
+
+  void getMessages(TouristTripModel touristtripmodel) {
+    FirebaseFirestore.instance
+        .collection('TouristsBookTrips')
+        .doc(touristtripmodel.tripId)
+        /*.collection('chats')
+        .doc(userDataModel.uId)*/
+        .collection('messages').orderBy('time', descending: true,)
+        .snapshots()
+        .listen((value) {
+      messagesList = [];
+
+      for (var element in value.docs) {
+        messagesList.add(MessageDataModel.fromJson(element.data()));
+      }
+
+      debugPrint(messagesList.length.toString());
+
+      emit(GetMessagesSuccess());
+    });
+  }
+  void getReport({required String report}){
+    emit(getReportLoadingstate());
+    var ReportRef = FirebaseFirestore.instance.collection('Reports');
+    ReportRef.add({
+      'report':report,
+      'TouristId':uId,
+      'name':model!.name,
+    });
+    emit(getReportSuccessstate());
+
+  }
+  void getFeedBack({required String FeedBack}){
+    emit(getFeedBackLoadingstate());
+    var FeedBackRef = FirebaseFirestore.instance.collection('FeedBacks');
+    FeedBackRef.add({
+      'FeedBack':FeedBack,
+      'TouristId':uId,
+      'name':model!.name,
+    });
+    emit(getFeedBackSuccessstate());
+
+  }
+  CartModel? Cart = CartModel(orders: []);
+  void getCart({required String id,
+  }){
+    emit(getCartLoadingState());
+    var CartRef = FirebaseFirestore.instance.collection('Orders').doc(id);
+    CartRef.get().then((value) {
+      Cart = CartModel.fromJson(value.data()!);
+      TotalCart();
+      emit(getCartSuccessState());
+    });
+
+  }
+  Future <void>scanQr()async{
+    emit(scanQrLoadingState());
+    try{
+      FlutterBarcodeScanner.scanBarcode('#2A99CF', 'cancel', true, ScanMode.QR).then((value){
+        getCart(id: value);
+        emit(scanQrSuccessState());
+
+      });
+    }catch(e){
+      print(e.toString());
+      emit(scanQrErrorState());
+    }
+  }
+int totalc = 0;
+  void TotalCart(){
+    totalc = 0;
+    Cart!.orders.forEach((element) {totalc = totalc + int.parse(element.price!);});
+    emit(totalCartState());
+  }
+
+
+  void completeOrder(
+      {required int price,
+        required int balance,
+        required String details,
+        required DateTime time,
+        required String providerId,
+      }) {
+    final UserRef = FirebaseFirestore.instance.collection("accounts").doc(uId);
+    final ProviderRef = FirebaseFirestore.instance.collection("ServiceProviders").doc(providerId);
+    TransactionModel TransModel = TransactionModel(
+      transactionId: '',
+      TouristUid: uId,
+      Time: time,
+      details: details,
+      balance: balance,
+      price: price,
+    );
+    ServiceProviderModel provider ;
+    var providerBalance;
+    ProviderRef.get().then((value){provider = ServiceProviderModel.fromJson(value.data()!);
+    providerBalance = int.parse(provider.balance!);}).then((value) {
+    emit(OrderLoadingState());
+    if (balance >= price) {
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+            balance -= (price );
+            providerBalance += (price);
+            transaction.update(UserRef, {"balance": balance});
+            transaction.update(ProviderRef, {"balance": providerBalance.toString()});
+        }).then((value) {
+            getUserData();
+            FirebaseFirestore.instance
+                .collection('transactions')
+                .add(TransModel.toMap())
+                .then((value) {
+              TransModel = TransactionModel(
+                transactionId: value.id,
+                TouristUid: uId,
+                Time: time,
+                details: details,
+                balance: balance,
+                price: price ,
+              );
+              FirebaseFirestore.instance
+                  .collection('transactions')
+                  .doc(value.id)
+                  .set(TransModel.toMap())
+                  .then((value) {
+                ShowToast(text: 'Order Success');
+                emit(OrderSuccessState());
+              }).catchError((e){print(e.toString());});
+            });
+
+        }).catchError((e){
+          emit(OrderErrorState());
+          print('transcations error is ${e.toString()}');
+        });
+
+      }else{emit(OrderErrorState());
+      ShowToast(text: 'you already booked this trip');}
+    });
+  }
+
+  void cancelOrder({required String id}){
+    emit(cancelOrderLoadingState());
+    final ProviderRef = FirebaseFirestore.instance.collection("Orders").doc(id);
+    ProviderRef.delete();
+    emit(cancelOrderSuccessState());
+
+
+  }
+
+}
 

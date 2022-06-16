@@ -1,8 +1,8 @@
 
 class ProductsModel {
 
-  String? image, name,ItemId,providerId;
-  int? price;
+  String? image, name,ItemId,providerId,price;
+
 
   ProductsModel({
     this.name,
@@ -16,7 +16,7 @@ class ProductsModel {
     name = json['title'];
     image = json['image'];
     ItemId = json['ItemId'];
-    price = json['price'];
+    price = json['price'] ;
     providerId = json['serviceProviderId'];
   }
 

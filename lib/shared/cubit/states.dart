@@ -61,5 +61,45 @@ class cancelTripSuccessState extends AppStates {}
 class cancelTripErrorState extends AppStates {}
 class cancelTripSeatSuccessState   extends AppStates {}
 
+class GetMessagesSuccess extends AppStates {}
+
+class SendMessage extends AppStates {
+  final String message;
+
+  SendMessage({
+    required this.message,
+  });
+}
+
+class CreateChatError extends AppStates {
+  final String message;
+
+  CreateChatError({
+    required this.message,
+  });
+}
+class getReportLoadingstate extends AppStates{}
+class getReportSuccessstate extends AppStates{}
+class getFeedBackSuccessstate extends AppStates{}
+class getFeedBackLoadingstate extends AppStates{}
+class getCartLoadingState extends AppStates{}
+
+class getCartSuccessState extends AppStates{}
+class scanQrSuccessState extends AppStates{}
+class scanQrErrorState extends AppStates{}
+class scanQrLoadingState extends AppStates{}
+class totalCartState extends AppStates{}
+
+class OrderLoadingState extends AppStates {}
+class OrderSuccessState extends AppStates {}
+class OrderErrorState extends AppStates {}
+
+class cancelOrderLoadingState extends AppStates {}
+class cancelOrderSuccessState extends AppStates {}
+class cancelOrderErrorState extends AppStates {}
+
+
+
+
 
 

@@ -11,6 +11,8 @@ class TouristTripModel {
   String? name;
   String? phone;
   String? docId;
+  String? tripName;
+  String? tripImage;
 
 
   TouristTripModel({
@@ -23,6 +25,8 @@ class TouristTripModel {
     this.phone,
     this.attend,
     this.docId,
+    this.tripName,
+    this.tripImage,
   });
 
   TouristTripModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +39,8 @@ class TouristTripModel {
     phone = json['phone'];
     attend = json['attend'];
     docId = json['docId'];
+    tripName = json['tripName'];
+    tripImage = json['tripImage'];
 
   }
 
@@ -49,6 +55,8 @@ class TouristTripModel {
       'phone': phone,
       'attend': attend,
       'docId': docId,
+      'tripName': tripName,
+      'tripImage': tripImage,
     };
   }
 

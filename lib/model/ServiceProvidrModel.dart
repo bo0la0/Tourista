@@ -2,13 +2,14 @@
 class ServiceProviderModel {
 
   String? image, title,id,location;
-
+  String? balance;
 
   ServiceProviderModel({
     this.title,
     this.image,
     this.id,
     this.location,
+    this.balance,
 
   });
 
@@ -17,6 +18,7 @@ class ServiceProviderModel {
     image = json['image'];
     id = json['id'];
     location = json['location'];
+    balance = json['balance'];
   }
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class ServiceProviderModel {
       'image': image,
       'id': id,
       'location': location,
+      'balance': balance.toString(),
     };
   }
 }

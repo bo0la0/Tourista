@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/hotel/hotel_home_screen.dart';
+import 'package:tourista/modules/chatUser/new_chat.dart';
 import 'package:tourista/modules/home/screen/chatUser/chat_screen.dart';
 import 'package:tourista/modules/home/screen/services/BODYservices.dart';
 import 'package:tourista/modules/home/screen/Widgets/drwarPage.dart';
 import 'package:tourista/modules/home/screen/tripsPages/trip_home_screen.dart';
 
 import 'package:tourista/shared/components/constants.dart';
+import 'package:tourista/shared/cubit/cubit.dart';
 import 'homeVisitScreens/homeVisit.dart';
 class home extends StatefulWidget {
   @override
@@ -45,33 +47,13 @@ class _homeState extends State<home> {
             actions: [
               Container(
                 child: IconButton(
-                  icon: Icon(Icons.notifications),
-                  iconSize: 30,
-                  alignment: Alignment.centerRight,
-                  onPressed: () {
-
-                  },
-                ),
-              ),
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.search),
-                  iconSize: 30,
-                  alignment: Alignment.center,
-                  onPressed: () {
-
-                  },
-                ),
-              ),
-              Container(
-                child: IconButton(
                   icon: Icon(Icons.message),
                   iconSize: 30,
                   alignment: Alignment.centerLeft,
                   onPressed: (){
                     Navigator.push(context,
                       MaterialPageRoute(
-                        builder:(context) => ChatScreen(),
+                        builder:(context) => newchat(tripData: AppCubit.get(context).listofbookedtripsId,),
                       ),
                     );
                     },
