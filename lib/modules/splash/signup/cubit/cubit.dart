@@ -15,6 +15,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   required String password,
   required String name,
   required String phone,
+    String? dropvalue,
 }){
  try {
    emit(UserRegisterLoading());
@@ -28,6 +29,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         name: name,
         email: email,
         phone: phone,
+        dropvalue: dropvalue,
         uId: value.user?.uid);
 
   })
@@ -52,6 +54,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   required email,
   required phone,
   required uId,
+   dropvalue = 'English',
 })
   {
     UserModel model = UserModel(
@@ -60,7 +63,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       phone: phone,
       uId: uId,
       balance: 0,
-      language: 'English',
+      language: dropvalue,
       image: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1652563326~exp=1652563926~hmac=241db1afd8ffb462f7980cf4f4ef350f21b9bf14a09e1071f39baee992ef321c&w=826',
     );
     FirebaseFirestore.instance

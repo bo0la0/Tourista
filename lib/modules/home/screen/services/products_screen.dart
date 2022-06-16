@@ -144,7 +144,7 @@ class products_Screen extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0,
-                childAspectRatio: height  / width * 0.5,
+                childAspectRatio: height  / width * 0.35,
                 children: List.generate(
                  model.length,
                       (index) => buildGridProduct(model[index]),
