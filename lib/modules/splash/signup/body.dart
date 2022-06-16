@@ -10,6 +10,7 @@ import 'package:tourista/modules/splash/signup/cubit/state.dart';
 import 'package:tourista/modules/splash/signup/or_divider.dart';
 import 'package:tourista/modules/splash/signup/social_icon.dart';
 import 'package:tourista/shared/components/already_have_an_account_acheck.dart';
+import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/components/rounded_button.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
@@ -21,13 +22,26 @@ import 'package:tourista/shared/network/local/cache_helper.dart';
 
 
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   var emailcontroller = TextEditingController();
+
   var nameController = TextEditingController();
+
   var phoneController = TextEditingController();
+
   var passwordcontroller1 = TextEditingController();
+
   var passwordcontroller2 = TextEditingController();
+
+  var dropvalue= 'English';
+
   var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -92,6 +106,18 @@ class Body extends StatelessWidget {
                       hintText: 'retype password',
                       controller: passwordcontroller2,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Language : '),
+                        SizedBox(width: 10,),
+                        DropDownButton(selectedValue: dropvalue, items: ['English','española','italiana','française','deutsch','русский'],onChanged: (value){
+                        setState(() {
+                          dropvalue = value!;
+                           });}),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
                     ConditionalBuilder(
                       condition: state is! UserRegisterLoading,
                       builder: (context)=> RoundedButton(
@@ -106,6 +132,7 @@ class Body extends StatelessWidget {
                                 password: passwordcontroller1.text,
                                 name: nameController.text,
                                 phone: phoneController.text,
+                                dropvalue: dropvalue,
                               );}
                           }
 
@@ -166,6 +193,5 @@ class Body extends StatelessWidget {
 
 
   }
-
 }
 

@@ -116,7 +116,7 @@ class tripsPages extends StatelessWidget {
                           Row(children: [
                             Text('Total seats:'),
                             Padding(
-                              padding: const EdgeInsets.only(left: 8 ,right: 14),
+                              padding: const EdgeInsets.only(left: 8 ),
                               child: Container(
                                 child: Counter(
                                   min: 1,

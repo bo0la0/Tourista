@@ -328,15 +328,19 @@ bool contain = false;
   List<Trips> bookedTrips = [];
   List<TouristTripModel> listofbookedtripsId = [];
   void getActivity(){
-    bookedTrips = [];
-    listofbookedtripsId = [];
+
     final TripRef = FirebaseFirestore.instance.collection('Trips');
 
-    TripRef.get().then((value) {value.docs.forEach((element) {
+    TripRef.get().then((value) {
+
+      value.docs.forEach((element) {
       element.reference.collection('Tourists')
           .where('touristuId',isEqualTo:'$uId' )
           .get().then((value)
-      { value.docs.forEach((element)
+      {
+        bookedTrips = [];
+        listofbookedtripsId = [];
+        value.docs.forEach((element)
       { listofbookedtripsId.add(TouristTripModel.fromJson(element.data()));
         listofbookedtripsId.forEach((element) { TripRef.doc('${element.tripId}').get().then((value) {
           bookedTrips.add(Trips.fromJson(value.data()!));
@@ -487,126 +491,7 @@ void cancelTrip({String? TripId, int? price, int seats =1}){
 // );}
 
 
- TextEditingController messageController = TextEditingController();
-   TouristTripModel? user;
-void sendMessage(TouristTripModel touristtripmodel,{required String tripId}) {
 
-    FirebaseFirestore.instance
-        .collection('TouristsBookTrips')
-        .where('tripId',isEqualTo: '$tripId')
-        .get().then((value) {
-      MessageDataModel dataa = MessageDataModel(
-        time: DateTime.now().toString(),
-        message: messageController.text,
-        receiverId: user!.touristuId!,
-        senderId: uId!,
-      );
-
-      if (value.docs
-          .any((element) => element.reference.id != touristtripmodel.touristuId )!=null) {
-        ChatDataModel chatDataModel = ChatDataModel(
-          username: touristtripmodel.name!,
-          userId: uId!,
-          userImage: touristtripmodel.image!,
-          tripId: touristtripmodel.tripId!,
-          tripName: touristtripmodel.tripName!,
-        );
-
-        FirebaseFirestore.instance
-            .collection('TouristsBookTrips')
-            .doc(user!.tripId)
-            //.collection('chats')
-            //.doc(userDataModel.uId)
-            .set(chatDataModel.toJson())
-            .then((value) {})
-            .catchError((error) {
-          debugPrint(error.toString());
-
-          emit(CreateChatError(
-            message: error.toString(),
-          ));
-        });
-
-        FirebaseFirestore.instance
-            .collection('TouristsBookTrips')
-            .doc(touristtripmodel.tripId)
-            /*.collection('chats')
-            .doc(user!.uId)*/
-            .set(chatDataModel.toJson())
-            .then((value) {})
-            .catchError((error) {
-          debugPrint(error.toString());
-
-          emit(CreateChatError(
-            message: error.toString(),
-          ));
-        });
-      } else {
-        FirebaseFirestore.instance
-            .collection('TouristsBookTrips')
-            .doc(touristtripmodel.tripId)
-            /*.collection('chats')
-            .doc(userDataModel.uId)*/
-            .collection('messages')
-            .add(dataa.toJson())
-            .then((value) {
-          messageController.clear();
-        }).catchError((error) {
-          debugPrint(error.toString());
-
-          emit(CreateChatError(
-            message: error.toString(),
-          ));
-        });
-
-        FirebaseFirestore.instance
-            .collection('TouristsBookTrips')
-            .doc(touristtripmodel.tripId)
-            /*.collection('chats')
-            .doc(user!.uId)*/
-            .collection('messages')
-            .add(dataa.toJson())
-            .then((value) {
-          messageController.clear();
-        }).catchError((error) {
-          debugPrint(error.toString());
-
-          emit(CreateChatError(
-            message: error.toString(),
-          ));
-        });
-      }
-    }).catchError((error) {
-      debugPrint(error.toString());
-
-      emit(SendMessage(
-        message: error.toString(),
-      ));
-    });
-  }
-
-  List<MessageDataModel> messagesList = [];
-
-  void getMessages(TouristTripModel touristtripmodel) {
-    FirebaseFirestore.instance
-        .collection('TouristsBookTrips')
-        .doc(touristtripmodel.tripId)
-        /*.collection('chats')
-        .doc(userDataModel.uId)*/
-        .collection('messages').orderBy('time', descending: true,)
-        .snapshots()
-        .listen((value) {
-      messagesList = [];
-
-      for (var element in value.docs) {
-        messagesList.add(MessageDataModel.fromJson(element.data()));
-      }
-
-      debugPrint(messagesList.length.toString());
-
-      emit(GetMessagesSuccess());
-    });
-  }
   void getReport({required String report}){
     emit(getReportLoadingstate());
     var ReportRef = FirebaseFirestore.instance.collection('Reports');
