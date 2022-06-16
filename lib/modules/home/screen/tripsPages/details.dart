@@ -158,6 +158,8 @@ class tripsPages extends StatelessWidget {
                                       price:model.price,
                                       balance :AppCubit.get(context).model!.balance,
                                       details: 'Trip',
+                                      tripName: model.shortdesc,
+                                      tripImage: model.tripImg,
                                       time: DateTime.now(),
                                       seats: AppCubit.get(context).seats,
                                   );

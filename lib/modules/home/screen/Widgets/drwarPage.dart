@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourista/model/style/TextStyle.dart';
 import 'package:tourista/modules/home/screen/myactivity/trip_home_screen.dart';
+import 'package:tourista/modules/home/screen/reports/feedback.dart';
+import 'package:tourista/modules/home/screen/reports/report.dart';
 import 'package:tourista/modules/splash/login/login_screen.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
@@ -69,38 +71,14 @@ class Drwer extends  StatelessWidget {
                       height: 50.0,
                       width: 50.0,
                       margin: EdgeInsets.all(10),
-                      child: ListTile(
-                          leading: Icon(Icons.favorite,size: 30,color: Color(-1088543194),),
-                          title: Text("Favourite", style: s1,),
-                          onTap:(){
-
-                          }
-                      ),
-                    ),
-                    Divider(height: 10,
-                      thickness: 1,),
-                    Container(
-                      height: 50.0,
-                      width: 50.0,
-                      margin: EdgeInsets.all(10),
-                      child: ListTile(
-                          leading: Icon(Icons.settings,size: 30,color: Color(-1088543194),
-                          ),
-                          title: Text("Settings", style: s1,),
-                          onTap:(){ /**Navigator.pop(context);**/}
-                      ),
-                    ),
-                    Divider(height: 10,
-                      thickness: 1,),
-                    Container(
-                      height: 50.0,
-                      width: 50.0,
-                      margin: EdgeInsets.all(10),
 
                       child: ListTile(
                           leading: Icon(Icons.star_rate_outlined,size: 30,color: Color(-1088543194),),
-                          title: Text(" Rate Us", style: s1,),
-                          onTap:(){ }
+                          title: Text("FeedBack", style: s1,),
+                          onTap:(){
+                            navigateTo(context, FeedBack());
+
+                          }
                       ),
 
                     ),
@@ -111,9 +89,11 @@ class Drwer extends  StatelessWidget {
                       margin: EdgeInsets.all(10),
 
                       child: ListTile(
-                          leading: Icon(Icons.share,size: 30,color:Color(-1088543194),),
-                          title: Text(" Refer a Friend", style: s1,),
-                          onTap:(){ }
+                          leading: Icon(Icons.report,size: 30,color:Color(-1088543194),),
+                          title: Text(" Report ", style: s1,),
+                          onTap:(){
+                            navigateTo(context, Report());
+                          }
                       ),
 
                     ),

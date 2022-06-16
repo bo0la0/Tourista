@@ -6,6 +6,7 @@ class Trips {
       tripCity,
       tripLocation,
       tripImg,
+      driverId,
       shortdesc;
   int price;
   int availableSeats;
@@ -14,6 +15,7 @@ class Trips {
 
   Trips({
     this.tripId,
+    this.driverId,
     this.description,
     this.tripCity,
     this.tripLocation,
@@ -37,6 +39,7 @@ class Trips {
       shortdesc: json['shortDescription'],
       endTime: json['endTime'],
       fromTime: json['fromTime'],
+      driverId: json['driverId'],
     );
   }
 
@@ -52,6 +55,7 @@ class Trips {
       'shortDescription': shortdesc,
       'endTime': endTime,
       'fromTime': fromTime,
+      'driverId': driverId,
     };
   }
 }
