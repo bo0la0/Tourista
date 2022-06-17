@@ -3,7 +3,7 @@ class TransactionModel {
 
   String? TouristUid,transactionId,details,trip;
   DateTime? Time;
-  int? price, balance;
+  double? price, balance;
 
 
   TransactionModel({
