@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/editProfile/profile_screen.dart';
-//import 'package:tourista/modules/home/screen/homePagesNav/homeVisitScreens/scanningqr.dart';
-import 'package:tourista/modules/home/screen/homePagesNav/scan_qr.dart';
 import 'camera.dart';
-import 'favouritScreen/favourite.dart';
 import 'TabBarhome.dart';
 import 'scanQr/scanningqr.dart';
 

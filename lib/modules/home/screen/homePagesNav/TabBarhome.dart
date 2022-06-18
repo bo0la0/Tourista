@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/hotel/hotel_home_screen.dart';
 import 'package:tourista/modules/chatUser/new_chat.dart';
-import 'package:tourista/modules/home/screen/chatUser/chat_screen.dart';
 import 'package:tourista/modules/home/screen/services/BODYservices.dart';
 import 'package:tourista/modules/home/screen/Widgets/drwarPage.dart';
 import 'package:tourista/modules/home/screen/tripsPages/trip_home_screen.dart';
-
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'homeVisitScreens/homeVisit.dart';
@@ -23,7 +20,6 @@ class _homeState extends State<home> {
     HotelHomeScreen(),
     BodyServices(),
   ];
-  TextEditingController _controller = TextEditingController();
   void _onItemTappedForTabBar(int index) {
     setState(() {
       _selectedIndexForTabBar = index;
@@ -32,7 +28,6 @@ class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    var _controller;
     return DefaultTabController(
         length: 4,
         child: Scaffold(

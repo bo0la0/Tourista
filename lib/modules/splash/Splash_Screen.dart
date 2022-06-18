@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../../pages/Welcome_scr.dart';
-import 'Screen_one.dart';
 class Splash_Screen extends StatefulWidget {
   @override
   _Splash_ScreenState createState() => _Splash_ScreenState();

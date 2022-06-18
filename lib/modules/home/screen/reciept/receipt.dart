@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourista/model/CartModel.dart';
-import 'package:tourista/model/ProductsModel.dart';
-import 'package:tourista/model/ServiceProvidrModel.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 

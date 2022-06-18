@@ -1,11 +1,7 @@
 
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tourista/model/CartModel.dart';
 import 'package:tourista/modules/home/screen/reciept/receipt.dart';
-import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';

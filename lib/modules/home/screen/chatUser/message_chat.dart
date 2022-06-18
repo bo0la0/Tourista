@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tourista/model/chatScreens/chatMessage.dart';
 import 'package:tourista/model/style/TextStyle.dart';
 class message extends StatefulWidget {
@@ -14,7 +12,6 @@ class _messageState extends State<message> {
   @override
   Widget build(BuildContext context) {
 
-    var index;
     return Scaffold(
       appBar: AppBar(
 

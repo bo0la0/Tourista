@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/editProfile/edit_profile.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/editProfile/amount_popup_view.dart';
 import 'package:tourista/shared/components/constants.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:tourista/modules/home/screen/services/categoriesScreen.dart';
 import 'package:tourista/modules/home/screen/services/products_screen.dart';
 import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
