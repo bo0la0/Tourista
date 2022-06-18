@@ -46,7 +46,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     if (dropdownvalue == 'cairo') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'cairo') {
+        if (AppCubit.get(context).trips[i].tripCity == 'Cairo') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -54,15 +54,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     else if (dropdownvalue == 'giza') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'giza') {
-          NewModel.add(AppCubit.get(context).trips[i]);
-        }
-      }
-    }
-    else if (dropdownvalue == 'Alex') {
-      NewModel = [];
-      for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'Alex') {
+        if (AppCubit.get(context).trips[i].tripCity == 'Giza') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -71,6 +63,14 @@ class _TripHomeScreenState extends State<TripHomeScreen>
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
         if (AppCubit.get(context).trips[i].tripCity == 'Sharm') {
+          NewModel.add(AppCubit.get(context).trips[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'alex') {
+      NewModel = [];
+      for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
+        if (AppCubit.get(context).trips[i].tripCity == 'Alex') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
