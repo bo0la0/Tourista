@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:tourista/widgests/app_large_text.dart';
 import 'package:tourista/widgests/app_text.dart';
-import 'package:tourista/widgests/responsive_buton.dart';
 
-import '../modules/splash/extra/LOGIN.dart';
 import '../modules/splash/signup/SignUp.dart';
-import '../shared/components/components.dart';
 
 class WelcomPage extends StatefulWidget {
   const WelcomPage({Key? key}) : super(key: key);

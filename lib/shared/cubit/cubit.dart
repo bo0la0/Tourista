@@ -334,8 +334,10 @@ bool contain = false;
       element.reference.collection('Tourists')
           .where('touristuId',isEqualTo:'$uId' )
           .get().then((value)
-      {
-        value.docs.forEach((element)
+      {          bookedTrips = [];
+                ListchatRoom = [];
+
+      value.docs.forEach((element)
       { listofbookedtripsId.add(TouristTripModel.fromJson(element.data()));
       ListchatRoom.add(TouristTripModel.fromJson(element.data()));
         listofbookedtripsId.forEach((element) {

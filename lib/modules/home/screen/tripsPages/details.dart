@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:counter/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
 import 'package:tourista/model/Trips.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
@@ -34,6 +32,7 @@ class tripsPages extends StatelessWidget {
                       color: Colors.black26
                   ),
                   height: 400,
+                  width: double.infinity,
                   child: Image.network(model.tripImg.toString(), fit: BoxFit.cover)),
               SingleChildScrollView(
                 padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),

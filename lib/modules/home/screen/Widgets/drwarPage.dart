@@ -14,8 +14,6 @@ import 'package:tourista/shared/network/local/cache_helper.dart';
 class Drwer extends  StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context,state){},

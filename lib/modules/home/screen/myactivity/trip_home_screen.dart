@@ -50,6 +50,9 @@ class _MyActivityState extends State<MyActivity>
         if (state is cancelTripSeatSuccessState){
           NewModel = AppCubit.get(context).bookedTrips;
         }
+        if (state is cancelTripSuccessState){
+          NewModel = AppCubit.get(context).bookedTrips;
+        }
         if (state is AppGetUserSuccessState){
           NewModel = AppCubit.get(context).bookedTrips;
         }

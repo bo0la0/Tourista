@@ -14,7 +14,7 @@ class ServiceProviderModel {
   });
 
   ServiceProviderModel.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
+    title = json['name'];
     image = json['image'];
     id = json['id'];
     location = json['location'];
