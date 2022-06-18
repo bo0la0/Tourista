@@ -13,8 +13,6 @@ import 'package:tourista/model/ServiceProvidrModel.dart';
 import 'package:tourista/model/TouristTripModel.dart';
 import 'package:tourista/model/TransactionModel.dart';
 import 'package:tourista/model/Trips.dart';
-import 'package:tourista/model/chat_model.dart';
-import 'package:tourista/model/message_model.dart';
 import 'package:tourista/model/registerModel.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/TabBarhome.dart';
 import 'package:tourista/modules/home/screen/homePagesNav/camera.dart';
@@ -24,7 +22,6 @@ import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/constants.dart';
 import 'package:tourista/shared/cubit/states.dart';
 
-import '../../modules/home/screen/homePagesNav/scan_qr.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
@@ -114,7 +111,7 @@ class AppCubit extends Cubit<AppStates> {
     String? email,
     String? phone,
     String? image,
-    int? balance,
+    double? balance,
     String? language,
   }) {
     emit(ImageUpdateLoadingState());
@@ -140,7 +137,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  void addBalance({required int amount}) {
+  void addBalance({required double amount}) {
     updateUser(balance: model!.balance + amount);
     // model?.balance = '$x';
     // emit(AddBalanceState());
@@ -209,8 +206,8 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void bookTrip(
-      {required int price,
-        required int balance,
+      {required double price,
+        required double balance,
         required String details,
         required DateTime time,
         String? tripId,
@@ -231,7 +228,6 @@ class AppCubit extends Cubit<AppStates> {
     );
     var availbaleSeats;
     contain = TouristsList.any((element) => element.touristuId == "$uId");
-print(contain.toString());
     emit(BookingTripLoadingState());
     if (balance >= price*seats) {
       if(contain == false) {
@@ -327,23 +323,26 @@ bool contain = false;
   }
   List<Trips> bookedTrips = [];
   List<TouristTripModel> listofbookedtripsId = [];
+  List<TouristTripModel> ListchatRoom = [];
+
   void getActivity(){
 
     final TripRef = FirebaseFirestore.instance.collection('Trips');
 
     TripRef.get().then((value) {
-
       value.docs.forEach((element) {
       element.reference.collection('Tourists')
           .where('touristuId',isEqualTo:'$uId' )
           .get().then((value)
       {
-        bookedTrips = [];
-        listofbookedtripsId = [];
         value.docs.forEach((element)
       { listofbookedtripsId.add(TouristTripModel.fromJson(element.data()));
-        listofbookedtripsId.forEach((element) { TripRef.doc('${element.tripId}').get().then((value) {
-          bookedTrips.add(Trips.fromJson(value.data()!));
+      ListchatRoom.add(TouristTripModel.fromJson(element.data()));
+        listofbookedtripsId.forEach((element) {
+          bookedTrips = [];
+          listofbookedtripsId = [];
+          TripRef.doc('${element.tripId}').get().then((value) {
+            bookedTrips.add(Trips.fromJson(value.data()!));
         }); });
       });
       }
@@ -389,7 +388,7 @@ bool contain = false;
     }).catchError((e){print(e.toString());});
   }
 
-void cancelTrip({String? TripId, int? price, int seats =1}){
+void cancelTrip({String? TripId, double? price, int seats =1}){
     emit(cancelTripLoadingState());
     final TripRef = FirebaseFirestore.instance.collection('Trips').doc('$TripId').collection('Tourists');
     TripRef.where('touristuId',isEqualTo: '$uId')
@@ -411,7 +410,7 @@ void cancelTrip({String? TripId, int? price, int seats =1}){
 
 }
 
-  void cancelSeat({String? TripId, int? price, required int cancelseats ,required int seats}){
+  void cancelSeat({String? TripId, double? price, required int cancelseats ,required int seats}){
     emit(cancelTripLoadingState());
     final TripRef = FirebaseFirestore.instance.collection('Trips').doc('$TripId').collection('Tourists');
 
@@ -430,9 +429,9 @@ void cancelTrip({String? TripId, int? price, int seats =1}){
     });
 
   }
-  int? total ;
+  double? total ;
   late int seats ;
-  void TotalPrice ({required int price,required int seats}){
+  void TotalPrice ({required double price,required int seats}){
     total = price * seats;
     emit(updateSeatState());
   }
@@ -539,7 +538,7 @@ void cancelTrip({String? TripId, int? price, int seats =1}){
       emit(scanQrErrorState());
     }
   }
-int totalc = 0;
+double totalc = 0;
   void TotalCart(){
     totalc = 0;
     Cart!.orders.forEach((element) {totalc = totalc + int.parse(element.price!);});
@@ -548,8 +547,8 @@ int totalc = 0;
 
 
   void completeOrder(
-      {required int price,
-        required int balance,
+      {required double price,
+        required double balance,
         required String details,
         required DateTime time,
         required String providerId,
@@ -614,7 +613,6 @@ int totalc = 0;
     final ProviderRef = FirebaseFirestore.instance.collection("Orders").doc(id);
     ProviderRef.delete();
     emit(cancelOrderSuccessState());
-
 
   }
 

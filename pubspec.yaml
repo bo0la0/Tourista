@@ -74,6 +74,7 @@ dependencies:
   intl: ^0.17.0
   geolocator: ^8.2.1
   uuid: ^3.0.6
+  translator: ^0.1.7
 
 
 

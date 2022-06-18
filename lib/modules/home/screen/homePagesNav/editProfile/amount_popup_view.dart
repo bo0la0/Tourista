@@ -113,7 +113,7 @@ class _AmountViewState extends State<AmountView>
                                         Radius.circular(24.0)),
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      int money = int.parse(amount.text);
+                                      double money = double.parse(amount.text);
                                       try {
                                         var request = BraintreeDropInRequest(
                                           tokenizationKey: 'sandbox_hcgxmbt3_dxd53c5kpf76svwk',

@@ -97,6 +97,7 @@ class OrderErrorState extends AppStates {}
 class cancelOrderLoadingState extends AppStates {}
 class cancelOrderSuccessState extends AppStates {}
 class cancelOrderErrorState extends AppStates {}
+class TransState extends AppStates {}
 
 
 

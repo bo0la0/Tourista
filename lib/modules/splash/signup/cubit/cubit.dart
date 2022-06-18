@@ -15,8 +15,27 @@ class RegisterCubit extends Cubit<RegisterStates> {
   required String password,
   required String name,
   required String phone,
-    String? dropvalue,
+  String? dropvalue,
 }){
+    String lan = 'en';
+    if(dropvalue == 'English'){
+      lan = 'en';
+    }
+    else if(dropvalue == 'española'){
+      lan = 'es';
+    }
+    else if(dropvalue == 'italiana'){
+      lan = 'it';
+    }
+    else if(dropvalue == 'française'){
+      lan = 'fr';
+    }
+    else if(dropvalue == 'deutsch'){
+      lan = 'de';
+    }
+    else if(dropvalue == 'русский'){
+      lan = 'ru';
+    }
  try {
    emit(UserRegisterLoading());
    FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -29,7 +48,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         name: name,
         email: email,
         phone: phone,
-        dropvalue: dropvalue,
+        dropvalue: lan,
         uId: value.user?.uid);
 
   })
@@ -54,7 +73,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   required email,
   required phone,
   required uId,
-   dropvalue = 'English',
+    dropvalue = 'en',
 })
   {
     UserModel model = UserModel(
