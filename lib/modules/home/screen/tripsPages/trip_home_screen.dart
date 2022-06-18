@@ -59,10 +59,10 @@ class _TripHomeScreenState extends State<TripHomeScreen>
         }
       }
     }
-    else if (dropdownvalue == 'dahab') {
+    else if (dropdownvalue == 'Alex') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'dahab') {
+        if (AppCubit.get(context).trips[i].tripCity == 'Alex') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
@@ -70,27 +70,12 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     else if (dropdownvalue == 'Sharm El-Sheikh') {
       NewModel = [];
       for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'Sharm El-Sheikh') {
+        if (AppCubit.get(context).trips[i].tripCity == 'Sharm') {
           NewModel.add(AppCubit.get(context).trips[i]);
         }
       }
     }
-    else if (dropdownvalue == 'aswan') {
-      NewModel = [];
-      for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'aswan') {
-          NewModel.add(AppCubit.get(context).trips[i]);
-        }
-      }
-    }
-    else if (dropdownvalue == 'taba') {
-      NewModel = [];
-      for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
-        if (AppCubit.get(context).trips[i].tripCity == 'taba') {
-          NewModel.add(AppCubit.get(context).trips[i]);
-        }
-      }
-    }
+
 
 
     return BlocConsumer<AppCubit,AppStates>(
@@ -180,9 +165,7 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     'cairo',
     'giza',
     'Sharm El-Sheikh',
-    'dahab',
-    'taba',
-    'aswan',
+    'alex',
   ];
   Widget getLocationBarUI() {
     return Padding(

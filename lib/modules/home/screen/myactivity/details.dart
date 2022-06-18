@@ -26,6 +26,7 @@ class tripdetials extends StatelessWidget {
               Container(
                   foregroundDecoration: BoxDecoration(color: Colors.black26),
                   height: 400,
+                  width: double.infinity,
                   child: Image.network(model.tripImg.toString(),
                       fit: BoxFit.cover)),
               SingleChildScrollView(
