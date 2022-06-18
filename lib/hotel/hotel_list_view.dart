@@ -167,7 +167,7 @@ class HotelListView extends StatelessWidget {
                                                   Text(
                                                     ' ${hotelData.reviews} Reviews',
                                                     style: TextStyle(
-                                                        fontSize: 14,
+                                                        fontSize: 12,
                                                         color: Colors.grey
                                                             .withOpacity(0.8)),
                                                   ),

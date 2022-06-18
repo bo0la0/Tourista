@@ -128,7 +128,8 @@ class tripsPages extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text('Total amount : ${AppCubit.get(context).total ?? model.price}'),
+                            Text('Total amount : ${AppCubit.get(context).total ?? model.price}',
+                            style: TextStyle(fontSize: 12),),
                           ],),
                           const SizedBox(height: 20.0),
                           SizedBox(
