@@ -22,6 +22,7 @@ class LoginCubit extends Cubit<LoginStates> {
     ).then((value){
       emit(UserLoginSuccess(value.user!.uid));
     }).catchError((erorr){
+      print('$erorr');
       emit(UserLoginError(erorr));
     });
 

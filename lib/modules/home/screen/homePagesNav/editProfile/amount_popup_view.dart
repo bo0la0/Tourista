@@ -128,6 +128,7 @@ class _AmountViewState extends State<AmountView>
                                             amount: amount.text ,
                                             displayName: 'tourista',
                                             currencyCode : 'USD',
+                                              billingAgreementDescription: 'test',
                                           ),
                                           cardEnabled: true,
                                         );

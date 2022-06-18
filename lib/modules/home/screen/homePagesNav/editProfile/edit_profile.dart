@@ -1,15 +1,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tourista/shared/components/components.dart';
 import 'package:tourista/shared/components/rounded_input_field.dart';
 import 'package:tourista/shared/cubit/cubit.dart';
 import 'package:tourista/shared/cubit/states.dart';
 
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   var nameController = TextEditingController();
+
   var emailController = TextEditingController();
+
   var phoneController = TextEditingController();
+  var dropdownvalue= 'select language';
+
 
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
@@ -20,7 +30,25 @@ class EditProfile extends StatelessWidget {
         nameController.text = '${userModel?.name}';
         emailController.text = '${userModel?.email}';
         phoneController.text = '${userModel?.phone}';
-
+        var lann = AppCubit.get(context).model!.language;
+        if(lann == 'en'){
+          lann = 'English';
+        }
+        else if(lann == 'es'){
+          lann = 'española';
+        }
+        else if(lann == 'it'){
+          lann = 'italiana';
+        }
+        else if(lann == 'fr'){
+          lann = 'française';
+        }
+        else if(lann == 'de'){
+          lann = 'deutsch';
+        }
+        else if(lann == 'ru'){
+          lann = 'русский';
+        }
         return Scaffold(
           appBar: AppBar(
             title: Text('edit profile'),
@@ -34,6 +62,7 @@ class EditProfile extends StatelessWidget {
                         name: nameController.text,
                         email: emailController.text,
                         phone: phoneController.text,
+                        language: dropdownvalue == 'select language' ? lann : dropdownvalue,
                         image:AppCubit.get(context).ProfileUrl
                     )
                     ;}
@@ -42,6 +71,7 @@ class EditProfile extends StatelessWidget {
                         name: nameController.text,
                         email: emailController.text,
                         phone: phoneController.text,
+                        language: dropdownvalue == 'select language' ? lann : dropdownvalue,
                       );
                     }
 
@@ -125,6 +155,18 @@ class EditProfile extends StatelessWidget {
                   text: 'phone must not be empty',
                   icon: Icons.phone,
                 ),
+                Row(crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                    Text('Language : ',style: TextStyle(fontSize: 16),),
+                    SizedBox(width: 14,),
+                    DropDownButton(selectedValue: dropdownvalue, items: ['English','española','italiana','française','deutsch','русский','select language'],onChanged: (value){
+                    setState(() {
+                      dropdownvalue = value!;
+                        });}),
+                ],
+                )
+
               ],
             ),
           ),

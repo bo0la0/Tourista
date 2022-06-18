@@ -114,6 +114,25 @@ class AppCubit extends Cubit<AppStates> {
     double? balance,
     String? language,
   }) {
+    String lan = 'en';
+    if(language == 'English'){
+      lan = 'en';
+    }
+    else if(language == 'española'){
+      lan = 'es';
+    }
+    else if(language == 'italiana'){
+      lan = 'it';
+    }
+    else if(language == 'française'){
+      lan = 'fr';
+    }
+    else if(language == 'deutsch'){
+      lan = 'de';
+    }
+    else if(language == 'русский'){
+      lan = 'ru';
+    }
     emit(ImageUpdateLoadingState());
 
     UserModel modelUpdate = UserModel(
@@ -123,7 +142,7 @@ class AppCubit extends Cubit<AppStates> {
       image: image ?? model?.image,
       balance: balance ?? model!.balance,
       uId: model?.uId,
-      language: language ?? model?.language,
+      language: lan,
     );
     FirebaseFirestore.instance
         .collection('accounts')
