@@ -3,29 +3,37 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tourista/modules/splash/login/cubit/state.dart';
+import 'package:tourista/shared/components/components.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(Empty());
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  void userLogin({
+  Future<void> userLogin({
     required String email,
     required String password,
 
-}){
-    emit(UserLoginLoading());
+})async{
+    try {
+      emit(UserLoginLoading());
 
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-    ).then((value){
-      emit(UserLoginSuccess(value.user!.uid));
-    }).catchError((erorr){
-      print('$erorr');
-      emit(UserLoginError(erorr));
-    });
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.trim().toLowerCase(),
+        password: password.trim(),
+      ).then((value) {
+        emit(UserLoginSuccess(value.user!.uid));
+      });
+    }on FirebaseAuthException catch (e){
+      if (e.code == 'user-not-found') {
+        ShowToast(text: 'No user found for that email.');
+        emit(UserLoginError(e.toString()));
+      } else if (e.code == 'wrong-password') {
+        ShowToast(text: 'Wrong password provided for that user.');
+        emit(UserLoginError(e.toString()));
+      }
 
+    }
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
