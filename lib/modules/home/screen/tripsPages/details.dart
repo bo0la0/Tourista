@@ -122,7 +122,7 @@ class tripsPages extends StatelessWidget {
                                   max: 10,
                                   bound: 1,
                                   step: 1,
-                                  onValueChanged: (num){AppCubit.get(context).seats = num;
+                                  onValueChanged: (num){AppCubit.get(context).seats = int.parse(num.toString());
                                     AppCubit.get(context).TotalPrice(price: model.price, seats: AppCubit.get(context).seats);},
                                 ),
                               ),

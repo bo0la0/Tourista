@@ -118,7 +118,7 @@ class tripdetials extends StatelessWidget {
                                     step: 1,
                                     initial: Seats,
                                     onValueChanged: (num) {
-                                      AppCubit.get(context).seats = num;
+                                      AppCubit.get(context).seats = int.parse(num.toString());
                                       AppCubit.get(context).TotalPrice(
                                           price: model.price,
                                           seats: AppCubit.get(context).seats);
