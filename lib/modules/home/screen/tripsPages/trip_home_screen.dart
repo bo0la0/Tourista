@@ -75,6 +75,22 @@ class _TripHomeScreenState extends State<TripHomeScreen>
         }
       }
     }
+    else if (dropdownvalue == 'luxor') {
+      NewModel = [];
+      for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
+        if (AppCubit.get(context).trips[i].tripCity == 'Luxor') {
+          NewModel.add(AppCubit.get(context).trips[i]);
+        }
+      }
+    }
+    else if (dropdownvalue == 'aswan') {
+      NewModel = [];
+      for (var i = 0; i < AppCubit.get(context).trips.length; i++) {
+        if (AppCubit.get(context).trips[i].tripCity == 'Aswan') {
+          NewModel.add(AppCubit.get(context).trips[i]);
+        }
+      }
+    }
 
 
 
@@ -166,6 +182,8 @@ class _TripHomeScreenState extends State<TripHomeScreen>
     'giza',
     'Sharm El-Sheikh',
     'alex',
+    'luxor',
+    'aswan',
   ];
   Widget getLocationBarUI() {
     return Padding(
