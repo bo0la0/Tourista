@@ -75,8 +75,11 @@ dependencies:
   geolocator: ^8.2.1
   uuid: ^3.0.6
   translator: ^0.1.7
-
-
+  flutter_launcher_icons: ^0.9.3
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'assets/icons/icon.png'
 
 
 dev_dependencies:
