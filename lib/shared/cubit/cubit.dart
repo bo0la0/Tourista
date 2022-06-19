@@ -587,7 +587,7 @@ double totalc = 0;
     ServiceProviderModel provider ;
     var providerBalance;
     ProviderRef.get().then((value){provider = ServiceProviderModel.fromJson(value.data()!);
-    providerBalance = int.parse(provider.balance!);}).then((value) {
+    providerBalance = double.parse(provider.balance!);}).then((value) {
     emit(OrderLoadingState());
     if (balance >= price) {
       FirebaseFirestore.instance.runTransaction((transaction) async {
