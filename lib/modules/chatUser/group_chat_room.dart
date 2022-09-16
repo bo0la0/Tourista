@@ -179,7 +179,7 @@ class _GroupChatRoomState extends State<GroupChatRoom> {
             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.blue,
+              color:  chatMap['sendBy'] == AppCubit.get(context).trips.singleWhere((element) => element.tripId == widget.groupChatId ).tourGuide ?Colors.red : Colors.blue,
             ),
             child: Column(
               children: [
