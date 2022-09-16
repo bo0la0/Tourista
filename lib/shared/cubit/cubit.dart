@@ -338,8 +338,8 @@ bool contain = false;
     FirebaseFirestore.instance.collection('Trips').doc(id).update({
       "availableSeats": FieldValue.increment(seats),
     });
-
   }
+
   List<Trips> bookedTrips = [];
   List<TouristTripModel> listofbookedtripsId = [];
   List<TouristTripModel> ListchatRoom = [];
@@ -347,6 +347,7 @@ bool contain = false;
   void getActivity(){
 
     final TripRef = FirebaseFirestore.instance.collection('Trips');
+    ListchatRoom = [];
 
     TripRef.get().then((value) {
       value.docs.forEach((element) {
@@ -354,13 +355,12 @@ bool contain = false;
           .where('touristuId',isEqualTo:'$uId' )
           .get().then((value)
       {          bookedTrips = [];
-                ListchatRoom = [];
 
       value.docs.forEach((element)
       { listofbookedtripsId.add(TouristTripModel.fromJson(element.data()));
       ListchatRoom.add(TouristTripModel.fromJson(element.data()));
         listofbookedtripsId.forEach((element) {
-          bookedTrips = [];
+          // bookedTrips = [];
           listofbookedtripsId = [];
           TripRef.doc('${element.tripId}').get().then((value) {
             bookedTrips.add(Trips.fromJson(value.data()!));
@@ -518,7 +518,9 @@ void cancelTrip({String? TripId, double? price, int seats =1}){
     ReportRef.add({
       'report':report,
       'TouristId':uId,
+      'phone':model!.phone == 'please enter phone number' ? '' :model!.phone,
       'name':model!.name,
+      'date':DateTime.now(),
     });
     emit(getReportSuccessstate());
 
@@ -527,9 +529,11 @@ void cancelTrip({String? TripId, double? price, int seats =1}){
     emit(getFeedBackLoadingstate());
     var FeedBackRef = FirebaseFirestore.instance.collection('FeedBacks');
     FeedBackRef.add({
-      'FeedBack':FeedBack,
+      'report':FeedBack,
       'TouristId':uId,
+      'phone':model!.phone == 'please enter phone number' ? '' :model!.phone,
       'name':model!.name,
+      'date':DateTime.now(),
     });
     emit(getFeedBackSuccessstate());
 

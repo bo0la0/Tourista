@@ -28,7 +28,7 @@ class MyActivitylistview extends StatelessWidget {
     TouristTripModel TripSeats =  TouristTripModel(
       seats: 1,
     );
-    AppCubit.get(context).listofbookedtripsId.forEach((element) {
+    AppCubit.get(context).ListchatRoom.forEach((element) {
       if(element.tripId == tripData.tripId){
         TripSeats = element;
       }

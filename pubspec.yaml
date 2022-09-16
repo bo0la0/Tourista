@@ -73,11 +73,20 @@ dependencies:
   uuid: ^3.0.6
   translator: ^0.1.7
   flutter_launcher_icons: ^0.9.3
+  flutter_native_splash: ^2.1.1
+
 flutter_icons:
   android: true
   ios: true
   image_path: 'assets/icons/icon.png'
 
+flutter_native_splash:
+  background_image: "assets/images/launcher_icon.png"
+  android_gravity: center
+  ios_content_mode: center
+  android_12:
+  android: true
+  ios: true
 
 dev_dependencies:
   flutter_test:

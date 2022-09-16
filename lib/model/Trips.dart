@@ -6,6 +6,7 @@ class Trips {
       tripCity,
       tripLocation,
       tripImg,
+      tourGuide,
       shortdesc;
   double price;
   int availableSeats;
@@ -23,6 +24,7 @@ class Trips {
     this.shortdesc,
     this.fromTime,
     this.endTime,
+    this.tourGuide,
   });
 
   factory Trips.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Trips {
       shortdesc: json['shortDescription'],
       endTime: json['endTime'],
       fromTime: json['fromTime'],
+      tourGuide: json['tourGuideName'],
     );
   }
 
@@ -52,6 +55,7 @@ class Trips {
       'shortDescription': shortdesc,
       'endTime': endTime,
       'fromTime': fromTime,
+      'tourGuideName': tourGuide,
     };
   }
 }
